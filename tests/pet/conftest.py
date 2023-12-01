@@ -28,7 +28,6 @@ def class_test_data(test_data, faker) -> Callable:
     """
 
     def _class_test_data(pool, handler, method, context='max') -> Callable:
-
         class_test_data = test_data(pool, handler, method)
 
         _url = class_test_data['query_data']['url']

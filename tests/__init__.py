@@ -36,6 +36,7 @@ def pytest_addoption(parser):
 
 # </editor-fold desc='CI/CD'>
 
+
 def change_handler(old_url, new_handler=''):
     """
     Функция замены/удаления последнего хендлера в url для реализации возможности смены HTTP методов в тесте

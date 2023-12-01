@@ -1,9 +1,9 @@
-import pytest
-import requests as r
-
 from datetime import datetime
 from os import linesep
 from typing import Callable
+
+import pytest
+import requests as r
 
 from Config import Config
 from Helpers.requests_helper import TestTimeout

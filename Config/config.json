@@ -1,0 +1,18 @@
+{
+  "rest_config": {
+    "host": {
+      "name": "petstore.swagger.io",
+      "port": null,
+      "schema": "https",
+      "version": 2,
+      "resource": null,
+      "wait_conn": 1.5,
+      "wait_read": 4.5
+    },
+    "api_key": "special-key",
+    "user": {
+      "username": null,
+      "password": null
+    }
+  }
+}

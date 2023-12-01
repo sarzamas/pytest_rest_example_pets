@@ -50,4 +50,4 @@ class RandomData(metaclass=Singleton):
 
     @staticmethod
     def int(length=16):
-        return random.randint(10 ** (length - 1), 10 ** length - 1)
+        return random.randint(10 ** (length - 1), 10**length - 1)

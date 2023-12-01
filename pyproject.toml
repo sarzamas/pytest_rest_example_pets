@@ -1,0 +1,32 @@
+[tool.pylint]
+exit-zero = "true"
+output-format = "colorized"
+max-line-length=120
+module-naming-style = "PascalCase"
+class-attribute-naming-style = "snake_case"
+max-args = 7
+disable = ["missing-module-docstring"]
+
+[tool.black]
+color = "true"
+line-length = 120
+target-version = ["py312"]
+safe = "true"
+skip-string-normalization = "true"
+
+[tool.isort]
+profile = "black"
+color_output = "true"
+py_version = 310
+force_to_top = "true"
+case_sensitive = "true"
+line_length = 120
+wrap_length = 100
+multi_line_output = 3
+combine_star = "true"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+virtual_env = "true"
+skip_gitignore = "true"
+skip = ".gitignore,.dockerignore"
+extend_skip = ".md,.json,.yaml"
+blocked_extensions = "pyw,pyc"

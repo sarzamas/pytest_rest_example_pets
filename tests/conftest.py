@@ -4,13 +4,14 @@ from typing import Callable
 
 import pytest
 import requests as r
+from validators import hostname as valid_hostname
+from validators import url as valid_url
 
 from Config import Config
 from Helpers.requests_helper import TestTimeout
-from tests import change_handler
 from Utils.RandomData import RandomData
-from validators import hostname as valid_hostname
-from validators import url as valid_url
+
+from tests import change_handler
 
 
 @pytest.fixture(scope='session', name='test_data')

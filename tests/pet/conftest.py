@@ -69,10 +69,11 @@ def class_test_data(test_data, faker) -> Callable:
                 'id': faker.int(length=4),
                 'name': faker.fwords(nb=1),
             },
-            'tags': [{
-                'id': faker.int(length=3),
-                'name': f'#{_}',
-            }
+            'tags': [
+                {
+                    'id': faker.int(length=3),
+                    'name': f'#{_}',
+                }
                 for _ in faker.fwords(nb=faker.int(length=1)).split()
             ],
         }

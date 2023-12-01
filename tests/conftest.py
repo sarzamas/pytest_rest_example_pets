@@ -1,15 +1,16 @@
 import pytest
 import requests as r
 
-from os import linesep
 from datetime import datetime
+from os import linesep
 from typing import Callable
-from validators import hostname as valid_hostname, url as valid_url
 
 from Config import Config
 from Helpers.requests_helper import TestTimeout
-from Utils.RandomData import RandomData
 from tests import change_handler
+from Utils.RandomData import RandomData
+from validators import hostname as valid_hostname
+from validators import url as valid_url
 
 
 @pytest.fixture(scope='session', name='test_data')

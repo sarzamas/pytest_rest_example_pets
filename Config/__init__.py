@@ -1,8 +1,8 @@
 import json
 import os
 
-from Utils.Singleton import Singleton
 from Utils.DotDict import DotDict
+from Utils.Singleton import Singleton
 
 
 class Config(DotDict, metaclass=Singleton):

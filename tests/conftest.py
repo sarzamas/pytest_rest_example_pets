@@ -1,11 +1,9 @@
-from typing import Callable
-
 import pytest
 import requests as r
 
 from os import linesep
 from datetime import datetime
-
+from typing import Callable
 from validators import hostname as valid_hostname, url as valid_url
 
 from Config import Config

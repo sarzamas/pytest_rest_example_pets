@@ -51,7 +51,7 @@ Table of Contents
 #### 5. Отчеты
 - На данном этапе реализации предусмотрен отчет по копке
 - чтобы просмотреть отчет о запуске автотестов на этапе CI pipeline:
-- `Нажать на кнопку` [![CI/CD TEST](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml/badge.svg?branch=main&event=push)](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml) -> `выбрать <Commit name>` -> `Workflow`: `CI.yaml` -> `Matrix`: `test` ->`Job`: `test(3.12)` -> `Step`: `Run Test`
+- - `Нажать на кнопку` [![CI/CD TEST](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml/badge.svg?branch=main&event=push)](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml) -> `выбрать <Commit name>` -> `Workflow`: `CI.yaml` -> `Matrix`: `test` ->`Job`: `test(3.12)` -> `Step`: `Run Test`
 
 Документация
 ============================

@@ -8,6 +8,7 @@ class TestCheckPetDELETE:
     """
     Тестовый класс группы хендлеров /pet
     """
+
     HANDLER = '/pet/{petId}'
     METHOD = 'DELETE'
     TEARDOWN_IDS_POOl = 2
@@ -16,8 +17,8 @@ class TestCheckPetDELETE:
     def current_test_data(self, pet_data, faker):
         """
         Фикстура подготовки общих данных для выполнения этого класса тестов
-        TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра 'test_ids'
-        Все тестовые сущности созданные в тестах как POST с `id` из 'test_ids'
+        TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра `test_ids`
+        Все тестовые сущности созданные в тестах как POST с `id` из `test_ids`
         будут автоматически очищены из базы при teardown
         :param pet_data: фикстура подготовки данных для выполнения тестовых классов группы хендлеров: /pet
         :param faker: фикстура подготовки случайных данных
@@ -45,7 +46,7 @@ class TestCheckPetDELETE:
 
         new_pet = r.post(**post_query)
 
-        query_data['url'] += f'/{new_pet.json()['id']}'
+        query_data['url'] += f"/{new_pet.json()['id']}"
         res = r.delete(**query_data)
         assert res.status_code == 200
         result = res.json()
@@ -99,7 +100,7 @@ class TestCheckPetDELETE:
 
         new_pet = r.post(**post_query)
 
-        query_data['url'] += f'/{new_pet.json()['id']}'
+        query_data['url'] += f"/{new_pet.json()['id']}"
 
         query_data['headers']['api_key'] = faker.fwords(nb=1, lang='en', uuid=True)
         res = r.delete(**query_data)

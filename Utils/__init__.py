@@ -1,5 +1,5 @@
 import inspect
-from os import curdir, path, linesep
+from os import curdir, linesep, path
 
 
 def lookup_report() -> str:

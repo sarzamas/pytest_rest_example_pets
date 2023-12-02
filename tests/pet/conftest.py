@@ -22,8 +22,8 @@ swagger_missing_info = {  # TODO #1 - добавить в Swagger.json эти п
 def class_test_data(test_data, faker) -> Callable:
     """
     Фикстура подготовки общих данных для выполнения класса тестов
-    TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра 'test_ids'
-    Все тестовые сущности созданные в тестах как POST с `id` из 'test_ids'
+    TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра `test_ids`
+    Все тестовые сущности созданные в тестах как POST с `id` из `test_ids`
     будут автоматически очищены из базы при teardown
     :param test_data: базовая фикстура подготовки данных для выполнения всех тестовых классов
     :param faker: фикстура подготовки случайных данных
@@ -49,9 +49,9 @@ def class_test_data(test_data, faker) -> Callable:
 
             count = len([enum for param in var_params for enum in var_params[param]['enum']])
             assert pool >= count, (
-                f'Необходимо установить число выделяемых слотов (сейчас это {pool}) '
-                f'для идентификаторов создаваемых тестом сущностей не меньшим числа возможных вариантов: {count} '
-                f'значений параметра(ов) {var_params.keys()} в текущей версии SWAGGER'
+                f"Необходимо установить число выделяемых слотов (сейчас это {pool}) "
+                f"для идентификаторов создаваемых тестом сущностей не меньшим числа возможных вариантов: {count} "
+                f"значений параметра(ов) {var_params.keys()} в текущей версии SWAGGER"
             )
 
         class_test_data['variables'] = var_params if var_params else None
@@ -59,7 +59,7 @@ def class_test_data(test_data, faker) -> Callable:
         context_min = {
             'name': faker.fwords(),
             'photoUrls': [
-                f'https://img.freepik.com/free-photo/{_}.jpg'
+                f"https://img.freepik.com/free-photo/{_}.jpg"
                 for _ in faker.fwords(lang='en', capitalize=False, nb=faker.int(length=1)).split()
             ],
         }

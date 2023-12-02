@@ -10,6 +10,7 @@ class TestCheckPetPOST:
     """
     Тестовый класс группы хендлеров /pet
     """
+
     HANDLER = '/pet'
     METHOD = 'POST'
     TEARDOWN_IDS_POOl = 3
@@ -18,8 +19,8 @@ class TestCheckPetPOST:
     def current_test_data(self, pet_data, faker):
         """
         Фикстура подготовки общих данных для выполнения этого класса тестов
-        TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра 'test_ids'
-        Все тестовые сущности созданные в тестах как POST с `id` из 'test_ids'
+        TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра `test_ids`
+        Все тестовые сущности созданные в тестах как POST с `id` из `test_ids`
         будут автоматически очищены из базы при teardown
         :param pet_data: фикстура подготовки данных для выполнения тестовых классов группы хендлеров: /pet
         :param faker: фикстура подготовки случайных данных
@@ -46,7 +47,7 @@ class TestCheckPetPOST:
             for test_id, var_value in enumerate(data['variables'][var_param]['enum']):
                 query_data['json'][var_param] = var_value
                 query_data['json']['id'] = data['test_ids'][test_id]
-                get_query['url'] += f'/{query_data['json']['id']}'
+                get_query['url'] += f"/{query_data['json']['id']}"
 
                 new_pet = r.post(**query_data)
                 assert new_pet.status_code == 200
@@ -74,14 +75,14 @@ class TestCheckPetPOST:
         query_data = data['query_data'].copy()
         query_data['json'] = {
             'name': data['payload']['name'],
-            'photoUrls': data['payload']['photoUrls']
+            'photoUrls': data['payload']['photoUrls'],
         }
 
         new_pet = r.post(**query_data)
         assert new_pet.status_code == 200
         assert set(new_pet.json()) - set(query_data['json']) == {'id', 'tags'}
 
-        query_data['url'] += f'/{new_pet.json()['id']}'
+        query_data['url'] += f"/{new_pet.json()['id']}"
         query_data['json']['id'] = new_pet.json()['id']
 
         del_pet = r.delete(**query_data)
@@ -138,7 +139,7 @@ class TestCheckPetPOST:
         query_data['json'] = data['payload'].copy()
 
         for _ in ['{@}', faker.int(20), faker.fwords(nb=1, lang='en')]:
-            query_data['url'] += f'/{_}'
+            query_data['url'] += f"/{_}"
 
             res = r.post(**query_data)
             result = res.json()

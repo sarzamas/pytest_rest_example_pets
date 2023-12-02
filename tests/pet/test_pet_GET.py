@@ -12,6 +12,7 @@ class TestCheckPetGET:
     """
     Тестовый класс группы хендлеров /pet
     """
+
     HANDLER = '/pet/findByStatus'
     METHOD = 'GET'
     TEARDOWN_IDS_POOl = 3
@@ -20,8 +21,8 @@ class TestCheckPetGET:
     def current_test_data(self, pet_data, faker):
         """
         Фикстура подготовки общих данных для выполнения этого класса тестов
-        TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра 'test_ids'
-        Все тестовые сущности созданные в тестах как POST с `id` из 'test_ids'
+        TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра `test_ids`
+        Все тестовые сущности созданные в тестах как POST с `id` из `test_ids`
         будут автоматически очищены из базы при teardown
         :param pet_data: фикстура подготовки данных для выполнения тестовых классов группы хендлеров: /pet
         :param faker: фикстура подготовки случайных данных
@@ -44,7 +45,7 @@ class TestCheckPetGET:
 
         for var_param in data['variables']:
             for test_id, var_value in enumerate(data['variables'][var_param]['enum']):
-                query_data['params'] = f'{var_param}={var_value}'
+                query_data['params'] = f"{var_param}={var_value}"
                 post_query['json']['id'] = data['test_ids'][test_id]
                 post_query['json'][var_param] = var_value
                 post_query['url'] = change_handler(query_data['url'])
@@ -63,8 +64,9 @@ class TestCheckPetGET:
                         match = record
                         break
                 assert match, (
-                    f'{linesep}В выдаче по критерию `{var_param}`: `{var_value}` '
-                    f'не найдена созданная запись с `id`: {post_query['json']['id']}')
+                    f"{linesep}В выдаче по критерию `{var_param}`: `{var_value}` "
+                    f"не найдена созданная запись с `id`: {post_query['json']['id']}"
+                )
                 assert set(match) == set(new_pet.json())
                 assert match[var_param] == var_value
 
@@ -98,7 +100,7 @@ class TestCheckPetGET:
 
         for var_param in data['variables']:
             for val in [faker.int(20), faker.fwords(nb=1, lang='en')]:
-                query_data['params'] = f'{var_param}={val}'
+                query_data['params'] = f"{var_param}={val}"
 
                 res = r.post(**query_data)
                 assert res.status_code == 405

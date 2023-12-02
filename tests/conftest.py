@@ -33,27 +33,31 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
         api_key = config.api_key
         host = config.host
 
-        base_url = f'{host.schema}://{host.name:{host.port}}' if host.port else f'{host.schema}://{host.name}'
-        resource = f'v{host.version}/swagger.json' if host.version else f'/swagger.json'
+        base_url = f"{host.schema}://{host.name}:{host.port}" if host.port else f"{host.schema}://{host.name}"
+        resource = f"v{host.version}/swagger.json" if host.version else '/swagger.json'
 
-        headers = {'Content-type': 'application/json', 'Accept': 'application/json',
-                   'api_key': api_key if api_key else None}
+        headers = {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            'Api_key': api_key if api_key else None,
+        }
         query_data['url'] = f'{base_url}/{resource}'
         query_data['headers'] = headers
         query_data['timeout'] = TestTimeout()
 
         now = datetime.now().strftime('%H:%M:%S')
-        prefix = f'URL неверен: проверьте данные в config{linesep}Time: {now}'
+        prefix = f"URL неверен: проверьте данные в config{linesep}Time: {now}"
 
         swagger = r.get(**query_data) if valid_hostname(host.name) and valid_url(query_data['url']) else None
 
         if not swagger or swagger.status_code != 200:
             raise ConnectionError(
-                f'SWAGGER_{prefix}{linesep}{swagger.text}{linesep}{swagger.request.method} '
-                f'{swagger.status_code} {swagger.url}{linesep}{query_data}{linesep}{swagger.request.headers}'
-                if swagger else f'{prefix}{linesep}{query_data}'
+                f"SWAGGER_{prefix}{linesep}{swagger.text}{linesep}{swagger.request.method} "
+                f"{swagger.status_code} {swagger.url}{linesep}{query_data}{linesep}{swagger.request.headers}"
+                if swagger
+                else f"{prefix}{linesep}{query_data}"
             )
-        print(f'{linesep}Time: {now}{linesep}Swagger version: {swagger.json()['swagger']} - OK!')
+        print(f"{linesep}Time: {now}{linesep}Swagger version: {swagger.json()['swagger']} - OK!")
         meta = swagger.json()['paths'][handler][method.lower()]
         query_data['url'] = change_handler(query_data['url'], handler)
 
@@ -73,11 +77,11 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
 
     teardown_params = [_ for __ in teardown_params for _ in __]
 
-    print(f'{linesep}Список ключей `test_id` для созданных тестами временных записей:{linesep}')
+    print(f"{linesep}Список ключей `test_id` для созданных тестами временных записей:{linesep}")
 
     for param in teardown_params:
-        print(f'\t`{param}`')
-        query_data['url'] += f'/{param}'
+        print(f"\t`{param}`")
+        query_data['url'] += f"/{param}"
 
         res = r.delete(**query_data)
         assert any([res.status_code == 200, res.status_code == 404])

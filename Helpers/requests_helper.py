@@ -11,7 +11,7 @@ class TestTimeout(TimeoutSauce):
         config = Config().host
         connect = kwargs.get('connect') if kwargs.get('connect') else config.wait_conn
         read = kwargs.get('read') if kwargs.get('read') else config.wait_read
-        super(TestTimeout, self).__init__(connect=connect, read=read)
+        super().__init__(connect=connect, read=read)
 
 
 class ApiKey(AuthBase):

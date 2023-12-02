@@ -12,9 +12,11 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: ["3.12"]
+
     steps:
       - uses: actions/checkout@v3
 
@@ -29,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install black colorama flake8 isort mypy pylint
 
       - name: Run Import formatter
@@ -41,11 +43,20 @@ jobs:
       - name: Analysing the code with pylint
         run: pylint $(git ls-files '*.py')
 
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
   test:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: [ "3.12" ]
+
     steps:
       - uses: actions/checkout@v3
 
@@ -60,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Test
-        run: python -m pytest
+        run: pytest

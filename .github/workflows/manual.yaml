@@ -5,11 +5,11 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      starting:
+      button:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Push to Start TestRun'
+        description: 'Push to Start...'
         # Default value if no value is explicitly provided
-        default: 'Push button below to Run Test! Go ahead for report...'
+        default: 'Push button below to Run Test!'
         # Input has to be provided for the workflow to run
         required: false
         # The data type of the input
@@ -25,9 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Send greeting
-        run: echo "Hello ${{ inputs.name }}\n\tStarting tests..."
-
       - name: Set-Up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
@@ -40,6 +37,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Hello! TestRun Report is below...
+        run: |
+          echo "Hello, Starting tests..."
+          echo ${{ inputs.ready }}
 
       - name: Run Test
         run: python -m pytest

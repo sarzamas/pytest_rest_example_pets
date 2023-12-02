@@ -7,11 +7,12 @@ __MACOSX
 # Environment
 .venv
 .devenv
-geckodriver
 
 # Config
 config.local.json
 selenoid
+geckodriver
+chromedriver
 
 # IDE files
 .idea

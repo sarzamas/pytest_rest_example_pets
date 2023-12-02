@@ -15,7 +15,7 @@ Table of Contents
 Запуск автотестов
 ============================
 #### 1. GitHub CI CD
-- CI/CD [Actions](https://github.com/sarzamas/pytest_rest_example_pets/actions) -> `<Commit name>` -> `Job`: `test(3.12)` -> `Step`: `Run Test`
+- CI/CD [Actions](https://github.com/sarzamas/pytest_rest_example_pets/actions) -> `<Commit name>` -> `CI.yaml` -> `Job`: `test(3.12)` -> `Step`: `Run Test`
 
 #### 2. Remote Clone Project
 - Предполагается что уже установлена версия Python 3.12 и настроен venv
@@ -32,7 +32,7 @@ Table of Contents
 #### 4. Запуск скрипта автотестов
 Пример использования проброса параметров конфигурации при запуске тестов:
 ```
- $ python -m pytest <путь к папке tests> --username=<value> --<password>=<valuе>
+ $ python -m pytest <путь к папке tests>
 ```
 Пример запуска тестов с фильтром по маркерам, установленным в файле `pytest.ini`:
 ```

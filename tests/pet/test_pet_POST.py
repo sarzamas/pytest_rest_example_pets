@@ -16,14 +16,13 @@ class TestCheckPetPOST:
     TEARDOWN_IDS_POOl = 3
 
     @pytest.fixture(scope='class', name='data')
-    def current_test_data(self, pet_data, faker):
+    def current_test_data(self, pet_data):
         """
         Фикстура подготовки общих данных для выполнения этого класса тестов
         TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра `test_ids`
         Все тестовые сущности созданные в тестах как POST с `id` из `test_ids`
         будут автоматически очищены из базы при teardown
         :param pet_data: фикстура подготовки данных для выполнения тестовых классов группы хендлеров: /pet
-        :param faker: фикстура подготовки случайных данных
         """
         return pet_data(self.TEARDOWN_IDS_POOl, self.HANDLER, self.METHOD)
 
@@ -90,14 +89,13 @@ class TestCheckPetPOST:
 
     @pytest.mark.xfail
     @pytest.mark.negative
-    def test_pet_post_null_negative1(self, data, faker):
+    def test_pet_post_null_negative1(self, data):
         """
         Тест проверки валидации данных при создании новой записи для группы хендлеров /pet:
             POST /<HANDLER>
             - отсутствие обязательных параметров (Swagger.json)
             - параметры ответа (HTTP 400)
         :param data: фикстура подготовки тестовых данных для этого класса тестов
-        :param faker: фикстура подготовки случайных данных
         """
         query_data = data['query_data'].copy()
         query_data['json'] = []

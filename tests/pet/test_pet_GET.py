@@ -18,14 +18,13 @@ class TestCheckPetGET:
     TEARDOWN_IDS_POOl = 3
 
     @pytest.fixture(scope='class', name='data')
-    def current_test_data(self, pet_data, faker):
+    def current_test_data(self, pet_data):
         """
         Фикстура подготовки общих данных для выполнения этого класса тестов
         TEARDOWN_IDS_POOl: количество используемых этим классом тестов слотов для параметра `test_ids`
         Все тестовые сущности созданные в тестах как POST с `id` из `test_ids`
         будут автоматически очищены из базы при teardown
         :param pet_data: фикстура подготовки данных для выполнения тестовых классов группы хендлеров: /pet
-        :param faker: фикстура подготовки случайных данных
         """
         return pet_data(self.TEARDOWN_IDS_POOl, self.HANDLER, self.METHOD, context='min')
 

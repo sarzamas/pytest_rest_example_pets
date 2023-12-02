@@ -49,8 +49,9 @@ Table of Contents
 > fixtures with leading '_' are only shown with the '-v' option)
 
 #### 5. Отчеты
-- CI/CD `Actions`-> `test`
-- на данном этапе реализации предусмотрен отчет в [Actions](https://github.com/sarzamas/pytest_rest_example_pets/actions)
+- На данном этапе реализации предусмотрен отчет по копке
+- чтобы просмотреть отчет о запуске автотестов на этапе CI pipeline:
+- `Нажать на кнопку` [![CI/CD TEST](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml/badge.svg?branch=main&event=push)](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml) -> `выбрать <Commit name>` -> `Workflow`: `CI.yaml` -> `Matrix`: `test` ->`Job`: `test(3.12)` -> `Step`: `Run Test`
 
 Документация
 ============================

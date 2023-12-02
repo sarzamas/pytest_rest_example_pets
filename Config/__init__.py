@@ -70,7 +70,7 @@ class Config(DotDict, metaclass=Singleton):
         :param config_path: - путь до файла конфигурации
         :return: - json
         """
-        with open(config_path) as file:
+        with open(config_path, encoding="utf-8") as file:
             config_data = json.load(file)
         return config_data
 
@@ -78,5 +78,5 @@ class Config(DotDict, metaclass=Singleton):
         """
         Перезаписывает содержимое текущего экземпляра Config в json файл, определяющий Config
         """
-        with open(self.config_path, 'w') as file:
+        with open(self.config_path, 'w', encoding="utf-8") as file:
             file.write(json.dumps(self))

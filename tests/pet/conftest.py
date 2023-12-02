@@ -2,6 +2,7 @@ from typing import Callable
 
 import pytest
 
+from Utils import lookup_report
 from tests import change_handler
 
 swagger_missing_info = {  # TODO #1 - добавить в Swagger.json эти параметры для HANDLER: /pet METHOD: POST
@@ -50,7 +51,7 @@ def swagger_data(test_data, faker) -> Callable:
             assert teardown_pool >= count, (
                 f"Необходимо установить число выделяемых слотов (сейчас это {teardown_pool}) "
                 f"для идентификаторов создаваемых тестом сущностей не меньшим числа возможных вариантов: {count} "
-                f"значений параметра(ов) {var_params.keys()} в текущей версии SWAGGER"
+                f"значений параметра(ов) {var_params.keys()} в текущей версии SWAGGER{lookup_report()}"
             )
 
         swagger_data['variables'] = var_params if var_params else None

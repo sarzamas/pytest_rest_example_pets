@@ -7,9 +7,9 @@ on:
     inputs:
       starting:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Push to Start'
+        description: 'Push to Start TestRun'
         # Default value if no value is explicitly provided
-        default: 'Run'
+        default: 'Push button below to Run Test! Go ahead for report...'
         # Input has to be provided for the workflow to run
         required: false
         # The data type of the input

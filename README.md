@@ -19,7 +19,8 @@ Table of Contents
 Запуск автотестов
 ============================
 #### 1. GitHub CI CD
-- CI/CD [Actions](https://github.com/sarzamas/pytest_rest_example_pets/actions) -> `<Commit name>` -> `CI.yaml` -> `Job`: `test(3.12)` -> `Step`: `Run Test`
+- Запуск Manual TestRun по кнопке 
+[![Manual TestRun](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/manual.yaml/badge.svg?event=workflow_dispatch)](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/manual.yaml)
 
 #### 2. Remote Clone Project
 - Предполагается что уже установлена версия Python 3.12 и настроен venv

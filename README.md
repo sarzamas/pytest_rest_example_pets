@@ -4,8 +4,8 @@
 Table of Contents
 -----------------
 * [Запуск автотестов](#запуск-автотестов)
-  * [1. GitHub CI/CD](#1-github-ci/cd)
-  * [2. Remote Clone Project](2#-remote-clone-project)
+  * [1. GitHub CI-CD](#1-github-ci-cd)
+  * [2. Remote Clone Project](#2-remote-clone-project)
   * [3. Варианты конфигурации](#3-варианты-конфигурации)
   * [4. Запуск скрипта автотестов](#4-запуск-скрипта-автотестов)
   * [5. Отчеты](#5-отчеты)
@@ -14,8 +14,8 @@ Table of Contents
 
 Запуск автотестов
 ============================
-#### 1. GitHub CI/CD
-- CI/CD [Actions](https://github.com/sarzamas/pytest_rest_example_pets/actions) -> `test` -> `run`
+#### 1. GitHub CI CD
+- CI/CD [Actions](https://github.com/sarzamas/pytest_rest_example_pets/actions) -> `<Commit name>` -> `Job`: `test(3.12)` -> `Step`: `Run Test`
 
 #### 2. Remote Clone Project
 - Предполагается что уже установлена версия Python 3.12 и настроен venv

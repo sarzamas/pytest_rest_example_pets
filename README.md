@@ -1,6 +1,7 @@
 | CI/CD TEST |                                                                                                                                                                                                           Status |
 |:-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | :octocat:  | [![CI/CD TEST](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml/badge.svg?branch=main&event=push)](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/CI.yaml) |
+
 Проверка REST на базе Pytest
 ============================
 

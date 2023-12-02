@@ -23,10 +23,10 @@ class RandomData(metaclass=Singleton):
         """
         Генератор фраз из случайных слов
         :param lang: str: язык локали для букв в словах
-        :param nb: int: число слов
+        :param nb: int: количество слов
         :param capitalize: признак, устанавливающий CapsLock на каждое слово
         :param uuid:  признак, добавляющий uuid к результату
-        :return:е
+        :return: str: случайная фраза
         """
         if lang == 'ru':
             rand = ' '.join([x.capitalize() if capitalize else x for x in self.__faker_ru.words(nb=nb)])
@@ -39,7 +39,13 @@ class RandomData(metaclass=Singleton):
         return rand
 
     @staticmethod
-    def text(length_word=10, count_words=1):
+    def text(length_word: int = 10, count_words: int = 1) -> str:
+        """
+        Статический метод генерации случайного текста
+        :param length_word: int: количество символов в слове
+        :param count_words: int: количество слов
+        :return: str: случайный текст из ascii символов
+        """
         result_str = ''
         for i in range(count_words):
             letters = string.ascii_letters
@@ -49,5 +55,10 @@ class RandomData(metaclass=Singleton):
         return result_str
 
     @staticmethod
-    def int(length=16):
+    def int(length: int = 16) -> int:
+        """
+        Статический метод генерации случайного числа
+        :param length: int: количество цифр в числе
+        :return: int: случайное число
+        """
         return random.randint(10 ** (length - 1), 10**length - 1)

@@ -19,8 +19,7 @@ Table of Contents
 Запуск автотестов
 ============================
 #### 1. GitHub CI Actions
-- Запуск Manual TestRun по кнопке Manual TestRun -> `Run Workflow`
-
+- Запуск Manual TestRun по кнопке Manual TestRun -> `Run Workflow`  
 [![Manual TestRun](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/manual.yaml/badge.svg?event=workflow_dispatch)](https://github.com/sarzamas/pytest_rest_example_pets/actions/workflows/manual.yaml)
 
 #### 2. Remote Clone Project

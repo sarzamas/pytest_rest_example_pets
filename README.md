@@ -45,9 +45,9 @@ Table of Contents
 ```
 - Для просмотра всех маркеров: ```$ pytest --markers```
 - Для просмотра всех доступных fixtures: ```$ pytest --fixtures```
-> fixtures are shown according to specified file_or_dir or current dir if not specified;
+> fixtures are shown according to specified file_or_dir or current dir if not specified
 
-> fixtures with leading '_' are only shown with the '-v' option)
+> fixtures with leading '_' are only shown with the '-v' option
 
 #### 5. Отчеты
 - На данном этапе реализации предусмотрен отчет по копке:

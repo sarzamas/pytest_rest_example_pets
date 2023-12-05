@@ -29,4 +29,5 @@ report
 logs
 *.log
 *.http
+report.xml
 github.txt

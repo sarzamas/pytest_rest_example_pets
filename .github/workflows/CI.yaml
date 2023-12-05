@@ -78,5 +78,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: report.xml
+          path: ./report.xml
           retention-days: 5

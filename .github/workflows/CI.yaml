@@ -32,7 +32,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [ $PYTHON_VERSION ]
+        python-version: [ ${{ env.PYTHON_VERSION }} ]
 
     steps:
       - uses: actions/checkout@v3
@@ -71,7 +71,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [ $PYTHON_VERSION ]
+        python-version: [ ${{ env.PYTHON_VERSION }} ]
 
     steps:
       - uses: actions/checkout@v3

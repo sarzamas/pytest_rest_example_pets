@@ -37,7 +37,7 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
         resource = f"v{host.version}/swagger.json" if host.version else '/swagger.json'
 
         headers = {
-            'Content-type': 'application/json',
+            'Content-type': 'application/json; charset=utf-8',
             'Accept': 'application/json',
             'Api_key': api_key if api_key else None,
         }

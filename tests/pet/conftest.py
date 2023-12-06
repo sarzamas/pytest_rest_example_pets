@@ -6,16 +6,16 @@ from Utils import lookup_report
 from tests import change_handler
 
 swagger_missing_info = {  # TODO #1 - добавить в Swagger.json эти параметры для HANDLER: /pet METHOD: POST
-    'parameters': [
+    "parameters": [
         {
-            'name': 'status',
-            'items': {
-                'default': 'available',
-                'enum': ['available', 'pending', 'sold'],
-                'type': 'string',
+            "name": "status",
+            "items": {
+                "default": "available",
+                "enum": ["available", "pending", "sold"],
+                "type": "string",
             },
         }
-    ],
+    ]
 }
 
 

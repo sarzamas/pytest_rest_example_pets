@@ -30,17 +30,18 @@ RUNS=$(
     --jq '.workflow_runs[] | select(.conclusion != "") | .id'
 )
 
-echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow $WORKFLOW_NAME"
+echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow $WORKFLOW_NAME - OK!"
 
 # Delete logs for each run
 for RUN in $RUNS; do
-  echo "Deleting logs for run $RUN"
+  echo "Deleting logs for run $RUN..."
   gh api \
     --silent \
     --method DELETE \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    "/repos/$REPOSITORY/actions/runs/$RUN/logs" || echo "Failed to delete logs for run $RUN"
+    "/repos/$REPOSITORY/actions/runs/$RUN/logs" || echo " - Failed to delete logs for run $RUN - NOK!"
+  echo "Successfully deleted all logs for run $RUN - OK!"
 
   # Sleep for 100ms to avoid rate limiting
   sleep 0.1

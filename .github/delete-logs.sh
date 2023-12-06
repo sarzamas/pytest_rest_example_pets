@@ -41,8 +41,9 @@ for RUN in $RUNS; do
     --method DELETE \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    "/repos/$REPOSITORY/actions/runs/$RUN/logs" || echo " - Failed to delete logs for run $RUN - NOK!"
-  echo " - Successfully deleted all logs for run $RUN - OK!"
+    "/repos/$REPOSITORY/actions/runs/$RUN/logs" \
+  && \
+  echo " - Successfully deleted all logs for run $RUN - OK!" || echo " - Failed to delete logs for run $RUN - NOK!"
 
   # Sleep for 100ms to avoid rate limiting
   sleep 0.1

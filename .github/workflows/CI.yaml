@@ -9,13 +9,15 @@ on:
   pull_request:
     branches: [ main ]
 
-#permissions:
-#  contents: read
+permissions:
+  contents: read
 
 jobs:
 
   clear_logs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v3

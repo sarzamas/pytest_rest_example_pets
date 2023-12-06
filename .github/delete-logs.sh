@@ -19,7 +19,7 @@ if [[ -z "$WORKFLOW_NAME" ]]; then
   exit 1
 fi
 
-echo "Getting all completed runs for workflow $WORKFLOW_NAME in $REPOSITORY"
+echo "Getting all completed runs for workflow '$WORKFLOW_NAME' in $REPOSITORY..."
 
 RUNS=$(
   gh api \
@@ -30,7 +30,7 @@ RUNS=$(
     --jq '.workflow_runs[] | select(.conclusion != "") | .id'
 )
 
-echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow $WORKFLOW_NAME - OK!"
+echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow '$WORKFLOW_NAME' - OK!"
 
 # Delete logs for each run
 for RUN in $RUNS; do

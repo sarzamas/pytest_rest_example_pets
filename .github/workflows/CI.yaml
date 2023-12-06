@@ -20,7 +20,7 @@ jobs:
       actions: write
       checks: write
       contents: write
-      pages: write
+#      pages: write
 
 
     steps:

@@ -16,8 +16,6 @@ jobs:
 
   clear_logs:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
 
     steps:
       - uses: actions/checkout@v3
@@ -25,6 +23,8 @@ jobs:
       - name: Clear previous sessions logs
         run: |
           ./.github/delete-logs.sh sarzamas/pytest_rest_example_pets ci.yaml
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   build:
     runs-on: ubuntu-latest

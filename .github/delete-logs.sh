@@ -31,6 +31,7 @@ RUNS=$(
 )
 
 echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow '$WORKFLOW_NAME' - OK!"
+echo "$RUNS"
 
 # Delete logs for each run
 for RUN in $RUNS; do

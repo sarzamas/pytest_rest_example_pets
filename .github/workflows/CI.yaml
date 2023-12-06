@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: write
-      checks: write
-      contents: write
-#      pages: write
+#      checks: write
+#      contents: write
+
 
 
     steps:

@@ -6,8 +6,8 @@
       "schema": "https",
       "version": 2,
       "resource": null,
-      "wait_conn": 1.5,
-      "wait_read": 4.5
+      "wait_conn": 2.5,
+      "wait_read": 5.5
     },
     "api_key": "special-key",
     "user": {

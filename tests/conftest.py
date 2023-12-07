@@ -22,10 +22,11 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
         - Возвращает текущие тестовые данные/объекты тестовому классу
     teardown:
         - Очищает созданные тестами сущности
-    :param config: фикстура инициализации config
-    :param faker: фикстура подготовки случайных данных
-    :return: параметризованную функцию, которая может быть вызвана непосредственно в теле теста или другой фикстуры
+    :param config: Config: фикстура инициализации config
+    :param faker: RandomData: фикстура подготовки случайных данных
+    :return: Callable: параметризованную функцию, которая может быть вызвана непосредственно в теле теста или другой фикстуры
     """
+    test_ids = []
     teardown_params = []
     query_data = {}
 
@@ -77,7 +78,7 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
 
     teardown_params = [_ for __ in teardown_params for _ in __]
 
-    print(f"{linesep}Список ключей `test_id` для созданных тестами временных записей:{linesep}")
+    print(f"{linesep}Список ключей `test_id` для созданных тестами временных записей:{linesep}") if test_ids else None
 
     for param in teardown_params:
         print(f"\t`{param}`")

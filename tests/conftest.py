@@ -8,7 +8,7 @@ from validators import hostname as valid_hostname
 from validators import url as valid_url
 
 from Config import Config
-from Helpers.requests_helper import TestTimeout
+from Helpers.RequestsHelper import TestTimeout
 from Utils.RandomData import RandomData
 from tests import change_handler
 

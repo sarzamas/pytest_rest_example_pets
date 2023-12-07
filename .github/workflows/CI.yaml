@@ -52,16 +52,23 @@ jobs:
           pip install black colorama flake8 isort mypy pylint
 
       - name: Run Import formatter
-        run: isort . pyproject.toml --check --diff --only-modified
+        run: |
+          isort --version
+          isort . pyproject.toml --check --diff --only-modified
 
       - name: Run Code formatter
-        run: black . --check --diff
+        run: |
+          black --version
+          black . --check --diff
 
       - name: Analysing the code with pylint
-        run: pylint $(git ls-files '*.py')
+        run: |
+          pylint --version
+          pylint $(git ls-files '*.py')
 
       - name: Lint with flake8
         run: |
+          flake8 --version
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
           # stop the build if there are Python syntax errors or undefined names
           # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics

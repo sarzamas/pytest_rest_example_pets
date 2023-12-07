@@ -13,7 +13,7 @@ swagger_missing_info = {  # TODO #1 - добавить в Swagger.json эти п
                 "default": "available",
                 "enum": ["available", "pending", "sold"],
                 "type": "string",
-            }
+            },
         }
     ]
 }

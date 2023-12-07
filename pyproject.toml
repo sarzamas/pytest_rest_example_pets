@@ -2,10 +2,17 @@
 exit-zero = "true"
 output-format = "colorized"
 max-line-length=120
+expected-line-ending-format = "LF"
 module-naming-style = "PascalCase"
 class-attribute-naming-style = "snake_case"
 max-args = 7
+min-public-methods = 1
+single-line-if-stmt = "true"
+check-protected-access-in-special-methods ="true"
+allow-wildcard-with-all = "true"
+logging-format-style = "new"
 disable = ["missing-module-docstring", "import-error"]
+enable = ["use-symbolic-message-instead", "use-implicit-booleaness-not-comparison-to-string", "use-implicit-booleaness-not-comparison-to-zero"]
 
 [tool.black]
 color = "true"

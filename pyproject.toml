@@ -3,6 +3,7 @@ exit-zero = "true"
 output-format = "colorized"
 max-line-length=120
 expected-line-ending-format = "LF"
+min-similarity-lines = 5
 init-import = "true"
 allow-wildcard-with-all = "true"
 module-naming-style = "PascalCase"

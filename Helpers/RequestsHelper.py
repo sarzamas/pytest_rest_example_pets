@@ -1,4 +1,4 @@
-from requests.adapters import TimeoutSauce
+from urllib3.util import Timeout as TimeoutSauce
 from requests.auth import AuthBase
 
 from Config import Config

@@ -5,7 +5,7 @@ max-line-length=120
 module-naming-style = "PascalCase"
 class-attribute-naming-style = "snake_case"
 max-args = 7
-disable = ["missing-module-docstring"]
+disable = ["missing-module-docstring", "import-error"]
 
 [tool.black]
 color = "true"

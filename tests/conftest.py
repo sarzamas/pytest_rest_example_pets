@@ -24,7 +24,7 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
         - Очищает созданные тестами сущности
     :param config: Config: фикстура инициализации config
     :param faker: RandomData: фикстура подготовки случайных данных
-    :return: Callable: параметризованную функцию, которая может быть вызвана непосредственно в теле теста или другой фикстуры
+    :return: Callable: параметризованную функцию, которая может быть вызвана в теле теста или другой фикстуры
     """
     test_ids = []
     teardown_params = []

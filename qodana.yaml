@@ -1,0 +1,61 @@
+#-------------------------------------------------------------------------------#
+#               Qodana analysis is configured by qodana.yaml file               #
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
+#-------------------------------------------------------------------------------#
+version: "1.0"
+
+#Specify inspection profile for code analysis
+profile:
+  name: qodana.starter
+
+#Execute shell command before Qodana execution (Applied in CI/CD pipeline)
+#bootstrap: sh ./prepare-qodana.sh
+
+#Install IDE plugins before Qodana execution (Applied in CI/CD pipeline)
+#plugins:
+#  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
+
+#Specify Qodana linter for analysis (Applied in CI/CD pipeline)
+linter: jetbrains/qodana-<linter>:latest
+
+#Disable inspections
+#exclude:
+#  - name: <SomeDisabledInspectionId>
+#    paths:
+#      - <path/where/not/run/inspection>
+
+#Enable inspections
+include:
+  - name: PyAugmentAssignmentInspection
+  - name: PyInterpreterInspection
+  - name: PyMissingTypeHintsInspection
+  - name: PyUnresolvedReferencesInspection
+
+  - name: MarkdownIncorrectTableFormatting
+  - name: MarkdownIncorrectlyNumberedListItem
+  - name: MarkdownLinkDestinationWithSpaces
+  - name: MarkdownOutdatedTableOfContents
+  - name: MarkdownNoTableBorders
+  - name: MarkdownUnresolvedFileReference
+  - name: MarkdownUnresolvedHeaderReference
+  - name: MarkdownUnresolvedLinkLabel
+
+  - name: JsonSchemaCompliance
+
+  - name: DuplicateKeyInSection
+
+  - name: YAMLSchemaDeprecation
+  - name: YAMLDuplicatedKeys
+  - name: YAMLRecursiveAlias
+  - name: YAMLIncompatibleTypes
+  - name: YAMLUnresolvedAlias
+  - name: YAMLUnusedAnchor
+  - name: YAMLSchemaValidation
+
+  - name: QodanaSanity
+
+  - name: ShellCheck
+
+  - name: IgnoreFileDuplicateEntry
+
+  - name: RegExpSimplifiable

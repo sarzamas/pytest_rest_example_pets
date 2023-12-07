@@ -57,7 +57,7 @@ class TestCheckPetDELETE:
         twice_del = r.delete(**query_data)
         assert twice_del.status_code == 404
         assert twice_del.reason == 'Not Found'
-        assert twice_del.text == ''
+        assert not twice_del.text
 
         twice_new_pet = r.post(**post_query)
         assert twice_new_pet.status_code == 200

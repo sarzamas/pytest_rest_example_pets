@@ -78,7 +78,11 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
 
     teardown_params = [_ for __ in teardown_params for _ in __]
 
-    print(f"{linesep}Список ключей `test_id` для созданных тестами временных записей:{linesep}") if test_ids else None
+    print(
+        f"{linesep}Список идентификаторов тестовых сущностей `test_ids`, подлежащих удалению при `teardown`:{linesep}"
+        if teardown_params
+        else linesep
+    )
 
     for param in teardown_params:
         print(f"\t`{param}`")

@@ -1,5 +1,5 @@
-from urllib3.util import Timeout as TimeoutSauce
 from requests.auth import AuthBase
+from urllib3.util import Timeout as TimeoutSauce
 
 from Config import Config
 

@@ -31,6 +31,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: clear_logs
 
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -77,6 +82,8 @@ jobs:
         run: |
           black --version
           black . --check --diff
+        with:
+          use-annotations: true
 
       - name: Analysing the code with pylint
         run: |

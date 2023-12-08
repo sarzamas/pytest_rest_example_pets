@@ -82,8 +82,6 @@ jobs:
         run: |
           black --version
           black . --check --diff
-        with:
-          use-annotations: true
 
       - name: Analysing the code with pylint
         run: |

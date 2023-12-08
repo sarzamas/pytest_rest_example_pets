@@ -56,9 +56,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Display Python version
-        run: |
-          pip install emoji --upgrade
-          python -c "import sys; import emoji; print(emoji.emojize(f'🎌 Python-{sys.version}'))"
+        run: python -c "print(f'🎌 Python-{sys.version}')"
 
       - name: Run Qodana Scan
         uses: JetBrains/qodana-action@v2023.2
@@ -90,9 +88,7 @@ jobs:
           pip install black colorama emoji flake8 isort mypy pylint --upgrade
 
       - name: Display Python version
-        run: |
-          pip install emoji --upgrade
-          python -c "import sys; import emoji; print(emoji.emojize(f'🎌 Python-{sys.version}'))"
+        run: python -c "print(f'🎌 Python-{sys.version}')"
 
       - name: Run Import formatter
         run: |
@@ -138,9 +134,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Display Python version
-        run: |
-          pip install emoji --upgrade
-          python -c "import sys; import emoji; print(emoji.emojize(f'🎌 Python-{sys.version}'))"
+        run: python -c "print(f'🎌 Python-{sys.version}')"
 
       - name: Run Test with pytest
         run: pytest --junitxml=report.xml

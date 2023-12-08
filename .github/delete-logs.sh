@@ -43,7 +43,7 @@ for RUN in $RUNS; do
     -H "X-GitHub-Api-Version: 2022-11-28" \
     "/repos/$REPOSITORY/actions/runs/$RUN/logs" \
   && \
-  echo " - Successfully deleted all logs for run $RUN - :white_check_mark:!" || echo " - Failed to delete logs for run $RUN - !"
+  echo " - Successfully deleted all logs for run $RUN - ✅OK!" || echo " - Failed to delete logs for run $RUN - !"
 
   # Sleep for 100ms to avoid rate limiting
   sleep 0.1

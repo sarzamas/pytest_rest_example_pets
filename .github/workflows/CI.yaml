@@ -50,13 +50,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Display Python version
-        run: python -c "import sys; print("🎌 -" + sys.version)"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Display Python version
+        run: |
+          pip install emoji --upgrade
+          python -c "import sys; print("🎌 Python-" + sys.version)"
 
       - name: Run Qodana Scan
         uses: JetBrains/qodana-action@v2023.2
@@ -81,14 +83,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Display Python version
-        run: python -c "import sys; print("🎌 -" + sys.version)"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install black colorama flake8 isort mypy pylint
+          pip install black colorama emoji flake8 isort mypy pylint --upgrade
+
+      - name: Display Python version
+        run: |
+          pip install emoji --upgrade
+          python -c "import sys; print("🎌 Python-" + sys.version)"
 
       - name: Run Import formatter
         run: |
@@ -128,13 +132,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Display Python version
-        run: python -c "import sys; print("🎌 -" + sys.version)"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Display Python version
+        run: |
+          pip install emoji --upgrade
+          python -c "import sys; print("🎌 Python-" + sys.version)"
 
       - name: Run Test with pytest
         run: pytest --junitxml=report.xml

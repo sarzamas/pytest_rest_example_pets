@@ -30,7 +30,7 @@ RUNS=$(
     --jq '.workflow_runs[] | select(.conclusion != "") | .id'
 )
 
-echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow '$WORKFLOW_NAME' - OK!"
+echo "Found $(echo "$RUNS" | wc -l) completed runs for workflow '$WORKFLOW_NAME' - ✅OK!"
 echo "$RUNS"
 
 # Delete logs for each run
@@ -43,7 +43,7 @@ for RUN in $RUNS; do
     -H "X-GitHub-Api-Version: 2022-11-28" \
     "/repos/$REPOSITORY/actions/runs/$RUN/logs" \
   && \
-  echo " - Successfully deleted all logs for run $RUN - ✅OK!" || echo " - Failed to delete logs for run $RUN - !"
+  echo " - Successfully deleted all logs for run $RUN - ✅OK!" || echo " - Failed to delete logs for run $RUN - ❌NOK!"
 
   # Sleep for 100ms to avoid rate limiting
   sleep 0.1

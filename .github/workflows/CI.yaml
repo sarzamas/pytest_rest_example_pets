@@ -47,7 +47,7 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
       - name: Qodana Report
-        run: echo "Qodana Cloud -  https://qodana.cloud/organizations/3XBGk/teams/AD6Pb"
+        run: echo "Qodana Cloud -  https://qodana.cloud/projects/3B4gd/reports/4eb5W
 
   lint:
     runs-on: ubuntu-latest

@@ -13,7 +13,7 @@ min-public-methods = 0
 single-line-if-stmt = "true"
 check-protected-access-in-special-methods ="true"
 logging-format-style = "new"
-disable = ["missing-module-docstring", "import-error"]
+disable = ["missing-module-docstring"]
 enable = ["use-symbolic-message-instead", "use-implicit-booleaness-not-comparison-to-string", "use-implicit-booleaness-not-comparison-to-zero"]
 
 [tool.black]

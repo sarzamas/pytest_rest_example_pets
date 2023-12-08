@@ -58,7 +58,7 @@ jobs:
       - name: Display Python version
         run: |
           pip install emoji --upgrade
-          python -c "import sys; print("🎌 Python-" + sys.version)"
+          python -c "import sys; import emoji; print(emoji.emojize("🎌 Python-" + sys.version))"
 
       - name: Run Qodana Scan
         uses: JetBrains/qodana-action@v2023.2
@@ -92,7 +92,7 @@ jobs:
       - name: Display Python version
         run: |
           pip install emoji --upgrade
-          python -c "import sys; print("🎌 Python-" + sys.version)"
+          python -c "import sys; import emoji; print(emoji.emojize("🎌 Python-" + sys.version))"
 
       - name: Run Import formatter
         run: |
@@ -140,7 +140,7 @@ jobs:
       - name: Display Python version
         run: |
           pip install emoji --upgrade
-          python -c "import sys; print("🎌 Python-" + sys.version)"
+          python -c "import sys; import emoji; print(emoji.emojize("🎌 Python-" + sys.version))"
 
       - name: Run Test with pytest
         run: pytest --junitxml=report.xml

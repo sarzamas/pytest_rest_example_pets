@@ -39,10 +39,10 @@ jobs:
       CONSTRUCTOR: '
         {
             "include": [{
-                "python-version": $PYTHON_VERSION
+                "python-version": "$PYTHON_VERSION"
             },
             {
-                "os": $OS_TYPE
+                "os": "$OS_TYPE"
             }]
         }
       '

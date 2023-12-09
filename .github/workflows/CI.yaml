@@ -52,9 +52,9 @@ jobs:
     steps:
       - name: matrix constructor
         run: |
-          JSON = "{\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}"
+          JSON="{\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}"
           echo $JSON
-          echo $JSON  | jq -c .
+          echo $JSON | jq -c .
           echo "matrix=$JSON"
 
       - name: 'matrix: [os_type], [python_version]'

@@ -7,12 +7,28 @@ on:
     branches: [ main ]
 
 env:
+  # Constants:
   PYTHON_VERSION: "3.12"
+  OS_TYPE: "ubuntu-latest"
 
 permissions:
   contents: read
 
 jobs:
+  set_matrix:
+    # https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - id: set-matrix
+        run: |
+          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+      - run: |
+          echo $GITHUB_OUTPUT
+          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
+
   clear_logs:
     runs-on: ubuntu-latest
     permissions:
@@ -29,18 +45,17 @@ jobs:
 
   qodana:
     runs-on: ${{ matrix.os }}
-    needs: clear_logs
+    needs: [ clear_logs, set_matrix ]
 
     permissions:
       contents: read
       checks: write
 
     strategy:
-      matrix:
-
-        python-version: [ ${{ env.PYTHON_VERSION}} ]
+      # matrix:
         # python-version: [ "3.12" ]
-        os: [ ubuntu-latest ]
+        # os: [ ubuntu-latest ]
+      matrix: ${{ fromJSON(needs.set_matrix.outputs.matrix) }}
 
     steps:
       - uses: actions/checkout@v4

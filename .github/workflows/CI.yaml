@@ -39,20 +39,21 @@ jobs:
       CONSTRUCTOR: '
         {
             "include": [{
-                "python-version": "$PYTHON_VERSION"
+                "python-version": $PYTHON_VERSION
             },
             {
-                "os": "$OS_TYPE"
+                "os": $OS_TYPE
             }]
         }
       '
-      a: '{"include": [{"python-version": "$PYTHON_VERSION"}, {"os": "$OS_TYPE"}]}'
+      a: '{\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}'
 
     steps:
       - name: matrix constructor
         run: |
           echo $CONSTRUCTOR | jq -c .
           echo "matrix=$(echo $CONSTRUCTOR | jq -c .)"
+          echo "matrix=$(echo $a | jq -c .)"
 
       - name: 'matrix: os_type'
         id: set_os_type

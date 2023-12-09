@@ -31,7 +31,7 @@ jobs:
       - name: set-matrix
         id: set-matrix
         run: |
-          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+          echo "matrix={\"include\":[[{\"python-version\":\"$PYTHON_VERSION\"}],[{\"os\":\"$OS_TYPE\"}]]}" >> $GITHUB_OUTPUT
 
   clear_logs:
     runs-on: ubuntu-latest

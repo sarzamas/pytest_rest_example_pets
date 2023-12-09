@@ -68,11 +68,12 @@ jobs:
         run: echo "🏁 Qodana Cloud 🏁 -  https://qodana.cloud/projects/3B4gd/reports/4eb5W"
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: clear_logs
 
     strategy:
       matrix:
+        os: [ ubuntu-latest ]
         python-version: [ "3.12" ]
 
     steps:
@@ -116,11 +117,12 @@ jobs:
           # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: clear_logs
 
     strategy:
       matrix:
+        os: [ ubuntu-latest ]
         python-version: [ "3.12" ]
 
     steps:

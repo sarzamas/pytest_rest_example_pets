@@ -39,28 +39,25 @@ jobs:
     env:
       CONSTRUCTOR: '
         {
-            "include": [{
-                "python-version": "$PYTHON_VERSION"
+            \"include\": [{
+                \"python-version\": \"$PYTHON_VERSION\"
             },
             {
-                "os": "$OS_TYPE"
+                \"os\": \"$OS_TYPE\"
             }]
         }
       '
-      a: '{\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}'
+      a: '{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}'
 
     steps:
       - name: matrix constructor
         run: |
           echo $CONSTRUCTOR
+          echo $a
           JSON1="{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
           echo $JSON1
           echo $JSON1  | jq -c .
           echo "matrix=$JSON1"
-          JSON2='{"include":[{"python-version":"$PYTHON_VERSION"},{"os":"$OS_TYPE"}]}'
-          echo $JSON2
-          echo $JSON2  | jq -c .
-          echo "matrix=$JSON2"
 
       - name: 'matrix: [os_type], [python_version]'
         id: set_matrix

@@ -34,6 +34,7 @@ jobs:
     # https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
     runs-on: ubuntu-latest
     outputs:
+      os: ${{ steps.set_os_type.outputs.os_type }}
       python_version: ${{ steps.set_python_version.outputs.python_version }}
     env:
       CONSTRUCTOR: '
@@ -50,6 +51,12 @@ jobs:
       - name: matrix constructor
         run: echo $CONSTRUCTOR
 
+      - name: 'matrix: os_type'
+        id: set_os_type
+        # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
+        run: |
+          echo "os={\"include\":[{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+
       - name: 'matrix: python_version'
         id: set_python_version
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
@@ -57,8 +64,8 @@ jobs:
           echo "python_version={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
 
   qodana:
-    runs-on: ubuntu-latest
-    # runs-on: ${{ matrix.os }}
+    #runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
     permissions:
@@ -68,7 +75,7 @@ jobs:
     strategy:
       matrix:
         # os: [ $OS_TYPE ]
-        # os: ${{ fromJSON(needs.matrix_config.outputs.os) }}
+        ${{ fromJSON(needs.matrix_config.outputs.os) }}
         # python-version: [ $PYTHON_VERSION ]
         ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 

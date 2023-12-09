@@ -1,5 +1,5 @@
 name: Manual TestRun
-run-name: Only Tests 🚀
+run-name: Only Tests (on demand) 🚀🚀🚀
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI or API
 on:

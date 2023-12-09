@@ -1,12 +1,13 @@
 name: CI/CD TestRun
 
+# Events to trigger workflow start:
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
-# Constants:
+# Constants to run workflow with:
 env:
   PYTHON_VERSION: '3.12'
   OS_TYPE: 'ubuntu-latest'
@@ -68,7 +69,8 @@ jobs:
       # matrix:
         # python-version: [ $PYTHON_VERSION ]
         # os: [ $OS_TYPE ]
-      matrix: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+      matrix:
+        python-version: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
         # ${{ fromJSON(needs.matrix_config.outputs.os) }}
 
     steps:

@@ -46,14 +46,15 @@ jobs:
         }
       '
     steps:
-      - name: matrix result evaluation
+      - name: matrix constructor
         run: echo $CONSTRUCTOR
 
       - name: set matrix output
         id: set-matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
-          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
+          echo "python_version={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" 
+          >> $GITHUB_OUTPUT
 
   qodana:
     runs-on: ubuntu-latest
@@ -68,7 +69,9 @@ jobs:
       # matrix:
         # python-version: [ $PYTHON_VERSION ]
         # os: [ $OS_TYPE ]
-      matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+      matrix:
+        ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+        # ${{ fromJSON(needs.matrix_config.outputs.os) }}
 
     steps:
       - uses: actions/checkout@v4

@@ -32,7 +32,7 @@ jobs:
           python-version: '3.12'
 
       - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
+        run: python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies
         run: |

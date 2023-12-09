@@ -52,11 +52,11 @@ jobs:
     steps:
       - name: matrix constructor
         run: |
-          constructor = $CONSTRUCTOR
+          CONSTRUCTOR = $CONSTRUCTOR | jq -c .
           echo $CONSTRUCTOR
-          a = $A
-          echo $a
-          JSON1="{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
+          A = $A
+          echo $A
+          JSON1 = "{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
           echo $JSON1
           echo $JSON1  | jq -c .
           echo "matrix=$JSON1"

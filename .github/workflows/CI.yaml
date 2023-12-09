@@ -47,12 +47,14 @@ jobs:
             }]
         }
       '
-      a: '{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}'
+      A: '{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}'
 
     steps:
       - name: matrix constructor
         run: |
+          constructor = $CONSTRUCTOR
           echo $CONSTRUCTOR
+          a = $A
           echo $a
           JSON1="{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
           echo $JSON1

@@ -15,14 +15,22 @@ permissions:
   contents: read
 
 jobs:
-  set_matrix:
+  matrix_config:
     # https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     env:
-      CONSTRUCTOR:
-        "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}, {\"os\":\"$OS_TYPE\"}]}"
+      CONSTRUCTOR: '
+        matrix={
+            "include": [{
+                "python-version": "$PYTHON_VERSION"
+                },
+                {
+                "os": "$OS_TYPE"
+                }]
+        }
+      '
 
     steps:
       - name: matrix result
@@ -30,6 +38,7 @@ jobs:
 
       - name: set-matrix
         id: set-matrix
+        # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
           echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
 
@@ -50,7 +59,7 @@ jobs:
   qodana:
     runs-on: ubuntu-latest
     # runs-on: ${{ matrix.os }}
-    needs: [ clear_logs, set_matrix ]
+    needs: [ clear_logs, matrix_config ]
 
     permissions:
       contents: read
@@ -60,7 +69,7 @@ jobs:
       # matrix:
         # python-version: [ $PYTHON_VERSION ]
         # os: [ $OS_TYPE ]
-      matrix: ${{ fromJSON(needs.set_matrix.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
       - uses: actions/checkout@v4

@@ -35,6 +35,7 @@ jobs:
     outputs:
       os: ${{ steps.set_os_type.outputs.os_type }}
       python_version: ${{ steps.set_python_version.outputs.python_version }}
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
     env:
       CONSTRUCTOR: '
         {
@@ -54,6 +55,15 @@ jobs:
           echo $CONSTRUCTOR | jq -c .
           echo "matrix=$(echo $CONSTRUCTOR | jq -c .)"
           echo "matrix=$(echo $a)"
+          JSON="{\"include\":["
+          echo $JSON
+
+      - name: 'matrix: [os_type], [python_version]'
+        id: set_matrix
+        # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
+        run: |
+          echo "matrix={\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+
 
       - name: 'matrix: os_type'
         id: set_os_type

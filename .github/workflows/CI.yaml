@@ -55,7 +55,7 @@ jobs:
         id: set_os_type
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
-          echo "os={\"include\":[{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+          echo "os_type={\"include\":[{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
 
       - name: 'matrix: python_version'
         id: set_python_version

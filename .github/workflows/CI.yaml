@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
 
-        python-version: [ ${{ env.PYTHON_VERSION }} ]
+        python-version: [ $PYTHON_VERSION ]
         # python-version: [ "3.12" ]
         os: [ ubuntu-latest ]
 

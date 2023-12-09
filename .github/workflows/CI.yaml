@@ -66,12 +66,11 @@ jobs:
       checks: write
 
     strategy:
-      # matrix:
-        # python-version: [ $PYTHON_VERSION ]
-        # os: [ $OS_TYPE ]
       matrix:
-        python-version: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
-        # ${{ fromJSON(needs.matrix_config.outputs.os) }}
+        # os: [ $OS_TYPE ]
+        # os: ${{ fromJSON(needs.matrix_config.outputs.os) }}
+        # python-version: [ $PYTHON_VERSION ]
+        ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
       - uses: actions/checkout@v4

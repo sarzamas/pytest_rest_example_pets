@@ -53,8 +53,7 @@ jobs:
         id: set-matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
-          echo "python_version={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" 
-          >> $GITHUB_OUTPUT
+          echo "python_version={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
 
   qodana:
     runs-on: ubuntu-latest

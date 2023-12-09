@@ -31,12 +31,11 @@ jobs:
                 }]
         }
       '
-
     steps:
-      - name: matrix result
+      - name: matrix result evaluation
         run: echo $CONSTRUCTOR
 
-      - name: set-matrix
+      - name: set matrix output
         id: set-matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |

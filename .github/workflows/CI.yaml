@@ -68,8 +68,7 @@ jobs:
       # matrix:
         # python-version: [ $PYTHON_VERSION ]
         # os: [ $OS_TYPE ]
-      matrix:
-        ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+      matrix: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
         # ${{ fromJSON(needs.matrix_config.outputs.os) }}
 
     steps:

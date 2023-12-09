@@ -10,7 +10,7 @@ on:
         # Prompt to be shown in the UI
         description: 'Push to Start...'
         # Default value if no value is explicitly provided
-        default: 'Push button below to Run Test!'
+        default: '⬇️ Push button below to Run Test! ⬇️'
         # Input has to be provided for the workflow to run
         required: false
         # The data type of the input

@@ -20,19 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+    env:
+      CONSTRUCTOR:
+        "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
 
     steps:
-      - id: set-matrix
-        run: |
-          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
-      - run: |
-          echo $PYTHON_VERSION
-          echo "$PYTHON_VERSION"
-          echo $GITHUB_OUTPUT
-          echo "$GITHUB_OUTPUT"
-          echo $PYTHON_VERSION
-          echo "$PYTHON_VERSION"
-          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
+      - name: matrix result
+        run: echo $CONSTRUCTOR
+
+      - name: set-matrix
+        id: set-matrix
+        run: echo $CONSTRUCTOR >> $GITHUB_OUTPUT
 
   clear_logs:
     runs-on: ubuntu-latest

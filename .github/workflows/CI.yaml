@@ -31,25 +31,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   matrix_config:
-    # https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
     runs-on: ubuntu-latest
     outputs:
       os: ${{ steps.set_os_type.outputs.os_type }}
       python_version: ${{ steps.set_python_version.outputs.python_version }}
     env:
       CONSTRUCTOR: '
-        matrix={
+        {
             "include": [{
                 "python-version": "$PYTHON_VERSION"
-                },
-                {
+            },
+            {
                 "os": "$OS_TYPE"
-                }]
+            }]
         }
       '
+      a: '{"include": [{"python-version": "$PYTHON_VERSION"}, {"os": "$OS_TYPE"}]}'
+
     steps:
       - name: matrix constructor
-        run: echo $CONSTRUCTOR
+        run: |
+          echo $CONSTRUCTOR | jq -c .
+          echo $a | jq -c .
 
       - name: 'matrix: os_type'
         id: set_os_type

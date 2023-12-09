@@ -55,14 +55,14 @@ jobs:
           echo $CONSTRUCTOR | jq -c .
           echo "matrix=$(echo $CONSTRUCTOR | jq -c .)"
           echo "matrix=$(echo $a)"
-          JSON="{\"include\":["
+          JSON="{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
           echo $JSON
 
       - name: 'matrix: [os_type], [python_version]'
         id: set_matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
-          echo "matrix={\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
 
 
       - name: 'matrix: os_type'

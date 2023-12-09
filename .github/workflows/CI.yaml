@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   qodana:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: clear_logs
 
     permissions:
@@ -37,6 +37,7 @@ jobs:
 
     strategy:
       matrix:
+        os: [ ubuntu-latest ]
         python-version: [ "3.12" ]
 
     steps:

@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ main ]
 
+# Constants:
 env:
-  # Constants:
   PYTHON_VERSION: "3.12"
   OS_TYPE: "ubuntu-latest"
 
@@ -44,7 +44,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   qodana:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    # runs-on: ${{ matrix.os }}
     needs: [ clear_logs, set_matrix ]
 
     permissions:

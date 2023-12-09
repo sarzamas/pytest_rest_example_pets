@@ -22,7 +22,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     env:
       CONSTRUCTOR:
-        "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
+        "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}, {\"os\":\"$OS_TYPE\"}]}"
 
     steps:
       - name: matrix result
@@ -31,7 +31,7 @@ jobs:
       - name: set-matrix
         id: set-matrix
         run: |
-          echo "matrix={\"include\":[[{\"python-version\":\"$PYTHON_VERSION\"}],[{\"os\":\"$OS_TYPE\"}]]}" >> $GITHUB_OUTPUT
+          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
 
   clear_logs:
     runs-on: ubuntu-latest

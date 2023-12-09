@@ -30,7 +30,8 @@ jobs:
 
       - name: set-matrix
         id: set-matrix
-        run: echo $CONSTRUCTOR >> $GITHUB_OUTPUT
+        run: |
+          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
 
   clear_logs:
     runs-on: ubuntu-latest
@@ -57,8 +58,8 @@ jobs:
 
     strategy:
       # matrix:
-        # python-version: [ "3.12" ]
-        # os: [ ubuntu-latest ]
+        # python-version: [ $PYTHON_VERSION ]
+        # os: [ $OS_TYPE ]
       matrix: ${{ fromJSON(needs.set_matrix.outputs.matrix) }}
 
     steps:

@@ -33,7 +33,7 @@ jobs:
     # https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      python_version: ${{ steps.set_python_version.outputs.python_version }}
     env:
       CONSTRUCTOR: '
         matrix={
@@ -49,11 +49,11 @@ jobs:
       - name: matrix constructor
         run: echo $CONSTRUCTOR
 
-      - name: set matrix output
-        id: set-matrix
+      - name: 'matrix: python_version'
+        id: set_python_version
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
-          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
+          echo "python_version={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
 
   qodana:
     runs-on: ubuntu-latest
@@ -68,7 +68,7 @@ jobs:
       # matrix:
         # python-version: [ $PYTHON_VERSION ]
         # os: [ $OS_TYPE ]
-      matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
         # ${{ fromJSON(needs.matrix_config.outputs.os) }}
 
     steps:

@@ -19,9 +19,8 @@ jobs:
       actions: write
 
     steps:
-      #- uses: actions/checkout@v4
-
       - name: Clear previous sessions logs
+        uses: actions/checkout@v4
         run: |
           ./.github/delete-logs.sh sarzamas/pytest_rest_example_pets CI.yaml
         env:

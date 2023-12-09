@@ -54,8 +54,9 @@ jobs:
         run: |
           JSON="{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}"
           echo $JSON
-          echo $JSON  | jq -c .)
-          echo "$JSON  | jq -c .)"
+          echo $JSON  | jq -c .
+          echo "$JSON  | jq -c ."
+          echo "$($JSON  | jq -c .)"
           echo "matrix=$JSON"
           echo "matrix=$($JSON  | jq -c .))"
 

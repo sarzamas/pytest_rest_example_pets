@@ -8,13 +8,27 @@ on:
 
 # Constants:
 env:
-  PYTHON_VERSION: "3.12"
-  OS_TYPE: "ubuntu-latest"
+  PYTHON_VERSION: '3.12'
+  OS_TYPE: 'ubuntu-latest'
 
 permissions:
   contents: read
 
 jobs:
+  clear_logs:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clear previous sessions logs
+        run: |
+          ./.github/delete-logs.sh sarzamas/pytest_rest_example_pets CI.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   matrix_config:
     # https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
     runs-on: ubuntu-latest
@@ -40,20 +54,6 @@ jobs:
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
           echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
-
-  clear_logs:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: write
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Clear previous sessions logs
-        run: |
-          ./.github/delete-logs.sh sarzamas/pytest_rest_example_pets CI.yaml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   qodana:
     runs-on: ubuntu-latest

@@ -62,8 +62,13 @@ jobs:
       - name: 'matrix: [os_type], [python_version]'
         id: set_matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
+        # run: |
+        #   echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
         run: |
-          echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
+          JSON="{\"include\":[{\"os\":\"$OS_TYPE\"},{\"python-version\":\"$PYTHON_VERSION\"}]}"
+          echo $JSON
+          echo $JSON | jq -c .
+          echo "matrix=$JSON" >> $GITHUB_OUTPUT
 
 
       - name: 'matrix: os_type'
@@ -92,7 +97,7 @@ jobs:
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
       matrix:
         # os: [ $OS_TYPE ]
-        ${{ fromJSON(needs.matrix_config.outputs.os) }}
+        ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
         # python-version: [ $PYTHON_VERSION ]
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
@@ -105,8 +110,8 @@ jobs:
       - name: Set-Up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
-          # python-version: ${{ matrix.python-version }}
+          # python-version: '3.12'
+          python-version: ${{ matrix.python-version }}
           check-latest: true
           architecture: x64
 

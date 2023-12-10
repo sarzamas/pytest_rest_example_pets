@@ -85,7 +85,7 @@ jobs:
 
   qodana:
     #runs-on: ubuntu-latest
-    runs-on: ${{ matrix.os }}
+    # runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
     permissions:
@@ -100,6 +100,7 @@ jobs:
         ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
         # python-version: [ $PYTHON_VERSION ]
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4

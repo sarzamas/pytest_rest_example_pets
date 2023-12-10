@@ -119,12 +119,12 @@ jobs:
           check-latest: true
           architecture: x64
 
-      - name: Object remapping from JSON to JSON
-        uses: nickofthyme/object-remap@v2.0.0
-        with:
-          matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
-          os: ${{ fromJSON(needs.matrix_config.outputs.os) }}
-          python_version: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+#      - name: Object remapping from JSON to JSON
+#        uses: nickofthyme/object-remap@v2.0.0
+#        with:
+#          matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+#          os: ${{ fromJSON(needs.matrix_config.outputs.os) }}
+#          python_version: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
       - name: Display Python version
         run: python -c "import sys; print(f'🎌 Python-{sys.version}')"

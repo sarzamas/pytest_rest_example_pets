@@ -22,7 +22,8 @@ jobs:
       actions: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 'Checkout repo: ${{ github.repository }}'
+        uses: actions/checkout@v4
 
       - name: Clear previous sessions logs
         run: |

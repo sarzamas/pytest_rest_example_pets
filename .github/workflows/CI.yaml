@@ -13,6 +13,7 @@ env:
   PYTHON_VERSION: 3.12
   OS_TYPE: ubuntu-latest
 
+# Cancel workflow policy
 concurrency:
   group: CI-${{ github.ref }}
   cancel-in-progress: true
@@ -22,7 +23,7 @@ permissions:
 
 jobs:
   clear_logs:
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.OS_TYPE }}
     permissions:
       actions: write
 
@@ -31,8 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Clear previous sessions logs
-        run: |
-          ./.github/delete-logs.sh ${{ github.repository }} CI.yaml
+        run: ./.github/delete-logs.sh ${{ github.repository }} CI.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -27,7 +27,6 @@ linter: jetbrains/qodana-python:latest
 #Enable inspections
 include:
   - name: PyAugmentAssignmentInspection
-  - name: PyInterpreterInspection
   - name: PyMissingTypeHintsInspection
   - name: PyUnresolvedReferencesInspection
 

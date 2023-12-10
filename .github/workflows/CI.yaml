@@ -40,21 +40,21 @@ jobs:
       CONSTRUCTOR: '
         {
             \"include\": [{
-                \"python-version\": \"$PYTHON_VERSION\"
+                \"os\": \"$OS_TYPE\"
             },
             {
-                \"os\": \"$OS_TYPE\"
+                \"python-version\": \"$PYTHON_VERSION\"
             }]
         }
       '
-      A: '{\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}'
+      A: '{\"include\":[{\"os\":\"$OS_TYPE\"},{\"python-version\":\"$PYTHON_VERSION\"}]}'
 
     steps:
       - name: matrix constructor
         run: |
           CONST=$CONSTRUCTOR | jq -c .
           echo $CONST
-          JSON="{\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}"
+          JSON="{\"include\": [{\"os\": \"$OS_TYPE\"}, {\"python-version\": \"$PYTHON_VERSION\"}]}"
           echo $JSON
           echo $JSON | jq -c .
           echo "matrix=$JSON"
@@ -119,14 +119,15 @@ jobs:
           check-latest: true
           architecture: x64
 
-      - name: Display Python version
+      - name: Object remapping from JSON to JSON
+        uses: nickofthyme/object-remap@v2.0.0
         run: |
-          python -c "import sys; print(f'🎌 Python-{sys.version}')"
           echo ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
           echo ${{ fromJSON(needs.matrix_config.outputs.os) }}
           echo ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
-          
-          
+
+      - name: Display Python version
+        run: python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies
         run: |

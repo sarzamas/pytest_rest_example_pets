@@ -106,7 +106,7 @@ jobs:
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
-      - name: Show Matrix context
+      - name: Show Matrix context ${{ toJson(matrix) }}
         run: echo "${{ toJson(matrix) }}"
 
       - name: Check out repo ${{ github.repository }}

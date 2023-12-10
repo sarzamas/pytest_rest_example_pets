@@ -27,7 +27,7 @@ jobs:
       actions: write
 
     steps:
-      - name: Checkout repo ${{ github.repository }}
+      - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Clear previous sessions logs
@@ -106,10 +106,10 @@ jobs:
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
-      - name: Matrix context
+      - name: Show Matrix context
         run: echo "${{ toJson(matrix) }}"
 
-      - name: Checkout repo ${{ github.repository }}
+      - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
         with:
           # fetch all history for all branches and tags
@@ -148,7 +148,7 @@ jobs:
         python-version: [ 3.12 ]
 
     steps:
-      - name: Checkout repo ${{ github.repository }}
+      - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Set-Up Python ${{ matrix.python-version }}
@@ -199,7 +199,7 @@ jobs:
         python-version: [ 3.12 ]
 
     steps:
-      - name: Checkout repo ${{ github.repository }}
+      - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Set-Up Python ${{ matrix.python-version }}

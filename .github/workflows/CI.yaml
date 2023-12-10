@@ -107,7 +107,7 @@ jobs:
 
     steps:
       - name: Matrix context
-        run: echo ${{ toJson(matrix) }}
+        run: echo "${{ toJson(matrix) }}"
 
       - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4

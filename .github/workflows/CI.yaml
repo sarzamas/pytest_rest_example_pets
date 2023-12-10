@@ -52,6 +52,8 @@ jobs:
     steps:
       - name: matrix constructor
         run: |
+          CONST=$CONSTRUCTOR | jq -c .
+          echo $CONST
           JSON="{\"include\": [{\"python-version\": \"$PYTHON_VERSION\"}, {\"os\": \"$OS_TYPE\"}]}"
           echo $JSON
           echo $JSON | jq -c .

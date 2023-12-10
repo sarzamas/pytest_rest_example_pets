@@ -107,7 +107,8 @@ jobs:
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 'Checkout repo: ${{ github.repository }}'
+        uses: actions/checkout@v4
         with:
           # fetch all history for all branches and tags
           fetch-depth: 0
@@ -152,7 +153,8 @@ jobs:
         python-version: [ "3.12" ]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 'Checkout repo: ${{ github.repository }}'
+        uses: actions/checkout@v4
 
       - name: Set-Up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -202,7 +204,8 @@ jobs:
         python-version: [ "3.12" ]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 'Checkout repo: ${{ github.repository }}'
+        uses: actions/checkout@v4
 
       - name: Set-Up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4

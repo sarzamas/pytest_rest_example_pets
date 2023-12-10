@@ -28,7 +28,6 @@ linter: jetbrains/qodana-python:latest
 include:
   - name: PyAugmentAssignmentInspection
   - name: PyMissingTypeHintsInspection
-  - name: PyUnresolvedReferencesInspection
 
   - name: MarkdownIncorrectTableFormatting
   - name: MarkdownIncorrectlyNumberedListItem

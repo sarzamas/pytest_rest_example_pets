@@ -121,10 +121,10 @@ jobs:
 
       - name: Object remapping from JSON to JSON
         uses: nickofthyme/object-remap@v2.0.0
-        run: |
-          echo ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
-          echo ${{ fromJSON(needs.matrix_config.outputs.os) }}
-          echo ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+        with:
+          matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+          os: ${{ fromJSON(needs.matrix_config.outputs.os) }}
+          python_version: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
       - name: Display Python version
         run: python -c "import sys; print(f'🎌 Python-{sys.version}')"

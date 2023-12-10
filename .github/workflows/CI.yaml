@@ -59,7 +59,7 @@ jobs:
           echo $JSON | jq -c .
           echo "matrix=$JSON"
 
-      - name: 'matrix: [os_type], [python_version]'
+      - name: 'matrix: [ {os_type}, {python_version} ]'
         id: set_matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         # run: |
@@ -123,6 +123,10 @@ jobs:
         run: |
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
           echo ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+          echo ${{ fromJSON(needs.matrix_config.outputs.os) }}
+          echo ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+          
+          
 
       - name: Install dependencies
         run: |

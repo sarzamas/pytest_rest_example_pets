@@ -17,7 +17,7 @@ on:
         type: string
 
 concurrency:
-  group: ${{ github.head_ref || github.run_id }}
+  group: ${{ github.head_ref || Manual TestRun }}
   cancel-in-progress: true
 
 permissions:

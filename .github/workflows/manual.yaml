@@ -8,9 +8,9 @@ on:
     inputs:
       field:
         # Prompt to be shown in the UI
-        description: 'Push to Start...'
+        description: Push to Start...
         # Default value if no value is explicitly provided
-        default: '⬇️ Push button below to Run Test! ⬇️'
+        default: ⬇️ Push button below to Run Test! ⬇️
         # Input has to be provided for the workflow to run
         required: false
         # The data type of the input
@@ -29,14 +29,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Checkout repo: ${{ github.repository }}'
+      - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Set-Up Python
         uses: actions/setup-python@v4
         with:
           # Read python version from a file
-          python-version-file: 'pyproject.toml'
+          python-version-file: pyproject.toml
           check-latest: true
 
       - name: Display Python version

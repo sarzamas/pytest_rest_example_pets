@@ -9,8 +9,8 @@ on:
 
 # Constants to run workflow with:
 env:
-  PYTHON_VERSION: '3.12'
-  OS_TYPE: 'ubuntu-latest'
+  PYTHON_VERSION: 3.12
+  OS_TYPE: ubuntu-latest
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
       actions: write
 
     steps:
-      - name: 'Checkout repo: ${{ github.repository }}'
+      - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Clear previous sessions logs
@@ -60,7 +60,7 @@ jobs:
           echo $JSON | jq -c .
           echo "matrix=$JSON"
 
-      - name: 'matrix: [ {os_type}, {python_version} ]'
+      - name: matrix [ [{os_type}], [{python_version}] ]
         id: set_matrix
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         # run: |
@@ -72,13 +72,13 @@ jobs:
           echo "matrix=$JSON" >> $GITHUB_OUTPUT
 
 
-      - name: 'matrix: os_type'
+      - name: matrix [ os_type ]
         id: set_os_type
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
           echo "os_type={\"include\":[{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
 
-      - name: 'matrix: python_version'
+      - name: matrix [ python_version ]
         id: set_python_version
         # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
         run: |
@@ -100,14 +100,14 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            python-version: '3.12'
+            python-version: 3.12
         # os: [ $OS_TYPE ]
         #${{ fromJSON(needs.matrix_config.outputs.matrix) }}
         # python-version: [ $PYTHON_VERSION ]
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
-      - name: 'Checkout repo: ${{ github.repository }}'
+      - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4
         with:
           # fetch all history for all branches and tags
@@ -150,10 +150,10 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        python-version: [ "3.12" ]
+        python-version: [ 3.12 ]
 
     steps:
-      - name: 'Checkout repo: ${{ github.repository }}'
+      - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Set-Up Python ${{ matrix.python-version }}
@@ -201,10 +201,10 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        python-version: [ "3.12" ]
+        python-version: [ 3.12 ]
 
     steps:
-      - name: 'Checkout repo: ${{ github.repository }}'
+      - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4
 
       - name: Set-Up Python ${{ matrix.python-version }}

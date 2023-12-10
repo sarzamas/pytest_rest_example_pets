@@ -96,8 +96,11 @@ jobs:
       fail-fast: false
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
       matrix:
+        include:
+          - os: ubuntu-latest
+            python-version: '3.12'
         # os: [ $OS_TYPE ]
-        ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+        #${{ fromJSON(needs.matrix_config.outputs.matrix) }}
         # python-version: [ $PYTHON_VERSION ]
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
     runs-on: ${{ matrix.os }}

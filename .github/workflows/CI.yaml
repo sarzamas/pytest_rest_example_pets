@@ -63,12 +63,14 @@ jobs:
       fail-fast: false
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
       matrix:
-#        include:
-#          - os: ubuntu-latest
-#            python: 3.12
-        ${{ fromJSON(needs.matrix_config.outputs.json) }}
+        include:
+          - os: ubuntu-latest
+            python: 3.12
+#        ${{ fromJSON(needs.matrix_config.outputs.json) }}
 
     steps:
+      - run: echo ${{ fromJSON(needs.matrix_config.outputs.json) }}
+
       - name: Show Matrix context
         run: echo "${{ toJson(matrix) }}"
 

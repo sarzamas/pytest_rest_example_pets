@@ -106,7 +106,7 @@ jobs:
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
-      - name: Show Matrix context ${{ toJson(matrix) }}
+      - name: Show Matrix context
         run: echo "${{ toJson(matrix) }}"
 
       - name: Check out repo ${{ github.repository }}
@@ -148,6 +148,9 @@ jobs:
         python-version: [ 3.12 ]
 
     steps:
+      - name: Show Matrix context
+        run: echo "${{ toJson(matrix) }}"
+
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
@@ -199,6 +202,9 @@ jobs:
         python-version: [ 3.12 ]
 
     steps:
+      - name: Show Matrix context
+        run: echo "${{ toJson(matrix) }}"
+
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 

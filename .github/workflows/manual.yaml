@@ -1,5 +1,5 @@
 name: Manual TestRun
-run-name: Only Tests (on demand) 🚀🚀🚀
+run-name: 🚀🚀🚀 Only Tests (on demand) 🚀🚀🚀
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI or API
 on:
@@ -15,6 +15,10 @@ on:
         required: false
         # The data type of the input
         type: string
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

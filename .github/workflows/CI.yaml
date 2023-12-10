@@ -1,5 +1,5 @@
 name: CI/CD TestRun
-run-name: 🚧🚧🚧 Quality Gate 🚧🚧🚧
+run-name: 🧱🚧🧱 Quality Gate 🧱🚧🧱
 
 # Events to trigger workflow start:
 on:

@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   clear_logs:
-    runs-on: ${{ env.OS_TYPE }}
+    runs-on: ubuntu-latest
     permissions:
       actions: write
 
@@ -39,49 +39,15 @@ jobs:
   matrix_config:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.save.outputs.matrix }}
+      json: ${{ steps.save.outputs.json }}
 
     steps:
       - name:  Prepare matrix JSON Object
         id: save
         uses: nickofthyme/object-remap@v2.0.0
         with:
-          include.os: ubuntu-latest
-          include.python_version: 3.12
-          # include.*.base_sha: ${{ toJSON(fromJSON(steps.fetch.outputs.data).*.base.sha) }}
-
-      - name: matrix constructor
-        run: |
-          CONST=$CONSTRUCTOR | jq -c .
-          echo $CONST
-          JSON="{\"include\": [{\"os\": \"$OS_TYPE\"}, {\"python-version\": \"$PYTHON_VERSION\"}]}"
-          echo $JSON
-          echo $JSON | jq -c .
-          echo "matrix=$JSON"
-
-      - name: matrix [ [{os_type}], [{python_version}] ]
-        id: set_matrix
-        # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
-        # run: |
-        #   echo "matrix={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"},{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
-        run: |
-          JSON="{\"include\":[{\"os\":\"$OS_TYPE\"},{\"python-version\":\"$PYTHON_VERSION\"}]}"
-          echo $JSON
-          echo $JSON | jq -c .
-          echo "matrix=$JSON" >> $GITHUB_OUTPUT
-
-
-      - name: matrix [ os_type ]
-        id: set_os_type
-        # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
-        run: |
-          echo "os_type={\"include\":[{\"os\":\"$OS_TYPE\"}]}" >> $GITHUB_OUTPUT
-
-      - name: matrix [ python_version ]
-        id: set_python_version
-        # run echo "matrix=$(jq -c . < ./matrix.json)" >> $GITHUB_OUTPUT
-        run: |
-          echo "python_version={\"include\":[{\"python-version\":\"$PYTHON_VERSION\"}]}" >> $GITHUB_OUTPUT
+          include.os: ${{ env.OS_TYPE }}
+          include.python: ${{ env.PYTHON_VERSION }}
 
   qodana:
     runs-on: ${{ matrix.os }}
@@ -97,13 +63,10 @@ jobs:
       fail-fast: false
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
       matrix:
-        include:
-          - os: ubuntu-latest
-            python-version: 3.12
-        # os: [ $OS_TYPE ]
-        #${{ fromJSON(needs.matrix_config.outputs.matrix) }}
-        # python-version: [ $PYTHON_VERSION ]
-        # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
+#        include:
+#          - os: ubuntu-latest
+#            python: 3.12
+        ${{ fromJSON(needs.matrix_config.outputs.json) }}
 
     steps:
       - name: Show Matrix context
@@ -115,11 +78,11 @@ jobs:
           # fetch all history for all branches and tags
           fetch-depth: 0
 
-      - name: Set-Up Python ${{ matrix.python-version }}
+      - name: Set-Up Python ${{ matrix.python }}
         uses: actions/setup-python@v4
         with:
           # python-version: '3.12'
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python }}
           check-latest: true
           architecture: x64
 

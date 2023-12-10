@@ -32,30 +32,24 @@ jobs:
 
       - name: Clear previous sessions logs
         run: |
-          ./.github/delete-logs.sh sarzamas/pytest_rest_example_pets CI.yaml
+          ./.github/delete-logs.sh ${{ github.repository }} CI.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   matrix_config:
     runs-on: ubuntu-latest
     outputs:
-      os: ${{ steps.set_os_type.outputs.os_type }}
-      python_version: ${{ steps.set_python_version.outputs.python_version }}
-      matrix: ${{ steps.set_matrix.outputs.matrix }}
-    env:
-      CONSTRUCTOR: '
-        {
-            \"include\": [{
-                \"os\": \"$OS_TYPE\"
-            },
-            {
-                \"python-version\": \"$PYTHON_VERSION\"
-            }]
-        }
-      '
-      A: '{\"include\":[{\"os\":\"$OS_TYPE\"},{\"python-version\":\"$PYTHON_VERSION\"}]}'
+      matrix: ${{ steps.save.outputs.matrix }}
 
     steps:
+      - name:  Prepare matrix JSON Object
+        id: save
+        uses: nickofthyme/object-remap@v2.0.0
+        with:
+          include.os: ubuntu-latest
+          include.python_version: 3.12
+          # include.*.base_sha: ${{ toJSON(fromJSON(steps.fetch.outputs.data).*.base.sha) }}
+
       - name: matrix constructor
         run: |
           CONST=$CONSTRUCTOR | jq -c .
@@ -112,6 +106,9 @@ jobs:
         # ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
     steps:
+      - name: Matrix context
+        run: echo ${{ toJson(matrix) }}
+
       - name: Checkout repo ${{ github.repository }}
         uses: actions/checkout@v4
         with:
@@ -125,13 +122,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           check-latest: true
           architecture: x64
-
-#      - name: Object remapping from JSON to JSON
-#        uses: nickofthyme/object-remap@v2.0.0
-#        with:
-#          matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
-#          os: ${{ fromJSON(needs.matrix_config.outputs.os) }}
-#          python_version: ${{ fromJSON(needs.matrix_config.outputs.python_version) }}
 
       - name: Display Python version
         run: python -c "import sys; print(f'🎌 Python-{sys.version}')"

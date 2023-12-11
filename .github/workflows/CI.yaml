@@ -46,16 +46,14 @@ jobs:
   matrix_config:
     runs-on: ubuntu-latest
     outputs:
-      json: ${{ steps.save.outputs.json }}
+      matrix: ${{ steps.save.outputs.json }}
 
     steps:
       - name:  Prepare matrix JSON Object
         id: save
         uses: nickofthyme/object-remap@v2.0.0
         with:
-          __case: kebab
-          include: '[os: ${{ env.OS_TYPE }} ]'
-          #python: ${{ env.PYTHON_VERSION }}
+          matrix: '[ os: [ ${{ env.OS_TYPE }} ], python: [ ${{ env.PYTHON_VERSION }} ]]'
 
   qodana:
     runs-on: ${{ matrix.os }}

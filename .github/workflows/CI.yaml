@@ -39,7 +39,7 @@ jobs:
         run: pwd && ls -lah
 
       - name: Clear previous sessions logs
-        run: delete-logs.sh ${{ github.repository }} CI.yaml
+        run: ./delete-logs.sh ${{ github.repository }} CI.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

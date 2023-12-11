@@ -24,10 +24,10 @@ permissions:
 jobs:
   clear_logs:
     runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        shell: bash
-#        working-directory: ./github/scripts
+    defaults:
+      run:
+        shell: bash
+        working-directory: .github/scripts
     permissions:
       actions: write
 
@@ -35,11 +35,11 @@ jobs:
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
+      - name: Show Content
+        run: pwd && ls -lah
+
       - name: Clear previous sessions logs
-        run: |
-          pwd
-          ls -lah
-          .github/scripts/delete-logs.sh ${{ github.repository }} CI.yaml
+        run: delete-logs.sh ${{ github.repository }} CI.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

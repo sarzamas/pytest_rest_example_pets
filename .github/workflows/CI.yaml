@@ -24,6 +24,10 @@ permissions:
 jobs:
   clear_logs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./github/scripts
     permissions:
       actions: write
 
@@ -32,7 +36,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Clear previous sessions logs
-        run: ./.github/delete-logs.sh ${{ github.repository }} CI.yaml
+        run: delete-logs.sh ${{ github.repository }} CI.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

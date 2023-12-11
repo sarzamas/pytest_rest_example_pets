@@ -54,6 +54,7 @@ jobs:
         uses: nickofthyme/object-remap@v2.0.0
         with:
           include:  '[ os.[ ${{ env.OS_TYPE }} ], python.[ ${{ env.PYTHON_VERSION }} ]]'
+          __case: "kebab"
 
   qodana:
     runs-on: ${{ matrix.os }}

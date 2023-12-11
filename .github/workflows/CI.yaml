@@ -73,8 +73,8 @@ jobs:
 #        ${{ fromJSON(needs.matrix_config.outputs.json) }}
 
     steps:
-      - run: echo ${{ toJSON(fromJSON(needs.matrix_config.outputs.json)) }}
-                # ${{ toJSON(fromJSON(steps.mock.outputs.json).array.*.test) }}
+#      - run: echo ${{ toJSON(fromJSON(needs.matrix_config.outputs.json)) }}
+#                # ${{ toJSON(fromJSON(steps.mock.outputs.json).array.*.test) }}
       - name: Show Matrix context
         run: echo "${{ toJson(matrix) }}"
 

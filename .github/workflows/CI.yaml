@@ -10,7 +10,7 @@ on:
 
 # Constants to run workflow with:
 env:
-  PYTHON_VERSION: 3.12
+  PYTHON_VERSION: '3.12'
   OS_TYPE: ubuntu-latest
 
 # Cancel workflow policy

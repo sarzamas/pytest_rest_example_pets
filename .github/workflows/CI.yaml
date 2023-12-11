@@ -39,7 +39,7 @@ jobs:
         run: |
           pwd
           ls -lah
-          ./.github/scripts/delete-logs.sh ${{ github.repository }} CI.yaml
+          .github/scripts/delete-logs.sh ${{ github.repository }} CI.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

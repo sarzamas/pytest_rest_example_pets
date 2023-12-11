@@ -44,8 +44,9 @@ jobs:
     steps:
       - name:  Prepare matrix JSON Object
         id: save
-        uses: nickofthyme/object-remap@v2.0.0
+        uses: nickofthyme/object-remap@main
         with:
+          __case: kebab
           include.os: ${{ env.OS_TYPE }}
           include.python: ${{ env.PYTHON_VERSION }}
 

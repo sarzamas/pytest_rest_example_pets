@@ -54,7 +54,7 @@ jobs:
         uses: nickofthyme/object-remap@v2.0.0
         with:
           __case: kebab
-          include: os.[ ${{ env.OS_TYPE }} ]
+          include.os: [ ${{ env.OS_TYPE }} ]
           #include: python.[ ${{ env.PYTHON_VERSION }} ]
 
   qodana:

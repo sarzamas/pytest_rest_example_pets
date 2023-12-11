@@ -46,7 +46,7 @@ jobs:
   matrix_config:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.save.outputs.json }}
+      json: ${{ steps.save.outputs.json }}
 
     steps:
       - name:  Prepare matrix JSON Object

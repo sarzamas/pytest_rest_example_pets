@@ -1,6 +1,8 @@
 import pytest
 import requests as r
 
+from tests import change_handler
+
 
 @pytest.mark.pet
 @pytest.mark.DELETE
@@ -80,9 +82,33 @@ class TestCheckPetDELETE:
         assert result['code'] == 405
         assert result['type'] == 'unknown'
 
-    @pytest.mark.xfail
     @pytest.mark.negative
     def test_pet_delete_validate_negative2(self, data, faker):
+        """
+        Тест проверки валидации данных при удалении записи для группы хендлеров /pet:
+            DELETE /<HANDLER>
+            - неверный параметр - `Id` (Swagger.json)
+            - параметры ответа (HTTP 400)
+        :param data: фикстура подготовки тестовых данных для этого класса тестов
+        """
+        query_data = data['query_data'].copy()
+        __ = [0, f"-{faker.int()}", f"{faker.int(length=1)}.{faker.int(length=1)}", faker.fwords(nb=1, lang='en')]
+        for _ in __:
+            query_data['url'] += f"/{_}"
+
+            res = r.delete(**query_data)
+            assert res.status_code == 404
+            if not res.text == '':
+                result = res.json()
+                assert result['code'] == 404
+                assert result['type'] == 'unknown'
+                assert 'NumberFormatException' in result['message']
+
+            query_data['url'] = change_handler(query_data['url'])
+
+    @pytest.mark.xfail
+    @pytest.mark.negative
+    def test_pet_delete_validate_negative3(self, data, faker):
         """
         Тест проверки валидации данных при запросе записей для группы хендлеров /pet:
             DELETE /<HANDLER>

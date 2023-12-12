@@ -56,10 +56,26 @@ gh api \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   /octocat
 
-# GitHub CLI api
+
+
+
+# GitHub CLI api versions
 # https://cli.github.com/manual/gh_api
 
 echo "Github API versions:"
 gh api \
   -H "Accept: application/vnd.github+json" \
   /versions
+
+
+gh api \
+  --method GET \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  /meta
+
+gh api \
+  --method GET \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  /

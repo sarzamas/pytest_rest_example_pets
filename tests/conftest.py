@@ -39,7 +39,7 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
         headers = {
             'Content-type': 'application/json; charset=utf-8',
             'Accept': 'application/json',
-            'Api_key': api_key if api_key else None,
+            'api_key': api_key if api_key else None,
         }
         query_data['url'] = f'{base_url}/{resource}'
         query_data['headers'] = headers

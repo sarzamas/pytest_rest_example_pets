@@ -10,8 +10,8 @@ on:
 
 # Constants to run workflow with:
 env:
-  PYTHON_VERSION: '3.12'
-  OS_TYPE: ubuntu-latest
+  PYTHON_VERSION: '[3.12]'
+  OS_TYPE: '[ubuntu-latest]'
 
 # Cancel workflow policy
 concurrency:
@@ -69,8 +69,8 @@ jobs:
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
       matrix:
         include:
-          - os: ubuntu-latest
-            python: 3.12
+          - os: ${{ env.OS_TYPE }}
+            python: ${{ env.PYTHON_VERSION }}
 #        ${{ fromJSON(needs.matrix_config.outputs.json) }}
 
     steps:

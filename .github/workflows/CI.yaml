@@ -35,7 +35,7 @@ jobs:
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
-      - name: Show Content
+      - name: Show available scripts
         run: pwd && ls -lah
 
       - name: Clear previous sessions logs

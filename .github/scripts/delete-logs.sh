@@ -59,7 +59,7 @@ gh api \
 # GitHub CLI api
 # https://cli.github.com/manual/gh_api
 
+echo "Github API versions:"
 gh api \
   -H "Accept: application/vnd.github+json" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
   /versions

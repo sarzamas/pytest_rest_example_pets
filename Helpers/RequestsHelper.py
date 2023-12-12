@@ -23,5 +23,5 @@ class ApiKey(AuthBase):
 
     def __call__(self, r):
         """- modify and return the request"""
-        r.headers['ApiKey'] = self.apikey
+        r.headers['api_key'] = self.apikey
         return r

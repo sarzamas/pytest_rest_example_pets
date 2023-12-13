@@ -11,7 +11,7 @@ on:
 # Constants to run workflow with:
 env:
   PYTHON_VERSION: '[3.12]'
-  OS_TYPE: '["ubuntu-latest"]'
+  OS_TYPE: '["ubuntu-latest", windows-latest]'
   QODANA_CLOUD: https://qodana.cloud/projects/3B4gd/reports
 
 # Cancel workflow policy

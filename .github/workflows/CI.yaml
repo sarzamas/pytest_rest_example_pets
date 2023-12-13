@@ -81,6 +81,9 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
+    env:
+      os: The operating system on the runner is
+
     steps:
       - name: Dump matrix context
         env:
@@ -101,11 +104,13 @@ jobs:
           architecture: x64
 
       - name: Display Python version
-        env:
-          OS: ${{ toJson(matrix.os) }}
-#        if: ${{ env.MATRIX_CONTEXT.os }} == windows-latest
+        if: runner.os == 'Windows'
         run: |
-          echo "OS: $OS"
+          echo "${{ env.os }} `$env:RUNNER_OS.`"
+          python -c "import sys; print(f'Python-{sys.version}')"
+      - if: runner.os != 'Windows'
+        run: |
+          echo "${{ env.os }} `$RUNNER_OS.`"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies

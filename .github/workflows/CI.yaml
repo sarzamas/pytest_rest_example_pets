@@ -111,8 +111,8 @@ jobs:
       - if: runner.os == 'Windows'
         shell: python
         run: |
-          print('${{ env.os }} $env:RUNNER_OS')
-          import sys; print(f'Python-{sys.version}')
+          import os sys
+          print(f"{${{ env.os }}} {$env:RUNNER_OS}{os.linesep}Python-{sys.version}")
 
       - name: Install dependencies
         run: |

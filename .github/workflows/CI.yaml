@@ -12,6 +12,7 @@ on:
 env:
   PYTHON_VERSION: '[3.12]'
   OS_TYPE: '["ubuntu-latest"]'
+  QODANA_CLOUD: https://qodana.cloud/projects/3B4gd/reports
 
 # Cancel workflow policy
 concurrency:
@@ -106,7 +107,7 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
       - name: Qodana Report
-        run: echo "🏁 Qodana Cloud 🏁 -  https://qodana.cloud/projects/3B4gd/reports/4eb5W"
+        run: echo "🏁 Qodana Cloud 🏁 -  ${{ env.QODANA_CLOUD }}"
 
   lint:
     runs-on: ${{ matrix.os }}

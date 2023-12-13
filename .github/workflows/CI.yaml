@@ -110,7 +110,7 @@ jobs:
 
   lint:
     runs-on: ${{ matrix.os }}
-    needs: clear_logs
+    needs: [ clear_logs, matrix_config ]
 
     strategy:
       fail-fast: false
@@ -163,7 +163,7 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
-    needs: clear_logs
+    needs: [ clear_logs, matrix_config ]
 
     strategy:
       fail-fast: false

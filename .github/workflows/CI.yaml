@@ -46,15 +46,21 @@ jobs:
   matrix_config:
     runs-on: ubuntu-latest
     outputs:
-      json: ${{ steps.save.outputs.json }}
+      matrix: ${{ steps.save.outputs.json }}
 
     steps:
-      - name:  Prepare matrix JSON Object
+      - name: Prepare matrix JSON Object
         id: save
         uses: nickofthyme/object-remap@v2.0.0
         with:
-          include:  '[ os.[ ${{ env.OS_TYPE }} ], python.[ ${{ env.PYTHON_VERSION }} ]]'
           __case: "kebab"
+          os: ${{ env.OS_TYPE }}
+          python_version: ${{ env.PYTHON_VERSION }}
+          #include:  '[ os.[ ${{ env.OS_TYPE }} ], python.[ ${{ env.PYTHON_VERSION }} ]]'
+      - name: Dump matrix content
+        env:
+           NP_MATRIX: ${{ toJson(steps.save.outputs.json) }}
+        run: echo "$NP_MATRIX"
 
   qodana:
     runs-on: ${{ matrix.os }}
@@ -69,8 +75,10 @@ jobs:
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
       matrix:
         include:
-          - os: ${{ env.OS_TYPE }}
-            python: ${{ env.PYTHON_VERSION }}
+          - os: ubuntu-latest
+            #${{ env.OS_TYPE }}
+            python: 3.12
+            #${{ env.PYTHON_VERSION }}
 #        ${{ fromJSON(needs.matrix_config.outputs.json) }}
 
     steps:

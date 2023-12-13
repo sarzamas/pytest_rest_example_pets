@@ -107,7 +107,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           echo "${{ env.os }} `$env:RUNNER_OS.`"
-          python -c "import sys; print(f'Python-{sys.version}')"
+#          python -c "import sys; print(f'Python-{sys.version}')"
       - if: runner.os != 'Windows'
         run: |
           echo "${{ env.os }} `$RUNNER_OS.`"

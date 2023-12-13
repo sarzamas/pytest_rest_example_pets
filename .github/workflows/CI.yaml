@@ -56,6 +56,7 @@ jobs:
           __case: "kebab"
           os: ${{ env.OS_TYPE }}
           python_version: ${{ env.PYTHON_VERSION }}
+
       - name: Dump matrix content
         env:
            MATRIX: ${{ toJson(steps.save.outputs.json) }}
@@ -71,7 +72,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:  ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
       - name: Dump matrix context
@@ -113,9 +114,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        os: [ ubuntu-latest ]
-        python-version: [ 3.12 ]
+      matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
       - name: Show Matrix context
@@ -168,9 +167,7 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        os: [ ubuntu-latest ]
-        python-version: [ 3.12 ]
+      matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
       - name: Show Matrix context

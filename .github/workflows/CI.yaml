@@ -65,7 +65,7 @@ jobs:
       - name: Dump matrix content
         env:
            MATRIX: ${{ toJson(steps.prepare.outputs.json) }}
-        run: echo "MATRIX"
+        run: echo "$MATRIX"
 
   # *******************************
   qodana:

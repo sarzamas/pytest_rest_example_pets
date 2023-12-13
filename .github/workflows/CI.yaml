@@ -73,19 +73,19 @@ jobs:
     strategy:
       fail-fast: false
       # https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
-      matrix:
-        include:
-          - os: ubuntu-latest
+      matrix:  ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+      #  include:
+      #    - os: ubuntu-latest
             #${{ env.OS_TYPE }}
-            python: 3.12
+      #      python: 3.12
             #${{ env.PYTHON_VERSION }}
 #        ${{ fromJSON(needs.matrix_config.outputs.json) }}
 
     steps:
-#      - run: echo ${{ toJSON(fromJSON(needs.matrix_config.outputs.json)) }}
-#                # ${{ toJSON(fromJSON(steps.mock.outputs.json).array.*.test) }}
-      - name: Show Matrix context
-        run: echo "${{ toJson(matrix) }}"
+      - name: Dump matrix context
+        env:
+            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
@@ -96,7 +96,6 @@ jobs:
       - name: Set-Up Python ${{ matrix.python }}
         uses: actions/setup-python@v4
         with:
-          # python-version: '3.12'
           python-version: ${{ matrix.python }}
           check-latest: true
           architecture: x64

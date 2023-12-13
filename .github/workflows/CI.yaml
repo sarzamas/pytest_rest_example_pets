@@ -109,9 +109,10 @@ jobs:
           echo "${{ env.os }} $RUNNER_OS"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
       - if: runner.os == 'Windows'
+        shell: python
         run: |
-          echo "${{ env.os }} $env:RUNNER_OS"
-#          python -c "import sys; print(f'Python-{sys.version}')"
+          print('${{ env.os }} $env:RUNNER_OS'
+          import sys; print(f'Python-{sys.version}')
 
       - name: Install dependencies
         run: |

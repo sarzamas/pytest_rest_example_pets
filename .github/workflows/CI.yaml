@@ -46,11 +46,11 @@ jobs:
   matrix_config:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.save.outputs.json }}
+      matrix: ${{ steps.prepare.outputs.json }}
 
     steps:
       - name: Prepare matrix JSON Object
-        id: save
+        id: prepare
         uses: nickofthyme/object-remap@v2.0.0
         with:
           __case: kebab

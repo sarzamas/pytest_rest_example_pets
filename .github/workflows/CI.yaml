@@ -111,7 +111,7 @@ jobs:
       - if: runner.os == 'Windows'
         shell: python
         run: |
-          import os, platform, sys
+          import os, platform, sys; sys.stdout.reconfigure(encoding='utf-8')
           print(f"{os.linesep}${{ env.os }} {platform.system()}{os.linesep}🎌 Python-{sys.version}")
 
       - name: Install dependencies

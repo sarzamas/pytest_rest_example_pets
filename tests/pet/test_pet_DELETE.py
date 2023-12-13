@@ -98,7 +98,7 @@ class TestCheckPetDELETE:
 
             res = r.delete(**query_data)
             assert res.status_code == 404
-            if not res.text == '':
+            if res.text:
                 result = res.json()
                 assert result['code'] == 404
                 assert result['type'] == 'unknown'

@@ -110,7 +110,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Qodana Scan
@@ -151,7 +151,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install black colorama emoji flake8 isort mypy pylint --upgrade
 
@@ -208,7 +208,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Test with pytest

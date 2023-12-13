@@ -56,7 +56,7 @@ jobs:
           echo ${{ inputs.field }}
 
       - name: Run Test with pytest
-        run: pytest --junitxml=report.xml
+        run: pytest --junitxml=junit/test-results-${{ steps.store.outputs.version }}.xml
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3

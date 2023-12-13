@@ -86,10 +86,10 @@ jobs:
           # fetch all history for all branches and tags
           fetch-depth: 0
 
-      - name: Set-Up Python ${{ matrix.python }}
+      - name: Set-Up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python }}
+          python-version: ${{ matrix.python-version }}
           check-latest: true
           architecture: x64
 
@@ -117,8 +117,10 @@ jobs:
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
-      - name: Show Matrix context
-        run: echo "${{ toJson(matrix) }}"
+      - name: Dump matrix context
+        env:
+            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
@@ -170,8 +172,10 @@ jobs:
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
-      - name: Show Matrix context
-        run: echo "${{ toJson(matrix) }}"
+      - name: Dump matrix context
+        env:
+            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4

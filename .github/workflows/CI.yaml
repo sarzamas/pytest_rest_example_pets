@@ -112,7 +112,7 @@ jobs:
         shell: python
         run: |
           import os, platform, sys
-          print(f"${{ env.os }} {platform.system()}{os.linesep}Python-{sys.version}")
+          print(f"{os.linesep}${{ env.os }} {platform.system()}{os.linesep}Python-{sys.version}")
 
       - name: Install dependencies
         run: |

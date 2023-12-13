@@ -101,7 +101,12 @@ jobs:
           architecture: x64
 
       - name: Display Python version
-        run: python -c "import sys; print(f'🎌 Python-{sys.version}')"
+        env:
+          OS: ${{ toJson(matrix.os) }}
+#        if: ${{ env.MATRIX_CONTEXT.os }} == windows-latest
+        run: |
+          echo "$OS"
+          python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies
         run: |

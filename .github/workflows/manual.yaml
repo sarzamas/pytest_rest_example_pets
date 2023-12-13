@@ -39,8 +39,11 @@ jobs:
           python-version-file: pyproject.toml
           check-latest: true
 
-      - name: Display Python version
-        run: python -c "import sys; print(f'🎌 Python-{sys.version}')"
+      - name: Display and Store Python version
+        id: store
+        run: |
+          python -c "import sys; print(f'🎌 Python-{sys.version}')"
+          echo "version=$(python --version)" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
         run: |
@@ -59,5 +62,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: report.xml
+          path: junit/test-results-${{ steps.store.outputs.version }}.xml
           retention-days: 5

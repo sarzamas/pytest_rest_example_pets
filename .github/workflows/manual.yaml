@@ -23,9 +23,10 @@ concurrency:
 permissions:
   contents: read
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test:
+    env:
+      OS_TEXT: The operating system on the runner is
     runs-on: ubuntu-latest
 
     steps:
@@ -42,6 +43,7 @@ jobs:
       - name: Display and Store Python version
         id: store
         run: |
+          echo "${{ env.OS_TEXT }} $RUNNER_OS"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
           echo "version=$(python --version)" >> $GITHUB_OUTPUT
 

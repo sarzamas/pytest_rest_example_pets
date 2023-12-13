@@ -23,7 +23,9 @@ permissions:
   contents: read
 
 jobs:
+  # *******************************
   clear_logs:
+  # *******************************
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,7 +46,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  # *******************************
   matrix_config:
+  # *******************************
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.prepare.outputs.json }}
@@ -63,7 +67,9 @@ jobs:
            MATRIX: ${{ toJson(steps.save.outputs.json) }}
         run: echo "$MATRIX"
 
+  # *******************************
   qodana:
+  # *******************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
@@ -109,7 +115,9 @@ jobs:
       - name: Qodana Report
         run: echo "🏁 Qodana Cloud 🏁 -  ${{ env.QODANA_CLOUD }}"
 
+  # *******************************
   lint:
+  # *******************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
@@ -164,7 +172,9 @@ jobs:
           # stop the build if there are Python syntax errors or undefined names
           # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
+  # *******************************
   test:
+  # *******************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 

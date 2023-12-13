@@ -155,10 +155,10 @@ jobs:
           architecture: x64
 
       - name: Display Python version
-        if: runner.os != 'Windows'
+        shell: python
         run: |
-          echo "${{ env.os }} $RUNNER_OS"
-          python -c "import sys; print(f'🎌 Python-{sys.version}')"
+          import os, platform, sys; sys.stdout.reconfigure(encoding='utf-8')
+          print(f"{os.linesep}${{ env.os }} {platform.system()}{os.linesep}🎌 Python-{sys.version}")
 
       - name: Install dependencies
         run: |
@@ -215,10 +215,10 @@ jobs:
           architecture: x64
 
       - name: Display Python version
-        if: runner.os != 'Windows'
+        shell: python
         run: |
-          echo "${{ env.os }} $RUNNER_OS"
-          python -c "import sys; print(f'🎌 Python-{sys.version}')"
+          import os, platform, sys; sys.stdout.reconfigure(encoding='utf-8')
+          print(f"{os.linesep}${{ env.os }} {platform.system()}{os.linesep}🎌 Python-{sys.version}")
 
       - name: Install dependencies
         run: |

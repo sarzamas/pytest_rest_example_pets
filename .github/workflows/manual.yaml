@@ -72,5 +72,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: echo ${{ env.REPORT_PATH) }}
+          path: echo ${{ env.REPORT_PATH }}
           retention-days: 5

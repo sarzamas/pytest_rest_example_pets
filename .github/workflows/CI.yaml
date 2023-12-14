@@ -72,7 +72,7 @@ jobs:
       - name: Dump matrix content
         env:
           MATRIX: ${{ toJSON(steps.prepare.outputs.json) }}
-        run: echo "$MATRIX"
+        run: echo $MATRIX
 
   # *******************************
   qodana:
@@ -92,7 +92,7 @@ jobs:
       - name: Show matrix context
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+        run: echo $MATRIX_CONTEXT
 
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
@@ -140,7 +140,7 @@ jobs:
       - name: Show matrix context
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+        run: echo $MATRIX_CONTEXT
 
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
@@ -201,7 +201,7 @@ jobs:
       - name: Show matrix context
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+        run: echo $MATRIX_CONTEXT
 
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4

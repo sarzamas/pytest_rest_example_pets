@@ -86,8 +86,6 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
-    if: runner.os != 'Windows'
-
     steps:
       - name: Dump matrix context
         env:
@@ -119,6 +117,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Qodana Scan
+        if: runner.os != 'Windows'
         uses: JetBrains/qodana-action@v2023.2
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}

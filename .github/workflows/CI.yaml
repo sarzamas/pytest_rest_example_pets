@@ -89,7 +89,7 @@ jobs:
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
-      - name: Dump matrix context
+      - name: Show matrix context
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
@@ -137,7 +137,7 @@ jobs:
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
-      - name: Dump matrix context
+      - name: Show matrix context
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
@@ -198,7 +198,7 @@ jobs:
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
 
     steps:
-      - name: Dump matrix context
+      - name: Show matrix context
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"

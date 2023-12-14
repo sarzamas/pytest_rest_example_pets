@@ -77,5 +77,7 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 5
-      - name: Show artifact ID
-        run: echo "Artifact ID is ${{ steps.artifact.outputs.artifact-id }}"
+      - name: Artifact ID is ${{ env.ID }}
+        env:
+          ID: ${{ steps.artifact.outputs.artifact-id }}
+        run: echo ${{ env.ID }}

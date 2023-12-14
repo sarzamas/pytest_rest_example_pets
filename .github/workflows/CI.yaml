@@ -230,7 +230,7 @@ jobs:
       - name: Archive TestRun results
         uses: actions/upload-artifact@v4
         with:
-          name: TestRun report ${{ matrix.os }} ${{ matrix.version }}
+          name: 'TestRun report ${{ matrix.os }} ${{ matrix.version }}'
           path: ./report.xml
           if-no-files-found: error
           compression-level: 0

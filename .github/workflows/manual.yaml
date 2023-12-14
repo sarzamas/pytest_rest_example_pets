@@ -65,7 +65,9 @@ jobs:
         env:
           PARAMS: $(echo "--junitxml=junit/test-results-${{ steps.store.outputs.version }}.xml")
           # | tr ' ' '-'
-        run: pytest $PARAMS
+        run: |
+          echo "$PARAMS"
+          pytest $PARAMS
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3

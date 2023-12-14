@@ -66,11 +66,11 @@ jobs:
           REPORT_PATH: TestRun-report-${{ steps.store.outputs.version }}.xml
         run: |
           pytest $(echo "--junitxml=$REPORT_PATH")
-          echo "REPORT_PATH=$(echo $REPORT_PATH)" >> $GITHUB_OUTPUT
+          echo "path=$(echo $REPORT_PATH)" >> $GITHUB_OUTPUT
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: echo ${{ env.REPORT_PATH }}
+          path: echo ${{ steps.testrun.outputs.path }}
           retention-days: 5

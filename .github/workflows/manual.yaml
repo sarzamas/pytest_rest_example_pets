@@ -45,8 +45,8 @@ jobs:
         id: store
         run: |
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
-          echo "version=$(python --version | tr ' ' '-')"
-          echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT | cat $GITHUB_OUTPUT
+          echo "version=$(python --version | tr ' ' '-')" | tee -a >> $GITHUB_OUTPUT
+#          echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
       - run: echo ${{ toJson(steps.store.outputs.version) }}
 
@@ -62,7 +62,7 @@ jobs:
 
       - name: Run Test with pytest
         env:
-          PARAMS: --junitxml=./junit/report-${{ steps.store.outputs.version }}.xml
+          PARAMS: --junitxml=./junit/TestRun-report-${{ steps.store.outputs.version }}.xml
         run: |
           echo "${{ env.PARAMS }}" >> $GITHUB_ENV
           pytest $(echo "${{ env.PARAMS }}")

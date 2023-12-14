@@ -13,6 +13,7 @@ env:
   PYTHON_VERSION: '[3.12]'
   OS_TEXT: The operating system on the runner is
   OS_TYPE: '["ubuntu-latest", "windows-latest"]'
+  EXCLUDE: '["os: "windows-latest", "python-version": 3.12]'
   QODANA_CLOUD: https://qodana.cloud/projects/3B4gd/reports
 
 # Cancel workflow policy
@@ -66,14 +67,12 @@ jobs:
           __case: kebab
           os: ${{ env.OS_TYPE }}
           python_version: ${{ env.PYTHON_VERSION }}
-          # exclude: '[\"os\": \"windows-latest\", \"python-version\": ${{ env.PYTHON_VERSION }}]'
+          exclude: ${{ env.EXCLUDE }}
 
       - name: Dump matrix content
         env:
           MATRIX: ${{ toJson(steps.prepare.outputs.json) }}
-        run: |
-          echo "This is the matrix content ******" >> $GITHUB_STEP_SUMMARY
-          echo "$MATRIX"
+        run: echo "$MATRIX"
 
   # *******************************
   qodana:

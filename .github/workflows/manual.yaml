@@ -45,9 +45,9 @@ jobs:
         id: store
         run: |
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
-          python -c "import sys; print(f'🎌 Python-{sys.version}')"
           echo "version=$(python --version | tr ' ' '-')"
           echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
+          python -c "import sys; print(f'🎌 Python-{sys.version}')"
       - run: echo ${{ toJson(steps.store.outputs.version) }}
 
       - name: Install dependencies
@@ -61,11 +61,14 @@ jobs:
           echo ${{ inputs.field }}
 
       - name: Run Test with pytest
-        run: pytest --junitxml=report.xml
+        env:
+          PARAMS: echo "--junitxml=./junit/report-${{ steps.store.outputs.version }}.xml"
+        run: pytest ${{ env.PARAMS }}
+        # run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: report.xml
+          path: echo "${{ env.PARAMS }}" | tr -d '--junitxml='
           retention-days: 5

@@ -66,12 +66,14 @@ jobs:
           __case: kebab
           os: ${{ env.OS_TYPE }}
           python_version: ${{ env.PYTHON_VERSION }}
-          exclude: '[\"os\": \"windows-latest\", \"python-version\": ${{ env.PYTHON_VERSION }}]'
+#          exclude: '[\"os\": \"windows-latest\", \"python-version\": ${{ env.PYTHON_VERSION }}]'
 
       - name: Dump matrix content
         env:
           MATRIX: ${{ toJson(steps.prepare.outputs.json) }}
-        run: echo "$MATRIX"
+        run: |
+          echo "This is the matrix content ******" >> $GITHUB_STEP_SUMMARY
+          echo "$MATRIX"
 
   # *******************************
   qodana:

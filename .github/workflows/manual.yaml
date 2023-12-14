@@ -63,7 +63,7 @@ jobs:
         env:
           JUNIT_REPORT_PATH: ./junit/TestRun-report-${{ steps.store.outputs.version }}.xml
         run: |
-          echo "${{ env.PARAMS }}" >> $GITHUB_ENV
+          echo "${{ env.JUNIT_REPORT_PATH }}" >> $GITHUB_ENV
           pytest $(echo "--junitxml=${{ env.JUNIT_REPORT_PATH }}")
         # run: pytest --junitxml=report.xml
 
@@ -71,5 +71,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: echo "${{ env.PARAMS }}" | tr -d '--junitxml='
+          path: echo "${{ env.JUNIT_REPORT_PATH }}"
           retention-days: 5

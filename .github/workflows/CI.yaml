@@ -13,7 +13,7 @@ env:
   PYTHON_VERSION: '[3.12]'
   OS_TEXT: The operating system on the runner is
   OS_TYPE: '["ubuntu-latest", "windows-latest"]'
-  EXCLUDE: '{"exclude":["os":"windows-latest","python-version":3.12]}'
+  EXCLUDE: '{"exclude":[{"os":"windows-latest"},{"python-version":3.12}]}'
   QODANA_CLOUD: https://qodana.cloud/projects/3B4gd/reports
 
 # Cancel workflow policy

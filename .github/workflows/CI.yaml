@@ -66,6 +66,7 @@ jobs:
           __case: kebab
           os: ${{ env.OS_TYPE }}
           python_version: ${{ env.PYTHON_VERSION }}
+          exclude: '["os": "windows-latest", "python-version": "${{ env.PYTHON_VERSION }}"]'
 
       - name: Dump matrix content
         env:

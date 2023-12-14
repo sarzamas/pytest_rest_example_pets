@@ -47,7 +47,7 @@ jobs:
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
           echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
-      - run: echo ${{ toJson(steps.store.outputs.version) }}
+      - run: echo ${{ toJSON(steps.store.outputs.version) }}
 
       - name: Install dependencies
         run: |
@@ -61,15 +61,14 @@ jobs:
 
       - name: Run Test with pytest
         env:
-          JUNIT_REPORT_PATH: ./junit/TestRun-report-${{ steps.store.outputs.version }}.xml
+          JUNIT_REPORT_PATH: TestRun-report-${{ steps.store.outputs.version }}.xml
         run: |
-          echo "${{ env.JUNIT_REPORT_PATH }}" >> $GITHUB_ENV
+          echo "${{ toJSON(env.JUNIT_REPORT_PATH) }}" >> $GITHUB_ENV
           pytest $(echo "--junitxml=${{ env.JUNIT_REPORT_PATH }}")
-        # run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: echo "${{ env.JUNIT_REPORT_PATH }}"
+          path: echo "${{ fromJSON(env.JUNIT_REPORT_PATH) }}"
           retention-days: 5

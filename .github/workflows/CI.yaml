@@ -228,7 +228,7 @@ jobs:
         run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: TestRun report ${{ matrix.os }} ${{ matrix.version }}
           path: ./report.xml

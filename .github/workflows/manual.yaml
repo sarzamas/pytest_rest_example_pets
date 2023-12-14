@@ -48,7 +48,7 @@ jobs:
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
           echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
-      - run: echo ${{ toJSON(steps.store.outputs.version) }}
+      - run: echo ${{ steps.store.outputs.version }}
 
       - name: Install dependencies
         run: |

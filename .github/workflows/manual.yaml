@@ -45,7 +45,8 @@ jobs:
         run: |
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
-          echo "version=$(python --version)" >> $GITHUB_OUTPUT
+        # echo "version=$(python --version)" >> $GITHUB_OUTPUT
+          echo "::set-output name=version::${{ toJSON($(python --version)) }}"
 
       - name: Install dependencies
         run: |
@@ -53,9 +54,12 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Hello! TestRun Report is below...
+        env:
+           VERSION: ${{ toJson(steps.store.outputs.version) }}
         run: |
           echo "Hello, Starting tests..."
           echo ${{ inputs.field }}
+          echo "$VERSION"
 
       - name: Run Test with pytest
         env:

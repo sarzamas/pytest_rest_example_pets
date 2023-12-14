@@ -60,15 +60,16 @@ jobs:
           echo ${{ inputs.field }}
 
       - name: Run Test with pytest
+        id: testrun
         env:
-          JUNIT_REPORT_PATH: TestRun-report-${{ steps.store.outputs.version }}.xml
+          REPORT_PATH: TestRun-report-${{ steps.store.outputs.version }}.xml
         run: |
-          pytest $(echo "--junitxml=$JUNIT_REPORT_PATH")
-          echo "JUNIT_REPORT_PATH=$(echo $JUNIT_REPORT_PATH" >> $GITHUB_ENV
+          pytest $(echo "--junitxml=$REPORT_PATH")
+          echo "REPORT_PATH=$(echo $REPORT_PATH" >> $GITHUB_OUTPUT
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: echo "${{ fromJSON(env.JUNIT_REPORT_PATH) }}"
+          path: echo "${{ fromJSON(env.REPORT_PATH) }}"
           retention-days: 5

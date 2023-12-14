@@ -44,6 +44,7 @@ jobs:
       - name: Display and Store Python version
         id: store
         run: |
+          echo "${{ env.OS_TEXT }} $RUNNER_OS"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies

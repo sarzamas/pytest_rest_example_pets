@@ -63,7 +63,7 @@ jobs:
         env:
           JUNIT_REPORT_PATH: TestRun-report-${{ steps.store.outputs.version }}.xml
         run: |
-          pytest $(echo "--junitxml=${{ env.JUNIT_REPORT_PATH }}")
+          pytest $(echo "--junitxml=$JUNIT_REPORT_PATH")
           echo "JUNIT_REPORT_PATH=$(echo $JUNIT_REPORT_PATH" >> $GITHUB_ENV
 
       - name: Archive TestRun results

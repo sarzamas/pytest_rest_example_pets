@@ -10,10 +10,10 @@ on:
 
 # Constants to run workflow with:
 env:
-  PYTHON_VERSION: '[3.12]'
+  PYTHON_VERSION: '[ 3.12 ]'
   OS_TEXT: The operating system on the runner is
-  OS_TYPE: '["ubuntu-latest", "windows-latest"]'
-  EXCLUDE: '[{"os":"windows-latest"},{"python-version":3.12}]'
+  OS_TYPE: '[ "ubuntu-latest", "windows-latest" ]'
+  EXCLUDE: '[ {"os": "windows-latest"}, {"python-version": 3.12} ]'
   QODANA_CLOUD: https://qodana.cloud/projects/3B4gd/reports
 
 # Cancel workflow policy
@@ -67,7 +67,7 @@ jobs:
           __case: kebab
           os: ${{ env.OS_TYPE }}
           python_version: ${{ env.PYTHON_VERSION }}
-          exclude: ${{ env.EXCLUDE }}
+          # exclude: ${{ env.EXCLUDE }}
 
       - name: Dump matrix content
         env:

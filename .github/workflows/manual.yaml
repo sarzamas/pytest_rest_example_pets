@@ -47,12 +47,12 @@ jobs:
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
         # echo "version=$(python --version)" >> $GITHUB_OUTPUT
-          echo "::set-output name=version::${{ toJSON($(python --version)) }}"
+#          echo "::set-output name=version::${{ toJSON($(python --version)) }}"
 
-      - name: Dump python-version JSON
-        env:
-           VERSION: ${{ toJson(steps.store.outputs.json) }}
-        run: echo "$VERSION"
+#      - name: Dump python-version JSON
+#        env:
+#           VERSION: ${{ toJson(steps.store.outputs.json) }}
+#        run: echo "$VERSION"
 
       - name: Install dependencies
         run: |

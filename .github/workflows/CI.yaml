@@ -75,8 +75,6 @@ jobs:
   # *******************************
   qodana:
   # *******************************
-    if: runner.os != 'Windows'
-
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
@@ -87,6 +85,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.matrix_config.outputs.matrix) }}
+
+    if: runner.os != 'Windows'
 
     steps:
       - name: Dump matrix context

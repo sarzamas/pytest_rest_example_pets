@@ -62,8 +62,8 @@ jobs:
 
       - name: Run Test with pytest
         env:
-          PARAMS: echo "--junitxml=./junit/report-${{ steps.store.outputs.version }}.xml"
-        run: pytest ${{ env.PARAMS }}
+          PARAMS: --junitxml=./junit/report-${{ steps.store.outputs.version }}.xml
+        run: pytest $(echo "${{ env.PARAMS }}")
         # run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results

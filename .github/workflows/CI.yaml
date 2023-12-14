@@ -31,7 +31,7 @@ defaults:
 jobs:
   # *******************************
   clear_logs:
-  # *******************************
+    # *****************************
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -53,7 +53,7 @@ jobs:
 
   # *******************************
   matrix_config:
-  # *******************************
+    # *****************************
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.prepare.outputs.json }}
@@ -69,12 +69,12 @@ jobs:
 
       - name: Dump matrix content
         env:
-           MATRIX: ${{ toJson(steps.prepare.outputs.json) }}
+          MATRIX: ${{ toJson(steps.prepare.outputs.json) }}
         run: echo "$MATRIX"
 
   # *******************************
   qodana:
-  # *******************************
+    # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
@@ -89,7 +89,7 @@ jobs:
     steps:
       - name: Dump matrix context
         env:
-            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
@@ -126,7 +126,7 @@ jobs:
 
   # *******************************
   lint:
-  # *******************************
+    # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
@@ -137,7 +137,7 @@ jobs:
     steps:
       - name: Dump matrix context
         env:
-            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
@@ -187,7 +187,7 @@ jobs:
 
   # *******************************
   test:
-  # *******************************
+    # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 
@@ -198,7 +198,7 @@ jobs:
     steps:
       - name: Dump matrix context
         env:
-            MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}

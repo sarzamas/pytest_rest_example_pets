@@ -69,7 +69,7 @@ jobs:
           echo "path=$(echo $REPORT_PATH)" >> $GITHUB_OUTPUT
 
       - name: Archive TestRun results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: TestRun report
           path: ${{ steps.testrun.outputs.path }}

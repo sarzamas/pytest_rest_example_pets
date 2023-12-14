@@ -46,7 +46,7 @@ jobs:
         run: |
           echo "${{ env.OS_TEXT }} $RUNNER_OS"
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
-          echo "version=${{ toJson($(python --version)) }}"
+          echo "version=${{ toJson(echo $(python --version)) }}"
           echo "version=$(python --version)" >> $GITHUB_OUTPUT
 #          echo "::set-output name=version::${{ toJSON($(python --version)) }}"
 

@@ -23,10 +23,9 @@ concurrency:
 permissions:
   contents: read
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test:
-    env:
-      OS_TEXT: The operating system on the runner is
     runs-on: ubuntu-latest
 
     steps:
@@ -40,13 +39,8 @@ jobs:
           python-version-file: pyproject.toml
           check-latest: true
 
-      - name: Display and Store Python version
-        id: store
-        run: |
-          echo "${{ env.OS_TEXT }} $RUNNER_OS"
-          python -c "import sys; print(f'🎌 Python-{sys.version}')"
-        # echo "version=$(python --version)" >> $GITHUB_OUTPUT
-          echo "::set-output name=version::${{ toJSON($(python --version)) }}"
+      - name: Display Python version
+        run: python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies
         run: |
@@ -54,24 +48,16 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Hello! TestRun Report is below...
-        env:
-           VERSION: ${{ toJson(steps.store.outputs.version) }}
         run: |
           echo "Hello, Starting tests..."
           echo ${{ inputs.field }}
-          echo "$VERSION"
 
       - name: Run Test with pytest
-        env:
-          PARAMS: $(echo "--junitxml=junit/test-results-${{ steps.store.outputs.version }}.xml")
-          # | tr ' ' '-'
-        run: |
-          echo "$PARAMS"
-          pytest $PARAMS
+        run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results
         uses: actions/upload-artifact@v3
         with:
           name: TestRun report
-          path: junit/test-results-${{ steps.store.outputs.version }}.xml
+          path: report.xml
           retention-days: 5

@@ -71,7 +71,7 @@ jobs:
 
       - name: Dump matrix content
         env:
-          MATRIX: ${{ toJson(steps.prepare.outputs.json) }}
+          MATRIX: ${{ toJSON(steps.prepare.outputs.json) }}
         run: echo "$MATRIX"
 
   # *******************************
@@ -91,7 +91,7 @@ jobs:
     steps:
       - name: Show matrix context
         env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
@@ -139,7 +139,7 @@ jobs:
     steps:
       - name: Show matrix context
         env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}
@@ -200,7 +200,7 @@ jobs:
     steps:
       - name: Show matrix context
         env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Check out repo ${{ github.repository }}

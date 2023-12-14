@@ -228,6 +228,7 @@ jobs:
         run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results
+        id: artifact
         uses: actions/upload-artifact@v4
         with:
           name: 'TestRun report ${{ matrix.os }} ${{ matrix.version }}'
@@ -235,3 +236,7 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 5
+      - name: Artifact ID is ${{ env.ID }}
+        env:
+          ID: ${{ steps.artifact.outputs.artifact-id }}
+        run: echo ${{ env.ID }}

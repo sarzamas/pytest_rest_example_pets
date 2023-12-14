@@ -41,8 +41,10 @@ jobs:
           python-version-file: pyproject.toml
           check-latest: true
 
-      - name: Display Python version
-        run: python -c "import sys; print(f'🎌 Python-{sys.version}')"
+      - name: Display and Store Python version
+        id: store
+        run: |
+          python -c "import sys; print(f'🎌 Python-{sys.version}')"
 
       - name: Install dependencies
         run: |

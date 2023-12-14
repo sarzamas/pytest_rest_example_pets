@@ -75,6 +75,8 @@ jobs:
   # *******************************
   qodana:
   # *******************************
+    if: runner.os != 'Windows'
+
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
 

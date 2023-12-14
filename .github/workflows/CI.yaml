@@ -173,6 +173,7 @@ jobs:
           black . --check --diff
 
       - name: Analysing the code with pylint
+        if: runner.os != 'Windows'
         run: |
           pylint --version
           pylint $(git ls-files '*.py')

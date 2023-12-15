@@ -111,7 +111,7 @@ jobs:
         shell: python
         run: |
           import os, platform, sys; sys.stdout.reconfigure(encoding='utf-8')
-          print(f"{os.linesep}$OS_TEXT {platform.system()}{os.linesep}🎌 Python-{sys.version}")
+          print(f"{os.linesep}${{ env.OS_TEXT }}{platform.system()}{os.linesep}🎌 Python-{sys.version}")
 
       - name: Install dependencies
         run: |
@@ -124,7 +124,7 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
       - name: Qodana Report
-        run: echo "🏁 Qodana Cloud 🏁 -  ${{ env.QODANA_CLOUD }}"
+        run: echo "🏁 Qodana Cloud 🏁 -  $QODANA_CLOUD"
 
   # *******************************
   lint:
@@ -239,4 +239,4 @@ jobs:
       - name: Artifact ID is ${{ env.ID }}
         env:
           ID: ${{ steps.artifact.outputs.artifact-id }}
-        run: echo ${{ env.ID }}
+        run: echo $ID

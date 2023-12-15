@@ -25,6 +25,7 @@ permissions:
 
 jobs:
   test:
+    name: TestRun Summary
     env:
       OS_TEXT: The operating system on the runner is
     runs-on: ubuntu-latest

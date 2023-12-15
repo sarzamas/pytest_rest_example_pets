@@ -32,6 +32,7 @@ defaults:
 jobs:
   # *******************************
   clear_logs:
+    name: Очистка прошлых логов
     # *****************************
     runs-on: ubuntu-latest
     defaults:
@@ -54,6 +55,7 @@ jobs:
 
   # *******************************
   matrix_config:
+    name: Параметры матрицы прогонов
     # *****************************
     runs-on: ubuntu-latest
     outputs:
@@ -76,6 +78,7 @@ jobs:
 
   # *******************************
   qodana:
+    name: Code Quality Check
     # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
@@ -128,6 +131,7 @@ jobs:
 
   # *******************************
   lint:
+    name: Linter Check
     # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
@@ -189,6 +193,7 @@ jobs:
 
   # *******************************
   test:
+    name: Test Run Summary
     # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]

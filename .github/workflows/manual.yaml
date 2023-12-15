@@ -80,4 +80,4 @@ jobs:
       - name: Artifact ID is ${{ env.ID }}
         env:
           ID: ${{ steps.artifact.outputs.artifact-id }}
-        run: echo ${{ env.ID }}
+        run: echo $ID

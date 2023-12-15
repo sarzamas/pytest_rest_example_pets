@@ -45,7 +45,7 @@ jobs:
       - name: Display Python version
         id: store
         run: |
-          echo "${{ env.OS_TEXT }} $RUNNER_OS"
+          echo "$OS_TEXT $RUNNER_OS"
           echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
       - run: echo ${{ steps.store.outputs.version }}

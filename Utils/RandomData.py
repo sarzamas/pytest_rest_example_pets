@@ -29,9 +29,9 @@ class RandomData(metaclass=Singleton):
         :return: str: случайная фраза
         """
         if lang == 'ru':
-            rand = ' '.join([x.capitalize() if capitalize else x for x in self.__faker_ru.words(nb=nb)])
+            rand = ' '.join([_.capitalize() if capitalize else _ for _ in self.__faker_ru.words(nb=nb)])
         elif lang == 'en':
-            rand = ' '.join([x.capitalize() if capitalize else x for x in self.__faker_en.words(nb=nb)])
+            rand = ' '.join([_.capitalize() if capitalize else _ for _ in self.__faker_en.words(nb=nb)])
         else:
             raise ValueError(f"запрашиваемый язык: `{lang}` для генерации случайных фраз не реализован")
 

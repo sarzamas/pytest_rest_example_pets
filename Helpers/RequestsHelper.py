@@ -9,8 +9,8 @@ class TestTimeout(TimeoutSauce):
 
     def __init__(self, **kwargs):
         config = Config().host
-        connect = kwargs.get('connect') if kwargs.get('connect') else config.wait_conn
-        read = kwargs.get('read') if kwargs.get('read') else config.wait_read
+        connect = _ if (_ := kwargs.get('connect')) else config.wait_conn
+        read = _ if (_ := kwargs.get('read')) else config.wait_read
         super().__init__(connect=connect, read=read)
 
 

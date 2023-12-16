@@ -33,13 +33,13 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
         api_key = config.api_key
         host = config.host
 
-        base_url = f"{host.schema}://{host.name}:{host.port}" if host.port else f"{host.schema}://{host.name}"
-        resource = f"v{host.version}/swagger.json" if host.version else '/swagger.json'
+        base_url = f"{host.schema}://{host.name}:{_}" if (_ := host.port) else f"{host.schema}://{host.name}"
+        resource = f"v{_}/swagger.json" if (_ := host.version) else '/swagger.json'
 
         headers = {
             'Content-type': 'application/json; charset=utf-8',
             'Accept': 'application/json',
-            'api_key': api_key if api_key else None,
+            'api_key': _ if (_ := api_key) else None,
         }
         query_data['url'] = f'{base_url}/{resource}'
         query_data['headers'] = headers

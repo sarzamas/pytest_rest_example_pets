@@ -54,7 +54,7 @@ def swagger_data(test_data, faker) -> Callable:
                 f"значений параметра(ов) {var_params.keys()} в текущей версии SWAGGER{lookup_report()}"
             )
 
-        swagger_data['variables'] = var_params if var_params else None
+        swagger_data['variables'] = _ if (_ := var_params) else None
 
         context_min = {
             'name': faker.fwords(),

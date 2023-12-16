@@ -14,7 +14,7 @@ class Config(DotDict, metaclass=Singleton):
         config_dir = os.path.dirname(os.path.abspath(__file__))
         config_path = os.path.join(config_dir, 'config.json')
         local_config_path = os.path.join(config_dir, 'config.local.json')
-        self.config_path = local_config_path if os.path.exists(local_config_path) else config_path
+        self.config_path = _ if os.path.exists(_ := local_config_path) else config_path
         config_data = self.read_config(self.config_path)
         super().__init__(DotDict(config_data))
 

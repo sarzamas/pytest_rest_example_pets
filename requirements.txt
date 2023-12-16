@@ -1,5 +1,5 @@
 pytest              ~=7.4.3
-pytest-emoji-output ~=0.2.1
+pytest-emoji-output
 requests            <=3.0.0
 Faker               ~=20.1.0
 urllib3             ~=2.1.0

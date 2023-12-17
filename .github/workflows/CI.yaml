@@ -228,7 +228,7 @@ jobs:
           if [ -f requirements.txt ]; then pip wheel -r requirements.txt; fi
 
       - name: Run Test with pytest
-        run: pytest --junitxml=report.xml
+        run: python -m pytest --junitxml=report.xml
 
       - name: Archive TestRun results
         id: artifact

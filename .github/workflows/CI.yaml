@@ -187,7 +187,7 @@ jobs:
       - name: Lint with flake8
         run: |
           flake8 --version
-          flake8 . --append-config ./pyproject.toml
+          flake8 $(git ls-files '*.py') --append-config ./pyproject.toml
 
   # *******************************
   test:
@@ -228,7 +228,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Test with pytest
-        run: python -m pytest --junitxml=report.xml
+        run: pytest --junitxml=report.xml
 
       - name: Archive TestRun results
         id: artifact

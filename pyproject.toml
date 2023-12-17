@@ -2,43 +2,43 @@
 requires-python = "3.12"
 
 [tool.pylint]
-exit-zero = "true"
+exit-zero = true
 output-format = "colorized"
 max-line-length=120
 expected-line-ending-format = "LF"
 min-similarity-lines = 5
-init-import = "true"
-allow-wildcard-with-all = "true"
+init-import = true
+allow-wildcard-with-all = true
 module-naming-style = "PascalCase"
 class-attribute-naming-style = "snake_case"
 max-args = 7
 min-public-methods = 0
-single-line-if-stmt = "true"
-check-protected-access-in-special-methods ="true"
+single-line-if-stmt = true
+check-protected-access-in-special-methods =true
 logging-format-style = "new"
 disable = ["missing-module-docstring"]
 enable = ["use-symbolic-message-instead", "use-implicit-booleaness-not-comparison-to-string", "use-implicit-booleaness-not-comparison-to-zero"]
 
 [tool.black]
-color = "true"
+color = true
 line-length = 120
 target-version = ["py312"]
-safe = "true"
-skip-string-normalization = "true"
+safe = true
+skip-string-normalization = true
 
 [tool.isort]
 profile = "black"
-color_output = "true"
+color_output = true
 py_version = 310
-force_to_top = "true"
-case_sensitive = "true"
+force_to_top = true
+case_sensitive = true
 line_length = 120
 wrap_length = 100
 multi_line_output = 3
-combine_star = "true"
+combine_star = true
 sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
-virtual_env = "true"
-skip_gitignore = "true"
+virtual_env = true
+skip_gitignore = true
 skip = ".gitignore,.dockerignore"
 extend_skip = ".md,.json,.yaml"
 blocked_extensions = "pyw,pyc"

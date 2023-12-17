@@ -2,8 +2,8 @@ from typing import Callable
 
 import pytest
 
-from tests import change_handler
 from Utils import lookup_report
+from tests import change_handler
 
 swagger_missing_info = {  # TODO #1 - добавить в Swagger.json эти параметры для HANDLER: /pet METHOD: POST
     "parameters": [

@@ -90,7 +90,6 @@ jobs:
           fail-on-empty: true
           summary: true
           # Select which results should be included in the report.
-          # Follows the same syntax as
-          # `pytest -r`
+          # Follows the same syntax as `pytest -r`
           # Default: fEX
-          display-options: fEX
+          display-options: fEsxXw

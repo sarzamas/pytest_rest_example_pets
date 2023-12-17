@@ -243,3 +243,12 @@ jobs:
         env:
           ID: ${{ steps.artifact.outputs.artifact-id }}
         run: echo $ID
+
+      - name: Surface failing tests
+        if: always()
+        uses: pmeier/pytest-results-action@main
+        with:
+          path: ./report.xml
+          fail-on-empty: true
+          summary: true
+          display-options: fEX

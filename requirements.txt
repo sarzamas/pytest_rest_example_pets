@@ -1,6 +1,6 @@
 pytest              ~=7.4.3
 requests            <=3.0.0
-Faker               ~=20.1.0
 urllib3             ~=2.1.0
+Faker               ~=20.1.0
 validators          ~=0.22.0
 attrs               ~=23.1.0

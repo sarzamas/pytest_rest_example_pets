@@ -251,4 +251,4 @@ jobs:
           path: ./report.xml
           fail-on-empty: true
           summary: true
-          display-options: fEX
+          display-options: fExX

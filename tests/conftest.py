@@ -9,8 +9,8 @@ from validators import url as valid_url
 
 from Config import Config
 from Helpers.RequestsHelper import TestTimeout
-from Utils.RandomData import RandomData
 from tests import change_handler
+from Utils.RandomData import RandomData
 
 
 @pytest.fixture(scope='session', name='test_data')

@@ -42,3 +42,9 @@ skip_gitignore = "true"
 skip = ".gitignore,.dockerignore"
 extend_skip = ".md,.json,.yaml"
 blocked_extensions = "pyw,pyc"
+
+[tool.flake8]
+max_complexity = 10
+max-line-length = 120
+statistics = "true"
+count = "true"

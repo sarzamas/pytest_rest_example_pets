@@ -46,9 +46,9 @@ blocked_extensions = "pyw,pyc"
 [flake8]
 max_complexity = 10
 max-line-length = 120
-statistics = "True"
-count = "True"
+statistics = True
+count = True
 # stop the build if there are Python syntax errors or undefined names
-exit-zero = "False"
+exit-zero = False
 select = "E9,F63,F7,F82"
-show-source = "True"
+show-source = True

@@ -82,7 +82,7 @@ jobs:
 
       - name: Artifact HTML-ID is ${{ env.HTML-ID }}
         env:
-          ID: ${{ steps.artifact-html.outputs.artifact-html-id }}
+          ID: ${{ steps.artifact-html.outputs.artifact-id }}
         run: echo "HTML-ID $ID"
 
       - name: Archive TestRun results in XML
@@ -97,7 +97,7 @@ jobs:
 
       - name: Artifact XML-ID is ${{ env.XML-ID }}
         env:
-          ID: ${{ steps.artifact-xml.outputs.artifact-xml-id }}
+          ID: ${{ steps.artifact-xml.outputs.artifact-id }}
         run: echo "XML-ID $ID"
 
       - name: Surface failing tests

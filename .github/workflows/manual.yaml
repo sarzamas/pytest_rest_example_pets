@@ -83,7 +83,7 @@ jobs:
       - name: Artifact HTML-ID is ${{ env.ID }}
         env:
           ID: ${{ steps.artifact-html.outputs.artifact-id }}
-        run: echo HTML-ID:` $ID
+        run: echo "HTML-ID:` $ID"
 
       - name: Archive TestRun results in XML
         id: artifact-xml
@@ -98,7 +98,7 @@ jobs:
       - name: Artifact XML-ID is ${{ env.ID }}
         env:
           ID: ${{ steps.artifact-xml.outputs.artifact-id }}
-        run: echo XML-ID:` $ID
+        run: echo "XML-ID:` $ID"
 
       - name: Surface failing tests
         if: always()

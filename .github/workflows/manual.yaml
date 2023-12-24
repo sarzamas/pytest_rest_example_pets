@@ -32,6 +32,10 @@ concurrency:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   test:
     name: Test Run
@@ -43,7 +47,7 @@ jobs:
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
 
-      - name: Set-Up Python
+      - name: Set-Up Python version from pyproject.toml
         uses: actions/setup-python@v4
         with:
           # Read python version from a file
@@ -54,7 +58,7 @@ jobs:
       - name: Display Python version
         id: store
         run: |
-          echo "$OS_TEXT $RUNNER_OS"
+          echo $OS_TEXT $RUNNER_OS
           echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
           python -c "import sys; print(f'🎌 Python-{sys.version}')"
       - run: echo ${{ steps.store.outputs.version }}
@@ -67,7 +71,7 @@ jobs:
 
       - name: Hello! TestRun Report is below...
         run: |
-          echo "Hello, Starting tests..."
+          echo Hello, Starting tests...
           echo ${{ inputs.field }}
 
       - name: Run Test with pytest
@@ -84,7 +88,7 @@ jobs:
         id: artifact-html
         uses: actions/upload-artifact@v4
         with:
-          name: TestRun report.html
+          name: TestRun report ${{ $RUNNER_OS }} ${{ steps.store.outputs.version }}.html
           path: ${{ steps.testrun.outputs.path_html }}
           if-no-files-found: error
           compression-level: 0
@@ -99,7 +103,7 @@ jobs:
         id: artifact-xml
         uses: actions/upload-artifact@v4
         with:
-          name: TestRun report.xml
+          name: TestRun report $RUNNER_OS ${{ steps.store.outputs.version }}.xml
           path: ${{ steps.testrun.outputs.path_xml }}
           if-no-files-found: error
           compression-level: 0
@@ -114,7 +118,7 @@ jobs:
         if: always()
         uses: pmeier/pytest-results-action@main
         with:
-          title: Test Results for ${{ steps.store.outputs.version }} on ${{ inputs.os }}
+          title: Test Results for ${{ steps.store.outputs.version }} on $RUNNER_OS
           path: ${{ steps.testrun.outputs.path_xml }}
           fail-on-empty: true
           summary: true

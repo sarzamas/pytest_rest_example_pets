@@ -6,14 +6,23 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts
     inputs:
-      field:
+      os:
         # Prompt to be shown in the UI
-        description: Push to Start...
+        description: Which OS to run tests on?
         # Default value if no value is explicitly provided
-        default: ⬇️ Push button below to Run Test! ⬇️
+        default: ubuntu-latest
         # Input has to be provided for the workflow to run
         required: false
         # The data type of the input
+        type: choice
+        options:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+      message:
+        description: Push to Start...
+        default: ⬇️ Push button below to Run Test! ⬇️
+        required: false
         type: string
 
 concurrency:
@@ -104,6 +113,7 @@ jobs:
         if: always()
         uses: pmeier/pytest-results-action@main
         with:
+          title: Test Results for ${{ steps.store.outputs.version }} on ${{ inputs.os }}
           path: ${{ steps.testrun.outputs.path_xml }}
           fail-on-empty: true
           summary: true

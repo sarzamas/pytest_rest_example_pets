@@ -217,6 +217,7 @@ jobs:
           architecture: x64
 
       - name: Display Python version
+        id: store
         shell: python
         run: |
           import os, platform, sys; sys.stdout.reconfigure(encoding='utf-8')
@@ -224,31 +225,56 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt install -y python-is-python3
           python -m pip install --upgrade pip setuptools wheel
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Test with pytest
-        run: pytest --junitxml=report.xml || true
+        id: testrun
+        env:
+          REPORT_XML: TestRun-report-${{ steps.store.outputs.version }}.xml
+          REPORT_HTML: TestRun-report-${{ steps.store.outputs.version }}.html
+        run: |
+          pytest $(echo "--junitxml $REPORT_XML --html $REPORT_HTML --self-contained-html") || true
+          echo "path_xml=$(echo $REPORT_XML)" >> $GITHUB_OUTPUT
+          echo "path_html=$(echo $REPORT_HTML)" >> $GITHUB_OUTPUT
 
-      - name: Archive TestRun results
-        id: artifact
+      - name: Archive TestRun results in HTML
+        id: artifact-html
         uses: actions/upload-artifact@v4
         with:
-          name: TestRun report ${{ matrix.os }} ${{ matrix.python-version }}
-          path: ./report.xml
+          name: TestRun report ${{ matrix.os }} ${{ matrix.python-version }}.html
+          path: ${{ steps.testrun.outputs.path_html }}
           if-no-files-found: error
           compression-level: 0
           retention-days: 5
-      - name: Artifact ID is ${{ env.ID }}
+
+      - name: Artifact HTML-ID is ${{ env.ID }}
         env:
-          ID: ${{ steps.artifact.outputs.artifact-id }}
-        run: echo $ID
+          ID: ${{ steps.artifact-html.outputs.artifact-id }}
+        run: echo HTML-ID $ID
+
+      - name: Archive TestRun results in XML
+        id: artifact-xml
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestRun report ${{ matrix.os }} ${{ steps.store.outputs.version }}.xml
+          path: ${{ steps.testrun.outputs.path_xml }}
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 5
+
+      - name: Artifact XML-ID is ${{ env.ID }}
+        env:
+          ID: ${{ steps.artifact-xml.outputs.artifact-id }}
+        run: echo XML-ID $ID
 
       - name: Surface failing tests
         if: always()
         uses: pmeier/pytest-results-action@main
         with:
-          path: ./report.xml
+          title: Test Results for ${{ matrix.python-version }} on ${{ matrix.os }}
+          path: ${{ steps.testrun.outputs.path_xml }}
           fail-on-empty: true
           summary: true
           display-options: fExX

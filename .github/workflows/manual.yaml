@@ -88,7 +88,7 @@ jobs:
         id: artifact-html
         uses: actions/upload-artifact@v4
         with:
-          name: TestRun report ${{ env.RUNNER_OS }} ${{ steps.store.outputs.version }}.html
+          name: TestRun report ${{ inputs.os }} ${{ steps.store.outputs.version }}.html
           path: ${{ steps.testrun.outputs.path_html }}
           if-no-files-found: error
           compression-level: 0
@@ -103,7 +103,7 @@ jobs:
         id: artifact-xml
         uses: actions/upload-artifact@v4
         with:
-          name: TestRun report $RUNNER_OS ${{ steps.store.outputs.version }}.xml
+          name: TestRun report ${{ inputs.os }} ${{ steps.store.outputs.version }}.xml
           path: ${{ steps.testrun.outputs.path_xml }}
           if-no-files-found: error
           compression-level: 0
@@ -118,7 +118,7 @@ jobs:
         if: always()
         uses: pmeier/pytest-results-action@main
         with:
-          title: Test Results for ${{ steps.store.outputs.version }} on $RUNNER_OS
+          title: Test Results for ${{ steps.store.outputs.version }} on ${{ inputs.os }}
           path: ${{ steps.testrun.outputs.path_xml }}
           fail-on-empty: true
           summary: true

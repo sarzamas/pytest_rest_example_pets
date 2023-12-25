@@ -56,12 +56,15 @@ jobs:
           architecture: x64
 
       - name: Display Python version
-        id: store
+        shell: python
+        run: |
+          import os, platform, sys; sys.stdout.reconfigure(encoding='utf-8')
+          print(f"{os.linesep}${{ env.OS_TEXT }} {platform.system()}{os.linesep}🎌 Python-{sys.version}")
+      - id: store
         run: |
           echo $OS_TEXT $RUNNER_OS
+          echo ${{ steps.store.outputs.version }}
           echo "version=$(python --version | tr ' ' '-')" >> $GITHUB_OUTPUT
-          python -c "import sys; print(f'🎌 Python-{sys.version}')"
-      - run: echo ${{ steps.store.outputs.version }}
 
       - name: Install dependencies
         if: runner.os != 'Windows'

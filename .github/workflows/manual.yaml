@@ -38,7 +38,7 @@ defaults:
 
 jobs:
   test:
-    name: Test Run
+    name: Test Run on ${{ inputs.os }}
     env:
       OS_TEXT: The operating system on the runner is
     runs-on: ${{ inputs.os }}

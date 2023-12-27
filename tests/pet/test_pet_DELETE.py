@@ -79,7 +79,7 @@ class TestCheckPetDELETE:
         assert res.status_code == 405
         result = res.json()
         assert len(result) == 2
-        assert result['code'] == 405
+        assert result['code'] == 4050
         assert result['type'] == 'unknown'
 
     @pytest.mark.negative

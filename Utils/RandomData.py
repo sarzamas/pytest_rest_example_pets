@@ -1,12 +1,10 @@
 import random
 import string
 from typing import Literal, Optional
-
 from uuid import uuid4
 
-from faker import Faker
-
 from api_new.helpers.singleton import Singleton
+from faker import Faker
 
 Locale = Literal['en', 'ru']
 

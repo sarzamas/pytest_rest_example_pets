@@ -27,8 +27,8 @@ class RandomData(metaclass=Singleton):
         nb: int = 2,
         capitalize: bool = True,
         prefix: Optional[str] = None,
-        uuid: bool = False
-        ):
+        uuid: bool = False,
+    ):
         """
         Генератор фраз из случайных слов
         :param lang: Locale: язык локали для букв в словах

@@ -21,13 +21,14 @@ class RandomData(metaclass=Singleton):
     def __getattr__(self, item):
         return getattr(self.__faker, item)
 
-    def words(self,
-              lang: Locale = 'ru',
-              nb: int = 2,
-              capitalize: bool = True,
-              prefix: Optional[str] = None,
-              uuid: bool = False
-    ):
+    def words(
+        self,
+        lang: Locale = 'ru',
+        nb: int = 2,
+        capitalize: bool = True,
+        prefix: Optional[str] = None,
+        uuid: bool = False
+        ):
         """
         Генератор фраз из случайных слов
         :param lang: Locale: язык локали для букв в словах
@@ -86,6 +87,7 @@ class Counter(metaclass=Singleton):
     """
     Провайдер последовательности натуральных чисел (счетчик)
     """
+
     _instance = None
     _state = 1  # Initial state of the generator
 

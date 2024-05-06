@@ -1,10 +1,14 @@
 import random
 import string
+from typing import Literal, Optional
+
 from uuid import uuid4
 
 from faker import Faker
 
-from Utils.Singleton import Singleton
+from api_new.helpers.singleton import Singleton
+
+Locale = Literal['en', 'ru']
 
 
 class RandomData(metaclass=Singleton):
@@ -19,13 +23,15 @@ class RandomData(metaclass=Singleton):
     def __getattr__(self, item):
         return getattr(self.__faker, item)
 
-    def fwords(self, lang='ru', nb=2, capitalize=True, uuid=False):
+    def words(self, lang: Locale = 'ru', nb: int = 2, capitalize: bool = True,
+              prefix: Optional[str] = None, uuid: bool = False):
         """
         Генератор фраз из случайных слов
-        :param lang: str: язык локали для букв в словах
+        :param lang: Locale: язык локали для букв в словах
         :param nb: int: количество слов
-        :param capitalize: признак, устанавливающий CapsLock на каждое слово
-        :param uuid:  признак, добавляющий uuid к результату
+        :param capitalize: bool: признак, устанавливающий CapsLock на каждое слово
+        :param uuid: bool: признак, добавляющий uuid к результату (в конец фразы)
+        :param prefix: str: префикс, добавляемый к результату (в начало фразы)
         :return: str: случайная фраза
         """
         if lang == 'ru':
@@ -33,13 +39,14 @@ class RandomData(metaclass=Singleton):
         elif lang == 'en':
             rand = ' '.join([_.capitalize() if capitalize else _ for _ in self.__faker_en.words(nb=nb)])
         else:
-            raise ValueError(f"запрашиваемый язык: `{lang}` для генерации случайных фраз не реализован")
+            raise NotImplementedError(f"запрашиваемый язык: `{lang}` для генерации случайных фраз не реализован")
 
+        rand = f'{prefix} {rand}' if prefix else rand
         rand += f' {str(uuid4())}' if uuid else ''
         return rand
 
     @staticmethod
-    def text(length_word=10, count_words=1) -> str:
+    def text(length_word: int = 10, count_words: int = 1) -> str:
         """
         Статический метод генерации случайного текста
         :param length_word: int: количество символов в слове
@@ -55,10 +62,42 @@ class RandomData(metaclass=Singleton):
         return result_str
 
     @staticmethod
-    def int(length=16) -> int:
+    def int(length: int = 16) -> int:
         """
-        Статический метод генерации случайного числа
-        :param length: int: количество цифр в числе
-        :return: int: случайное число
+        Статический метод генерации случайного целого числа c заданной разрядностью
+        :param length: int: количество цифр в числе (разрядность)
+        :return: int: случайное число заданной разрядности
         """
-        return random.randint(10 ** (length - 1), 10**length - 1)
+        return random.randint(10 ** (length - 1), 10 ** length - 1)
+
+    @staticmethod
+    def uuid() -> str:
+        """
+        Статический метод генерации уникального ID
+        :return: UUID: str: уникальный ID версии uuid4
+        """
+        return str(uuid4())
+
+
+class Counter(metaclass=Singleton):
+    """
+    Провайдер последовательности натуральных чисел (счетчик)
+    """
+    _instance = None
+    _state = 1  # Initial state of the generator
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Counter, cls).__new__(cls)
+        return cls._instance
+
+    def __init__(self):
+        self.count = self._get_count()
+
+    def _get_count(self):
+        while True:
+            yield self._state
+            self._state += 1
+
+    def get_next(self):
+        return next(self.count)

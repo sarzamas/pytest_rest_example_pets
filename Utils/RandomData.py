@@ -68,7 +68,7 @@ class RandomData(metaclass=Singleton):
         return result_str
 
     @staticmethod
-    def int(length: int = 16) -> int:
+    def ints(length: int = 16) -> int:
         """
         Статический метод генерации случайного целого числа c заданной разрядностью
         :param length: int: количество цифр в числе (разрядность)

@@ -3,8 +3,9 @@ import string
 from typing import Literal, Optional
 from uuid import uuid4
 
-from Utils.Singleton import Singleton
 from faker import Faker
+
+from Utils.Singleton import Singleton
 
 Locale = Literal['en', 'ru']
 

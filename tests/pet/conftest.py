@@ -74,7 +74,7 @@ def swagger_data(test_data, faker) -> Callable:
                     'id': faker.ints(length=3),
                     'name': f'#{_}',
                 }
-                for _ in faker.words(nb=faker.int(length=1)).split()
+                for _ in faker.words(nb=faker.ints(length=1)).split()
             ],
         }
 

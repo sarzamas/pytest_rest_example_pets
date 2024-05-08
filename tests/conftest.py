@@ -63,7 +63,7 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
 
         test_ids = []
         for _ in range(pool):
-            test_ids.append(faker.int())
+            test_ids.append(faker.ints())
 
         teardown_params.append(test_ids)
 

@@ -57,7 +57,7 @@ def swagger_data(test_data, faker) -> Callable:
         swagger_data['variables'] = var_params
 
         context_min = {
-            'name': faker.fwords(),
+            'name': faker.words(),
             'photoUrls': [
                 f"https://img.freepik.com/free-photo/{_}.jpg"
                 for _ in faker.fwords(lang='en', capitalize=False, nb=faker.int(length=1)).split()
@@ -66,15 +66,15 @@ def swagger_data(test_data, faker) -> Callable:
 
         context_max = {
             'category': {
-                'id': faker.int(length=4),
-                'name': faker.fwords(nb=1),
+                'id': faker.ints(length=4),
+                'name': faker.words(nb=1),
             },
             'tags': [
                 {
-                    'id': faker.int(length=3),
+                    'id': faker.ints(length=3),
                     'name': f'#{_}',
                 }
-                for _ in faker.fwords(nb=faker.int(length=1)).split()
+                for _ in faker.words(nb=faker.int(length=1)).split()
             ],
         }
 

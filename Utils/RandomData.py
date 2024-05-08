@@ -50,11 +50,12 @@ class RandomData(metaclass=Singleton):
         return rand
 
     @staticmethod
-    def text(length_word: int = 10, count_words: int = 1) -> str:
+    def text(length_word: int = 10, count_words: int = 1, prefix: Optional[str] = None) -> str:
         """
         Статический метод генерации случайного текста
         :param length_word: int: количество символов в слове
         :param count_words: int: количество слов
+        :param prefix: str: префикс, добавляемый к результату (в начало фразы)
         :return: str: случайный текст из ascii символов
         """
         result_str = ''
@@ -63,6 +64,7 @@ class RandomData(metaclass=Singleton):
             result_str += ''.join(random.choice(letters) for i in range(length_word))
             if i + 1 < count_words:
                 result_str += ' '
+        result_str = f'{prefix} {result_str}' if prefix else result_str
         return result_str
 
     @staticmethod

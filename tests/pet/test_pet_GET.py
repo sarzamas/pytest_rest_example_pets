@@ -98,7 +98,7 @@ class TestCheckPetGET:
         query_data = data['query_data'].copy()
 
         for var_param in data['variables']:
-            for val in [faker.int(20), faker.fwords(nb=1, lang='en')]:
+            for val in [faker.ints(20), faker.words(nb=1, lang='en')]:
                 query_data['params'] = f"{var_param}={val}"
 
                 res = r.post(**query_data)

@@ -3,7 +3,7 @@ import string
 from typing import Literal, Optional
 from uuid import uuid4
 
-from api_new.helpers.singleton import Singleton
+from Utils.Singleton import Singleton
 from faker import Faker
 
 Locale = Literal['en', 'ru']

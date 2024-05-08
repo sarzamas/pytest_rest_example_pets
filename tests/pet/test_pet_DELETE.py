@@ -92,7 +92,7 @@ class TestCheckPetDELETE:
         :param data: фикстура подготовки тестовых данных для этого класса тестов
         """
         query_data = data['query_data'].copy()
-        __ = [0, f"-{faker.int()}", f"{faker.int(length=1)}.{faker.int(length=1)}", faker.fwords(nb=1, lang='en')]
+        __ = [0, f"-{faker.ints()}", f"{faker.ints(length=1)}.{faker.ints(length=1)}", faker.words(nb=1, lang='en')]
         for _ in __:
             query_data['url'] += f"/{_}"
 
@@ -127,6 +127,6 @@ class TestCheckPetDELETE:
 
         query_data['url'] += f"/{new_pet.json()['id']}"
 
-        query_data['headers']['api_key'] = faker.fwords(nb=1, lang='en', uuid=True)
+        query_data['headers']['api_key'] = faker.words(nb=1, lang='en', uuid=True)
         res = r.delete(**query_data)
         assert res.status_code == 403  # 403 # TODO #5 ожидается error code 403

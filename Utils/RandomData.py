@@ -65,8 +65,7 @@ class RandomData(metaclass=Singleton):
             result_str += ''.join(random.choice(letters) for i in range(length_word))
             if i + 1 < count_words:
                 result_str += ' '
-        result_str = f'{prefix} {result_str}' if prefix else result_str
-        return result_str
+        return f'{prefix} {result_str}' if prefix else result_str
 
     @staticmethod
     def ints(length: int = 16) -> int:

@@ -84,6 +84,15 @@ class RandomData(metaclass=Singleton):
         """
         return str(uuid4())
 
+    @staticmethod
+    def timestamp() -> str:
+        """
+        Статический метод, возвращающий время в виде строки
+        :return: строка вида "06-29_11-54-25"
+        """
+        current_time = datetime.now()
+        return str(current_time.strftime("%m_%d_%H_%M"))
+
 
 class Counter(metaclass=Singleton):
     """

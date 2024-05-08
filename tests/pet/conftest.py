@@ -60,7 +60,7 @@ def swagger_data(test_data, faker) -> Callable:
             'name': faker.words(),
             'photoUrls': [
                 f"https://img.freepik.com/free-photo/{_}.jpg"
-                for _ in faker.fwords(lang='en', capitalize=False, nb=faker.int(length=1)).split()
+                for _ in faker.words(lang='en', capitalize=False, nb=faker.ints(length=1)).split()
             ],
         }
 

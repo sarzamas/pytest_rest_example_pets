@@ -50,7 +50,7 @@ class RandomData(metaclass=Singleton):
         return rand
 
     @staticmethod
-    def text(length_word: int = 10, count_words: int = 1, prefix: Optional[str] = None) -> str:
+    def texts(length_word: int = 10, count_words: int = 1, prefix: Optional[str] = None) -> str:
         """
         Статический метод генерации случайного текста
         :param length_word: int: количество символов в слове

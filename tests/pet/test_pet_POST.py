@@ -117,7 +117,7 @@ class TestCheckPetPOST:
         query_data = data['query_data'].copy()
         query_data['json'] = data['payload'].copy()
 
-        for _ in [faker.int(20), faker.fwords()]:
+        for _ in [faker.ints(20), faker.words()]:
             query_data['json']['id'] = _
 
             new_pet = r.post(**query_data)
@@ -136,7 +136,7 @@ class TestCheckPetPOST:
         query_data = data['query_data'].copy()
         query_data['json'] = data['payload'].copy()
 
-        for _ in ['{@}', faker.int(20), faker.fwords(nb=1, lang='en')]:
+        for _ in ['{@}', faker.ints(20), faker.words(nb=1, lang='en')]:
             query_data['url'] += f"/{_}"
 
             res = r.post(**query_data)

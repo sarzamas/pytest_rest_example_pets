@@ -1,8 +1,9 @@
-pytest              ~=7.4.3
-pytest-html         ~=4.1.1
-pytest-emoji        ~=0.2.0
-requests            <=3.0.0
-urllib3             ~=2.1.0
-Faker               ~=21.0.0
-validators          ~=0.22.0
-attrs               ~=23.1.0
+allure-python-commons ~=2.13.5
+pytest                ~=7.4.3
+pytest-html           ~=4.1.1
+pytest-emoji          ~=0.2.0
+requests              <=3.0.0
+urllib3               ~=2.1.0
+Faker                 ~=21.0.0
+validators            ~=0.22.0
+attrs                 ~=23.1.0

@@ -4,6 +4,9 @@ from typing import Callable
 
 import pytest
 import requests as r
+
+from _socket import gethostname
+from allure_commons.utils import now
 from validators import hostname as valid_hostname
 from validators import url as valid_url
 

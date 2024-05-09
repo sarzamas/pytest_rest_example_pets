@@ -112,6 +112,16 @@ def faker() -> RandomData:
     return RandomData()
 
 
+@pytest.hookimpl(trylast=True)
+def pytest_configure(config):
+    logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
+    epoch = now()
+    unix_timestamp_seconds = epoch / 1000
+    dt_object = datetime.fromtimestamp(unix_timestamp_seconds)
+    human_readable_date = dt_object.strftime('%Y-%m-%d--%H-%M')
+    logging_plugin.set_log_path(f"{gethostname()}--{human_readable_date}.log")
+
+
 def pytest_emoji_passed(config):
     return "✅ ", "PASSED 🍪 "
 

@@ -5,7 +5,7 @@ from os import linesep
 from typing import Callable
 
 import pytest
-from .hooks import pytest_configure
+
 import requests as r
 from validators import hostname as valid_hostname
 from validators import url as valid_url
@@ -15,6 +15,7 @@ from Helpers.RequestsHelper import TestTimeout
 from tests import change_handler
 from Utils.RandomData import RandomData
 
+from .hooks import pytest_configure
 
 @pytest.fixture(scope='session', name='test_data')
 def preconditions_teardown(config: Config, faker: RandomData) -> Callable:

@@ -78,7 +78,7 @@ jobs:
 
   # *******************************
   qodana:
-    name: Code Quality Check
+    name: Qodana Code Quality Check
     # *****************************
     runs-on: ${{ matrix.os }}
     needs: [ clear_logs, matrix_config ]
@@ -101,7 +101,9 @@ jobs:
       - name: Check out repo ${{ github.repository }}
         uses: actions/checkout@v4
         with:
-          # fetch all history for all branches and tags
+          # check out the actual pull request commit, not the merge commit:
+          ref: ${{ github.event.pull_request.head.sha }}
+          # fetch all history of all branches and tags for pull request analysis:
           fetch-depth: 0
 
       - name: Set-Up Python ${{ matrix.python-version }}
@@ -122,13 +124,14 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           if [ -f requirements.txt ]; then pip wheel -r requirements.txt; fi
 
+      - name: Qodana Report
+        run: echo "🏁 Qodana Cloud 🏁 -  $QODANA_CLOUD"
+
       - name: Run Qodana Scan
         if: runner.os != 'Windows'
         uses: JetBrains/qodana-action@v2024.1
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-      - name: Qodana Report
-        run: echo "🏁 Qodana Cloud 🏁 -  $QODANA_CLOUD"
 
   # *******************************
   lint:

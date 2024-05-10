@@ -84,8 +84,8 @@ jobs:
     needs: [ clear_logs, matrix_config ]
 
     permissions:
-      contents: read
-      pull-requests: read
+      contents: write
+      pull-requests: write
       checks: write
 
     strategy:

@@ -29,7 +29,7 @@ skip-string-normalization = true
 [tool.isort]
 profile = "black"
 color_output = true
-py_version = 310
+py_version = 312
 force_to_top = true
 case_sensitive = true
 line_length = 120

@@ -1,3 +1,7 @@
+""" Хуки вынесены из базового conftest.py в отдельный файл для разделения функций по уровням прикладных задач """
+
+import logging
+from os import path
 from datetime import datetime
 
 import pytest
@@ -5,15 +9,18 @@ from _socket import gethostname
 from allure_commons.utils import now
 
 
-def datetime_now() -> str:
-    """Форматирование даты для имени лог файла"""
-    epoch = now()
-    unix_timestamp_seconds = epoch / 1000
-    dt_object = datetime.fromtimestamp(unix_timestamp_seconds)
-    return dt_object.strftime('%Y-%m-%d--%H-%M')
-
-
 @pytest.hookimpl(trylast=True)
 def pytest_configure(config):
+    """
+    Хук для конфигурации тестового прогона:
+     - задает имя и путь для локального лог-файла
+     - определяет цвет отображения в консоли меток [INFO]
+    :param config: служебная фикстура pytest
+    """
     logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
-    logging_plugin.set_log_path(f"{gethostname()}--{datetime_now()}.log")
+
+    logfile_name = f"{gethostname()}--{Faker.timestamp()}.log"
+    logfile_path = path.join(LOG_DIR, logfile_name)
+
+    logging_plugin.set_log_path(logfile_path)
+    logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'cyan')

@@ -5,7 +5,7 @@ from Utils.DotDict import DotDict
 from Utils.Singleton import Singleton
 
 PROJECT_PATH = path.split(path.dirname(__file__))[0]
-CONFIG_PATH = path.dirname(os.path.abspath(__file__))
+CONFIG_PATH = path.dirname(path.abspath(__file__))
 LOG_PATH = path.join(PROJECT_PATH, '.log')
 
 

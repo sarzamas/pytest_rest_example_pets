@@ -15,7 +15,7 @@ def pytest_configure(config):
     """
     Хук для конфигурации тестового прогона:
      - задает имя и путь для локального лог-файла
-     - определяет цвет отображения меток [INFO] в консоли
+     - определяет цвет отображения меток `log_level`: [INFO] в консоли
     :param config: служебная фикстура pytest
     """
     logging_plugin = config.pluginmanager.get_plugin("logging-plugin")

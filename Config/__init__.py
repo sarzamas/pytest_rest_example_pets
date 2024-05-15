@@ -5,6 +5,9 @@ from Utils.DotDict import DotDict
 from Utils.Singleton import Singleton
 
 
+PROJECT_PATH = path.split(path.dirname(__file__))[0]
+LOG_PATH = path.join(PROJECT_PATH, '.log')
+
 class Config(DotDict, metaclass=Singleton):
     """
     Класс экземпляра конфигурации (Singleton)

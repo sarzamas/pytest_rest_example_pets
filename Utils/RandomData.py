@@ -1,10 +1,10 @@
 import random
 import string
+from allure_commons.utils import now
 from datetime import datetime
 from typing import Literal, Optional
 from uuid import uuid4
 
-from allure_commons.utils import now
 from faker import Faker
 
 from Utils.Singleton import Singleton

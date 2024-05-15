@@ -129,4 +129,7 @@ class Counter(metaclass=Singleton):
             self._state += 1
 
     def get_next(self):
+        """
+        Следующий элемент последовательности
+        """
         return next(self.count)

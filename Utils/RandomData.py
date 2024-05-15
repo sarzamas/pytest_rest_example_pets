@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Literal, Optional
 from uuid import uuid4
 
+from allure_commons.utils import now
 from faker import Faker
 
 from Utils.Singleton import Singleton
@@ -89,10 +90,21 @@ class RandomData(metaclass=Singleton):
     def timestamp() -> str:
         """
         Статический метод, возвращающий время в виде строки
-        :return: строка вида "06-29_11-54-25"
+        :return: строка вида "2024-06-29_11-54-25"
         """
         current_time = datetime.now()
-        return str(current_time.strftime("%m_%d_%H_%M"))
+        return current_time.strftime('%Y-%m-%d_%H-%M-%S')
+
+    @staticmethod
+    def datetime_now() -> str:
+        """
+        Статический метод, возвращающий дату в виде строки
+        :return: строка вида "2024-06-29"
+        """
+        epoch = now()
+        unix_timestamp_seconds = epoch / 1000
+        dt_object = datetime.fromtimestamp(unix_timestamp_seconds)
+        return dt_object.strftime('%Y-%m-%d')
 
 
 class Counter(metaclass=Singleton):

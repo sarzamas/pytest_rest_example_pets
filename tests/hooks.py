@@ -6,8 +6,8 @@ from os import path
 import pytest
 from _socket import gethostname
 
-from Utils.RandomData import RandomData as Faker
 from Config import LOG_PATH
+from Utils.RandomData import RandomData as Faker
 
 
 @pytest.hookimpl(trylast=True)

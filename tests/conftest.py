@@ -117,24 +117,30 @@ def faker() -> RandomData:
 
 
 def pytest_emoji_passed(config):
+    """PASSED"""
     return "✅ ", "PASSED 🍪 "
 
 
 def pytest_emoji_failed(config):
+    """FAILED"""
     return "❌ ", "FAILED ❌ "
 
 
 def pytest_emoji_skipped(config):
+    """SKIPPED"""
     return "✂️ ", "SKIPPED 🙈 "
 
 
 def pytest_emoji_error(config):
+    """ERROR"""
     return "⁉️ ", "ERROR 💩 "
 
 
 def pytest_emoji_xfailed(config):
+    """XFAIL"""
     return "⚠️ ", "XFAIL 🤓 "
 
 
 def pytest_emoji_xpassed(config):
+    """XPASS"""
     return "❎ ", "XPASS 😜 "

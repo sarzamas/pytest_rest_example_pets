@@ -6,7 +6,6 @@ from datetime import datetime
 
 import pytest
 from _socket import gethostname
-from allure_commons.utils import now
 
 
 @pytest.hookimpl(trylast=True)

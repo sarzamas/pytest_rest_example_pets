@@ -9,6 +9,7 @@ from _socket import gethostname
 from Utils.RandomData import RandomData as Faker
 from Config import LOG_PATH
 
+
 @pytest.hookimpl(trylast=True)
 def pytest_configure(config):
     """

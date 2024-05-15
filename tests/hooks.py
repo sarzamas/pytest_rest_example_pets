@@ -1,8 +1,8 @@
 """ Хуки вынесены из базового conftest.py в отдельный файл для разделения функций по уровням прикладных задач """
 
 import logging
-from os import path
 from datetime import datetime
+from os import path
 
 import pytest
 from _socket import gethostname

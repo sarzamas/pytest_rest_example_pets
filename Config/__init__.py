@@ -1,11 +1,12 @@
 import json
-import os
+from os import path
 
 from Utils.DotDict import DotDict
 from Utils.Singleton import Singleton
 
 
 PROJECT_PATH = path.split(path.dirname(__file__))[0]
+CONFIG_PATH = path.dirname(os.path.abspath(__file__))
 LOG_PATH = path.join(PROJECT_PATH, '.log')
 
 class Config(DotDict, metaclass=Singleton):
@@ -14,10 +15,9 @@ class Config(DotDict, metaclass=Singleton):
     """
 
     def __init__(self):
-        config_dir = os.path.dirname(os.path.abspath(__file__))
-        config_path = os.path.join(config_dir, 'config.json')
-        local_config_path = os.path.join(config_dir, 'config.local.json')
-        self.config_path = _ if os.path.exists(_ := local_config_path) else config_path
+        config_path = path.join(CONFIG_PATH, 'config.json')
+        local_config_path = path.join(CONFIG_PATH, 'config.local.json')
+        self.config_path = _ if path.exists(_ := local_config_path) else config_path
         config_data = self.read_config(self.config_path)
         super().__init__(DotDict(config_data))
 

@@ -26,7 +26,6 @@ def pytest_configure(config):
     logging_plugin.set_log_path(logfile_path)
     logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'cyan')
 
-
 @pytest.fixture(autouse=True)
 def log_delimiter(request):
     """

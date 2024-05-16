@@ -18,6 +18,14 @@ chromedriver
 .idea
 .vscode
 
+# Log files and reports
+*log?
+*.log
+report
+report.xml
+*allure-result?
+*allure-report?
+
 # Other files
 TMP
 TEMP
@@ -25,9 +33,5 @@ temp
 samples
 video
 screenshots
-report
-logs
-*.log
 *.http
-report.xml
 github.txt

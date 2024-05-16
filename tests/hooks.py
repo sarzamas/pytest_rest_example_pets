@@ -7,6 +7,7 @@ import pytest
 from _socket import gethostname
 
 from Config import LOG_PATH
+from Utils.log import logger
 from Utils.RandomData import RandomData as Faker
 
 

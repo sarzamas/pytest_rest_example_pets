@@ -19,12 +19,10 @@ chromedriver
 .vscode
 
 # Log files and reports
-*log?
-*.log
-report
-report.xml
+*.log?
 *allure-result?
 *allure-report?
+report.*
 
 # Other files
 TMP

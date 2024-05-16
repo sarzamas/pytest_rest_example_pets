@@ -26,6 +26,7 @@ def pytest_configure(config):
     logging_plugin.set_log_path(logfile_path)
     logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'cyan')
 
+
 @pytest.fixture(autouse=True)
 def log_delimiter(request):
     """
@@ -34,4 +35,3 @@ def log_delimiter(request):
     test_name = request.function.__name__
     test_path = request.fspath.strpath
     logger.info(f"{linesep}{test_name:-^79} from {test_path}")
-    

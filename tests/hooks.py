@@ -24,17 +24,20 @@ def pytest_configure(config: pytest.Config):
 
     worker_id = getenv('PYTEST_XDIST_WORKER')
     logfile_name = f"{gethostname()}--{Faker.timestamp()}"
-    logfile_name = f"{logfile_name}__{worker_id}" if worker_id else f"{logfile_name}"
+    if worker_id:
+        logfile_name = f"{logfile_name}--{worker_id}"
+        config.option.color = 'no'
     logfile_path = path.join(LOG_PATH, f"{logfile_name}.log")
     logging_plugin.set_log_path(logfile_path)
 
-    logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'cyan')
+    if config.option.color == 'yes':
+        logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'cyan')
 
 
 @pytest.fixture(autouse=True)
-def log_delimiter(request: pytest.Subrequest):
+def log_delimiter(request):
     """
-    Разделитель строк текста между тестами в лог-файле тестового прогона
+    Фикстура: разделитель строк текста между тестами в лог-файле тестового прогона
     :param request: служебная фикстура pytest
     """
     test_name = request.function.__name__

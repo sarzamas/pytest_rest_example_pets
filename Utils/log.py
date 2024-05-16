@@ -1,6 +1,6 @@
 import logging
 
-from settings import DEBUG
+from Config.settings import DEBUG
 
 logger = logging.getLogger('root')
 

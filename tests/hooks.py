@@ -37,9 +37,12 @@ def pytest_configure(config: pytest.Config):
 @pytest.fixture(autouse=True)
 def log_delimiter(request):
     """
-    Фикстура: разделитель строк текста между тестами в лог-файле тестового прогона
+    Разделитель строк текста между тестами в лог-файле тестового прогона
+     - scope: function
     :param request: служебная фикстура pytest
     """
     test_name = request.function.__name__
-    test_path = request.fspath.strpath
-    logger.info(f"{linesep}{(' ' + test_name + ' '):-^79} {test_path}")
+    test_title = f"{(' ' + test_name + ' '):-^79}"
+    if request.config.option.color == 'yes':
+        test_title = '\033[1m{0}\033[0m'.format(test_title)
+    logger.info('%s%s', linesep, test_title)

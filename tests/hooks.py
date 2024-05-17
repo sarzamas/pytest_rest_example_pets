@@ -49,5 +49,7 @@ def log_delimiter(request):
     test_name = request.function.__name__
     test_title = f"{(' ' + test_name + ' '):-^79}"
     if request.config.option.color == 'yes':
-        test_title = '\033[1m%s\033[0m' test_title
+        # выделение `bold`
+        test_title = '\033[1m%s\033[0m', test_title
     logger.info('%s%s', linesep, test_title)
+

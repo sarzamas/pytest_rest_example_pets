@@ -50,6 +50,5 @@ def log_delimiter(request):
     test_title = f"{(' ' + test_name + ' '):-^79}"
     if request.config.option.color == 'yes':
         # выделение `bold`
-        test_title = '\033[1m%s\033[0m', test_title
-    logger.info('%s%s', linesep, test_title)
-
+        test_title = '\033[1m%s\033[0m' % test_title
+    logger.info(f"{linesep}{test_title}")

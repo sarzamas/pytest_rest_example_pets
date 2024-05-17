@@ -15,5 +15,5 @@ def clear_empty_in_folder(folder: str):
                     remove(entity_path)
             except PermissionError:
                 continue
-        if path.isdir(entity_path):
+        elif path.isdir(entity_path):
             clear_empty_in_folder(entity_path)

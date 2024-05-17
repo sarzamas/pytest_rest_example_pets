@@ -43,6 +43,7 @@ def log_delimiter(request):
     """
     Разделитель строк текста между тестами в лог-файле тестового прогона
      - scope: function
+     - запускается из `pytest.ini` ключом `usefixtures`
     :param request: служебная фикстура pytest
     """
     test_name = request.function.__name__

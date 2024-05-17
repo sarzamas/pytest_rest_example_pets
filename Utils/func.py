@@ -11,7 +11,7 @@ def clear_empty_in_folder(folder: str):
         entity_path = path.join(folder, entity)
         if path.isfile(entity_path):
             try:
-                if path.getsize(entity_path) == 0:
+                if not path.getsize(entity_path):
                     remove(entity_path)
             except PermissionError:
                 continue

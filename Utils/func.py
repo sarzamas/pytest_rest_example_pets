@@ -1,5 +1,6 @@
 from os import listdir, path, remove
 
+
 def clear_empty_in_folder(folder: str):
     """
     Рекурсивное удаление всех пустых сущностей в текущей директории

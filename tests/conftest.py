@@ -1,4 +1,4 @@
-__all__ = ['log_delimiter', 'pytest_configure']
+__all__ = ['log_dispatcher', 'pytest_configure']
 
 from datetime import datetime
 from os import linesep
@@ -14,7 +14,7 @@ from Helpers.RequestsHelper import TestTimeout
 from tests import change_handler
 from Utils.RandomData import RandomData
 
-from .hooks import log_delimiter, pytest_configure
+from .hooks import log_dispatcher, pytest_configure
 
 
 @pytest.fixture(scope='session', name='test_data')

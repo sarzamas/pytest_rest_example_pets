@@ -6,7 +6,7 @@ from os import getenv, linesep, path
 import pytest
 from _socket import gethostname
 
-from Config import LOG_PATH
+from Config import DEBUG, LOG_PATH
 from Utils.functions import clear_empty_in_folder
 from Utils.log import logger
 from Utils.RandomData import RandomData as Faker
@@ -38,17 +38,24 @@ def pytest_configure(config: pytest.Config):
         logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'bold', 'cyan')
 
 
-@pytest.fixture(autouse=True)
-def log_delimiter(request):
+@pytest.fixture()
+def log_dispatcher(caplog, request):
     """
-    Разделитель строк текста между тестами в лог-файле тестового прогона
+    Фикстура диспетчеризации логирования:
+     - устанавливает общий уровень логирования из ENV
+       (для разделения уровней логирования между консолью и файлом использовать ключи в `pytest.ini`)
+     - форматирует разделитель между блоками лога именем теста
      - scope: function
      - запускается из `pytest.ini` ключом `usefixtures`
+    :param caplog: служебная фикстура pytest
     :param request: служебная фикстура pytest
     """
+    caplog.set_level(logging.DEBUG) if DEBUG else caplog.set_level(logging.INFO)
+
     test_name = request.function.__name__
-    test_title = f"{(' ' + test_name + ' '):-^79}"
+    test_title = f"{'':-^79}{ls}{(' ' + test_name + ' '):-^79}{ls}{'':-^79}"
     if request.config.option.color == 'yes':
         # выделение `bold`
         test_title = '\033[1m%s\033[0m' % test_title
-    logger.info(f"{linesep}{test_title}")
+
+    logging.getLogger('logger').info(f"{ls}{test_title}")

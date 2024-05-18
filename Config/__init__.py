@@ -8,6 +8,8 @@ PROJECT_PATH = path.split(path.dirname(__file__))[0]
 CONFIG_PATH = path.dirname(path.abspath(__file__))
 LOG_PATH = path.join(PROJECT_PATH, '.log')
 
+DEBUG = getenv('DEBUG', 'false').lower() not in ('false', '0')  # булевый флаг
+
 
 class Config(DotDict, metaclass=Singleton):
     """

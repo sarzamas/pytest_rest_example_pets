@@ -1,7 +1,7 @@
 """Хуки и служебные фикстуры вынесены из базового conftest в отдельный файл для разделения по уровням решаемых задач"""
 
 import logging
-from os import getenv, linesep, path
+from os import getenv, linesep as ls, path
 
 import pytest
 from _socket import gethostname

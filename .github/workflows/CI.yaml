@@ -128,7 +128,7 @@ jobs:
         run: echo "🏁 Qodana Cloud 🏁 -  $QODANA_CLOUD"
 
       - name: Run Qodana Scan
-        if: ${{ runner.os != 'Windows' || runner.os != 'Linux' }}
+        if: ${{ runner.os != 'Windows' && runner.os != 'Linux' }}
         uses: JetBrains/qodana-action@v2024.1
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}

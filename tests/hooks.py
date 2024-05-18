@@ -7,7 +7,7 @@ import pytest
 from _socket import gethostname
 
 from Config import LOG_PATH
-from Utils.func import clear_empty_in_folder
+from Utils.functions import clear_empty_in_folder
 from Utils.log import logger
 from Utils.RandomData import RandomData as Faker
 

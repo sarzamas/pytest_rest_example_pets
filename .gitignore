@@ -5,8 +5,8 @@ __MACOSX
 .DS_Store
 
 # Environment
-.venv
-.devenv
+*venv
+.pytest.ini
 
 # Config
 config.local.json
@@ -19,9 +19,10 @@ chromedriver
 .vscode
 
 # Log files and reports
-*.log?
-*allure-result?
-*allure-report?
+*log
+*.log
+*allure-results
+*allure-report
 report.*
 
 # Other files

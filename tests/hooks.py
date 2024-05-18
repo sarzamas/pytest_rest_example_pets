@@ -1,7 +1,7 @@
 """Хуки и служебные фикстуры вынесены из базового conftest в отдельный файл для разделения по уровням решаемых задач"""
 
 import logging
-from os import getenv, linesep as ls, path
+from os import getenv, linesep, path
 
 import pytest
 from _socket import gethostname
@@ -53,9 +53,9 @@ def log_dispatcher(caplog, request):
     caplog.set_level(logging.DEBUG) if DEBUG else caplog.set_level(logging.INFO)
 
     test_name = request.function.__name__
-    test_title = f"{'':-^79}{ls}{(' ' + test_name + ' '):-^79}{ls}{'':-^79}"
+    test_title = f"{'':-^79}{linesep}{(' ' + test_name + ' '):-^79}{linesep}{'':-^79}"
     if request.config.option.color == 'yes':
         # выделение `bold`
         test_title = '\033[1m%s\033[0m' % test_title
 
-    logging.getLogger('logger').info(f"{ls}{test_title}")
+    logging.getLogger('logger').info(f"{linesep}{test_title}")

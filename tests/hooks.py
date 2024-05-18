@@ -47,7 +47,7 @@ def log_delimiter(request):
     :param request: служебная фикстура pytest
     """
     test_name = request.function.__name__
-    test_title = f"{(' ' + test_name + ' '):-^80}"
+    test_title = f"{(' ' + test_name + ' '):-^79}"
     if request.config.option.color == 'yes':
         # выделение `bold`
         test_title = '\033[1m%s\033[0m' % test_title

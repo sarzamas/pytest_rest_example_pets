@@ -23,7 +23,7 @@ def pytest_configure(config: pytest.Config):
      - scope: session
     :param config: служебная фикстура pytest
     """
-    clear_empty_in_folder(LOG_PATH) if path.isdir(LOG_PATH) else lambda: ...
+    clear_empty_in_folder(LOG_PATH) if path.isdir(LOG_PATH) else None
 
     logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
 

@@ -42,7 +42,7 @@ def pytest_configure(config: pytest.Config):
 
 
 @pytest.fixture()
-def log_dispatcher(caplog, request, get_allure_decorator):
+def log_dispatcher(caplog, get_allure_decorator, request):
     """
     Фикстура диспетчеризации логирования:
      - устанавливает общий уровень логирования для лога консоли и файла из env.DEBUG

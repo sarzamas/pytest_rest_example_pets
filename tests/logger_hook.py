@@ -62,9 +62,9 @@ def log_dispatcher(caplog, request, get_allure_decorator):
     logger = logging.getLogger('logger')
 
     test_name, test_link = get_allure_decorator
-    test_name = f"{linesep}{(' ' + test_name + ' '):-^79}"
-    test_link = f"{linesep}{(' ' + test_link + ' '):-^79}" if test_link else None
-    test_title = f"{linesep}{'':-^79}{test_name}{test_link or ''}{linesep}{'':-^79}"
+    test_name = f"{linesep}{(' ' + test_name + ' '):-^80}"
+    test_link = f"{linesep}{(' ' + test_link + ' '):-^80}" if test_link else None
+    test_title = f"{linesep}{'':-^80}{test_name}{test_link or ''}{linesep}{'':-^80}"
 
     if request.config.option.color == 'yes':
         # выделение `bold`

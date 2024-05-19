@@ -23,7 +23,7 @@ def pytest_configure(config: pytest.Config):
     :param config: служебная фикстура pytest
     """
 
-    clear_empty_in_folder(LOG_DIR) if path.isdir(LOG_DIR) else None
+    clear_empty_in_folder(LOG_PATH) if path.isdir(LOG_PATH) else None
 
     logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
 
@@ -32,7 +32,7 @@ def pytest_configure(config: pytest.Config):
 
     if worker_id:
         logfile_name = f"{logfile_name}--{worker_id}"
-    logfile_path = path.join(LOG_DIR, f"{logfile_name}.log")
+    logfile_path = path.join(LOG_PATH, f"{logfile_name}.log")
 
     logging_plugin.set_log_path(logfile_path)
 

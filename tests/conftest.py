@@ -1,4 +1,4 @@
-__all__ = ['log_dispatcher', 'get_allure_decorator', 'pytest_configure']
+__all__ = ['get_allure_decorator', 'log_dispatcher', 'pytest_configure']
 
 from datetime import datetime
 from os import linesep
@@ -14,7 +14,7 @@ from Helpers.RequestsHelper import TestTimeout
 from tests import change_handler
 from Utils.RandomData import RandomData
 
-from .logger_hook import log_dispatcher, get_allure_decorator, pytest_configure
+from .logger_hook import get_allure_decorator, log_dispatcher, pytest_configure
 
 
 @pytest.fixture(scope='session', name='test_data')

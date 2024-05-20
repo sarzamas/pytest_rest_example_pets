@@ -83,7 +83,7 @@ def get_allure_decorator(request) -> tuple:
        - логирует `warning` если у теста отсутствует декоратор `@allure_testcase`
        - логирует `warning` если у теста отсутствует ссылка на TMS TestCaseURL в декораторе `@allure_testcase`
     :param request: служебная фикстура pytest
-    :return tuple:  test_name, test_link - имя текущего теста и ссылка на тесткейс в TMS
+    :return: tuple:  test_name, test_link - имя текущего теста и ссылка на тесткейс в TMS
     """
 
     test = request.function

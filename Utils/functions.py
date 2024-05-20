@@ -1,4 +1,4 @@
-from os import listdir, path, remove
+from os import linesep, listdir, path, remove
 
 
 def clear_empty_in_folder(folder: str):

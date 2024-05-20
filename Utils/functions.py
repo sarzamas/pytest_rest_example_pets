@@ -37,17 +37,40 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
 
 def make_text_ansi_plain(text) -> str:
     """
-    Функция убирает все метки ANSI escape sequence color options из текста для логирования его в файл в виде plain/text
-     - сигнатуры меток добавлены по факту их обнаружения в логфайле
+    Функция убирает все метки ANSI escape sequence color options из текста для логирования его в файл allure в виде plain/text
+     - сигнатуры всех меток  - pytest.TerminalWriter._esctable:
+     -  Capitalized colors indicates background color
+     Ex: `'green', 'Yellow', 'bold'` will give bold green text on yellow background
+        bold=1,
+        light=2,
+        blink=5,
+        invert=7,
+        black=30,
+        red=31,
+        green=32,
+        yellow=33,
+        blue=34,
+        purple=35,
+        cyan=36,
+        white=37,
+        Black=40,
+        Red=41,
+        Green=42,
+        Yellow=43,
+        Blue=44,
+        Purple=45,
+        Cyan=46,
+        White=47,
     :param text: исходный текст
-    :return: str: текст, очищенный от меток ANSI color
+    :return: str: текст, очищенный от меток ANSI escape sequence color options
     """
     return (
-        text.replace('\033[34;1m', '')
-        .replace('\033[32;1m', '')
-        .replace('\033[31;1m', '')
-        .replace('\033[1;1m', '')
-        .replace('\033[0m', '')
+        text.replace('\033[0m', '')  # any-end
+        .replace('\033[1m', '')  # bold-start
+        .replace('\033[32m', '')  # green-start
+        .replace('\033[33m', '')  # yellow-start
+        .replace('\033[36;1m', '')  # cyan-bold-start
+        .replace('\033[40;33;1m', '')  # Black-yellow-bold-start
     )
 
 

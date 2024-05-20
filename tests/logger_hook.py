@@ -8,8 +8,7 @@ import pytest
 from _socket import gethostname
 
 from Config import DEBUG, LOG_PATH
-from Utils.functions import (clear_empty_in_folder, make_text_bold,
-                             make_text_wrapped)
+from Utils.functions import clear_empty_in_folder, make_text_bold, make_text_wrapped
 from Utils.RandomData import RandomData as Faker
 
 

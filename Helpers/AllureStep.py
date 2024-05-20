@@ -55,8 +55,11 @@ def allure_step(title: str, *params: Any, show_local_vars: bool = False):
     callers_local_vars = get_callers_local_vars()
     return CustomStep(
         title,
-        {name: represent(value) for name, value in callers_local_vars} if show_local_vars else
-        {retrieve_varname(callers_local_vars, param): represent(param) for param in params},
+        (
+            {name: represent(value) for name, value in callers_local_vars}
+            if show_local_vars
+            else {retrieve_varname(callers_local_vars, param): represent(param) for param in params}
+        ),
     )
 
 

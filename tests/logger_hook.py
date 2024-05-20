@@ -2,7 +2,7 @@
 
 import logging
 import warnings
-from os import getenv, linesep, path
+from os import getenv, path
 
 import pytest
 from _socket import gethostname

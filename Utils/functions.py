@@ -43,4 +43,3 @@ def make_text_wrapped(text: str, wrap_symbol: str = '-', width: int = 79, space:
     ls = linesep if new_line else None
     text = ' ' * space + text + ' ' * space
     return f"{ls or ''}{text:{wrap_symbol}^{width}}"
-    

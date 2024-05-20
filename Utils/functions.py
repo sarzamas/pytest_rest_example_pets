@@ -43,8 +43,7 @@ def make_text_ansi_plain(text) -> str:
     :return: str: текст, очищенный от меток ANSI color
     """
     return (
-        text
-        .replace('\033[34;1m', '')
+        text.replace('\033[34;1m', '')
         .replace('\033[32;1m', '')
         .replace('\033[31;1m', '')
         .replace('\033[1;1m', '')

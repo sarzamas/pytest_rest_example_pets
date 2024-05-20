@@ -23,7 +23,7 @@ def clear_empty_in_folder(folder: str):
 
 def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
     """
-    Функция для выделения текста жирным с помощью меток ANSI-color:
+    Функция для выделения текста жирным с помощью меток ANSI escape sequence color options:
      - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
      - может сочетаться с другими метками ANSI-color
     :param text: исходный текст
@@ -37,7 +37,7 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
 
 def make_text_ansi_plain(text) -> str:
     """
-    Функция убирает все метки ANSI color из текста для логирования его в файл в виде plain/text
+    Функция убирает все метки ANSI escape sequence color options из текста для логирования его в файл в виде plain/text
      - сигнатуры меток добавлены по факту их обнаружения в логфайле
     :param text: исходный текст
     :return: str: текст, очищенный от меток ANSI color

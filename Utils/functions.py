@@ -1,4 +1,5 @@
 from os import linesep, listdir, path, remove
+from sys import stdin
 
 
 def clear_empty_in_folder(folder: str):
@@ -20,15 +21,18 @@ def clear_empty_in_folder(folder: str):
             clear_empty_in_folder(entity_path)
 
 
-def make_text_bold(text: str) -> str:
+def make_text_bold(text: str, is_tty=stdin.isatty()) -> str:
     """
-    Функция для выделения текста жирным с помощью меток ANSI-color
-     - для форматирования строк лога
+    Функция для выделения текста жирным с помощью меток ANSI-color:
+     - для дифференциации форматирования теста в зависимости от места их вывода - в окно IDE или в логфайл
      - может сочетаться с другими метками ANSI-color
     :param text: исходный текст
+    :param is_tty: stdin.isatty() - признак процесса, который запустил тестовую сессию:
+     - True - вызов происходил из консоли терминала (как в CI) - подразумевается вывод в логфайл - без меток ANSI color
+     - False - вызов производился из окна IDE - подразумевается вывод в окно IDE - с метками ANSI color
     :return str: bold text
     """
-    return '\033[1m%s\033[0m' % text
+    return '\033[1m%s\033[0m' % text if not is_tty else text
 
 
 def make_text_wrapped(text: str, wrap_symbol: str = '-', width: int = 79, space: int = 1, new_line: bool = True) -> str:

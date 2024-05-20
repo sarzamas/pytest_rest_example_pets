@@ -10,7 +10,7 @@ from _socket import gethostname
 from Config import DEBUG, LOG_PATH
 from Utils.RandomData import RandomData as Faker
 
-from Utils.functions import clear_empty_in_folder, make_text_bold, make_text_wrapped  # isort:skip
+from Utils.functions import clear_empty_in_folder, make_text_ansi_bold, make_text_wrapped  # isort:skip
 
 
 @pytest.hookimpl(trylast=True)
@@ -71,7 +71,7 @@ def log_dispatcher(caplog, get_allure_decorator, request):
 
     test_title = f"{empty_line}{test_name}{test_link or ''}{empty_line}"
 
-    test_title = make_text_bold(test_title) if request.config.option.color == 'yes' else test_title
+    test_title = make_text_ansi_bold(test_title) if request.config.option.color == 'yes' else test_title
 
     logger.info(test_title)
 

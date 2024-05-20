@@ -49,7 +49,7 @@ def log_dispatcher(caplog, get_allure_decorator, request):
        (для разделения уровней логирования между консолью и файлом использовать ключи в `pytest.ini`)
      - форматирует и вставляет в лог визуальную отбивку между блоками тестовой сессии:
        - с именем текущего теста
-       - со ссылкой на тест в TMS
+       - со ссылкой на тест в TMS (данные берутся из декоратора `@allure_testcase`)
      - выделяет отбивку как `bold` только при наличии параметра `--color=yes`
      - scope: function
      - запускается из `pytest.ini` ключом `usefixtures`
@@ -63,13 +63,14 @@ def log_dispatcher(caplog, get_allure_decorator, request):
     logger = logging.getLogger('logger')
 
     test_name, test_link = get_allure_decorator
-    test_name = f"{linesep}{(' ' + test_name + ' '):-^80}"
-    test_link = f"{linesep}{(' ' + test_link + ' '):-^80}" if test_link else None
-    test_title = f"{linesep}{'':-^80}{test_name}{test_link or ''}{linesep}{'':-^80}"
 
-    if request.config.option.color == 'yes':
-        # выделение `bold`
-        test_title = '\033[1m%s\033[0m' % test_title
+    test_name = make_text_wrapped(test_name)
+    test_link = make_text_wrapped(test_link) if test_link else None
+    empty_line = make_text_wrapped('', space=0)
+
+    test_title = f"{empty_line}{test_name}{test_link or ''}{empty_line}"
+
+    test_title = make_text_bold(test_title) if request.config.option.color == 'yes' else test_title
 
     logger.info(test_title)
 
@@ -79,7 +80,7 @@ def get_allure_decorator(request) -> tuple:
     """
     Фикстура получения данных о тесте из декоратора `@allure_testcase`:
        - логирует `warning` если у теста отсутствует декоратор `@allure_testcase`
-       - логирует `warning` если у теста отсутствует ссылка на TMS в декораторе `@allure_testcase`
+       - логирует `warning` если у теста отсутствует ссылка на TMS TestCaseURL в декораторе `@allure_testcase`
     :param request: служебная фикстура pytest
     :return tuple:  test_name, test_link - имя текущего теста и ссылка на тесткейс в TMS
     """
@@ -89,20 +90,21 @@ def get_allure_decorator(request) -> tuple:
     test_link = None
     prefix = f"У теста `{test_name}` отсутствует"
 
+    log_warning(f"{prefix} декоратор `@allure_testcase`") if not hasattr(test, '__allure_display_name__') else None
+
     if hasattr(test, 'pytestmark'):
-        for Mark in test.pytestmark:
+        for Mark in test.pytestmark:  # noqa: N806
             if Mark.name == 'allure_link':
                 test_link = Mark.args[0]
                 break
-    else:
-        report_warning(f"{prefix} ссылка на TMS TestCaseURL в декораторе `@allure_testcase`")
 
-    report_warning(f"{prefix} декоратор `@allure_testcase`") if not hasattr(test, '__allure_display_name__') else None
+    if not test_link:
+        log_warning(f"{prefix} ссылка на TMS TestCaseURL в декораторе `@allure_testcase`")
 
     return test_name, test_link
 
 
-def report_warning(message, logger=None, logger_name=None):
+def log_warning(message, logger=None, logger_name=None):
     """
     Функция для репортинга сообщения уровня `Warning` одновременно в лог и stderr
      - для репортинга необязательно передавать имеющийся экземпляр `logger`

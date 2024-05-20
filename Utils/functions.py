@@ -1,6 +1,24 @@
 from os import listdir, path, remove
 
 
+def report_warning(message, logger=None, logger_name=None):
+    """
+    Функция для репортинга сообщения уровня `Warning` одновременно в лог и stderr
+     - для репортинга необязательно передавать имеющийся экземпляр `logger`
+     - можно задать только желаемое `logger_name` для отображения имени в логе (косвенная ссылка на источник)
+     - по умолчанию `logger` будет иметь имя `warning`
+    :param message: текст сообщения
+    :param logger: экземпляр уже имеющегося logger (опционально)
+    :param logger_name: имя в логе для ссылки на источник сообщения (опционально)
+    """
+
+    name = logger_name if logger_name else 'warning'
+    logger = logging.getLogger(name) if not logger else logger
+
+    logger.warning(message)
+    warnings.warn(message)
+
+
 def clear_empty_in_folder(folder: str):
     """
     Рекурсивное удаление всех пустых сущностей в текущей директории

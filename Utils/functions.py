@@ -37,7 +37,7 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
 
 def make_text_ansi_plain(text) -> str:
     """
-    Функция убирает все метки ANSI escape sequence color options из текста для логирования его в файл allure в виде plain/text
+    Функция убирает метки ANSI escape sequence color options из текста для логирования его в файл allure в виде plain/text
      - сигнатуры всех меток  - pytest.TerminalWriter._esctable:
      -  Capitalized colors indicates background color
      Ex: `'green', 'Yellow', 'bold'` will give bold green text on yellow background

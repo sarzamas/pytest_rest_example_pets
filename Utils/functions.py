@@ -29,15 +29,16 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
     :param text: исходный текст
     :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
      - True - инициатор запуска - консоль терминала (как в CI) -> подразумевается вывод в логфайл - без меток ANSI color
-     - False - запуск производился из окна IDE -> подразумевается вывод в окно IDE - с метками ANSI color
+     - False - запуск производился из окна IDE (Run/Debug Configuration) -> вывод в окно IDE - с метками ANSI color
     :return: str: ANSI bold text
     """
     return '\033[1m%s\033[0m' % text if not is_tty else text
 
 
-def make_text_ansi_plain(text) -> str:
+def make_text_ansi_plain(text: str, is_tty: bool = stdin.isatty()) -> str:
     """
     Функция убирает метки ANSI escape sequence color options из текста для логирования его в файл allure как plain/text
+     - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
      - сигнатуры всех меток  - pytest.TerminalWriter._esctable:
      -  Capitalized colors indicates background color
      Ex: `'green', 'Yellow', 'bold'` will give bold green text on yellow background
@@ -62,16 +63,19 @@ def make_text_ansi_plain(text) -> str:
         Cyan=46,
         White=47,
     :param text: исходный текст
+    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
+     - True - инициатор запуска - консоль терминала (как в CI) -> подразумевается вывод в логфайл - без меток ANSI color
+     - False - запуск производился из окна IDE (Run/Debug Configuration) -> вывод в окно IDE - с метками ANSI color
     :return: str: текст, очищенный от меток ANSI escape sequence color options
     """
-    return (
-        text.replace('\033[0m', '')  # any-end
-        .replace('\033[1m', '')  # bold-start
-        .replace('\033[32m', '')  # green-start
-        .replace('\033[33m', '')  # yellow-start
-        .replace('\033[36;1m', '')  # cyan-bold-start
-        .replace('\033[40;33;1m', '')  # Black-yellow-bold-start
-    )
+    if not is_tty:
+        (
+            text.replace('\033[0m', '')  # any-end
+            .replace('\033[1m', '')  # bold-start
+            .replace('\033[32m', '')  # green-start
+            .replace('\033[33m', '')  # yellow-start
+        )
+    return text
 
 
 def make_text_wrapped(text: str, wrap_symbol: str = '-', width: int = 79, space: int = 1, new_line: bool = True) -> str:

@@ -40,6 +40,8 @@ def pytest_configure(config: pytest.Config):
 
     if config.option.color == 'yes':
         logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'bold', 'cyan')
+        logging_plugin.log_cli_handler.formatter.add_color_level(logging.WARNING, 'invert', 'yellow', 'Black')
+        logging_plugin.log_cli_handler.formatter.add_color_level(logging.ERROR, 'invert', 'red', 'Black')
 
 
 @pytest.fixture()

@@ -7,6 +7,7 @@ class CommonChecker:
     """
     Класс с базовыми чекерами для HTTP запросов
     """
+
     default_message = "Некорректный статус код"
 
     @staticmethod

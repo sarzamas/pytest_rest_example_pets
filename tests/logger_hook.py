@@ -30,10 +30,10 @@ def pytest_configure(config: pytest.Config):
     logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
 
     worker_id = getenv('PYTEST_XDIST_WORKER')
-    logfile_name = f"{gethostname()}--{Faker.timestamp()}"
+    logfile_name = f"{gethostname()}_{Faker.timestamp()}"
 
     if worker_id:
-        logfile_name = f"{logfile_name}--{worker_id}"
+        logfile_name = f"{logfile_name}_{worker_id}"
     logfile_path = path.join(LOG_PATH, f"{logfile_name}.log")
 
     logging_plugin.set_log_path(logfile_path)

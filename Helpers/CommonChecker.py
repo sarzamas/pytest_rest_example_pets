@@ -43,14 +43,16 @@ class CommonChecker:
 
     @staticmethod
     def check_key_in_collection(
-            key: str, collection: CaseInsensitiveDict[str] | str, assertion_message: Optional[str] = None):
+        key: str, collection: CaseInsensitiveDict[str] | str, assertion_message: Optional[str] = None
+    ):
         if not assertion_message:
             assertion_message = f"Ключ '{key}' отсутствует в коллекции {collection}"
         assert key in collection, assertion_message
 
     @staticmethod
     def check_key_not_in_collection(
-            key: str, collection: CaseInsensitiveDict[str] | dict, assertion_message: Optional[str] = None):
+        key: str, collection: CaseInsensitiveDict[str] | dict, assertion_message: Optional[str] = None
+    ):
         if not assertion_message:
             assertion_message = f"Неожиданный Ключ '{key}' присутствует в коллекции {collection}"
         assert key not in collection, assertion_message
@@ -62,8 +64,7 @@ class CommonChecker:
         assert field == expected_value, assertion_message
 
     @staticmethod
-    def check_field_not_equals(
-            field: str, expected_value: str | int, assertion_message: Optional[str] = None):
+    def check_field_not_equals(field: str, expected_value: str | int, assertion_message: Optional[str] = None):
         if not assertion_message:
             assertion_message = f"Ожидалось, что значение поля '{field}' отлично от '{expected_value}'"
         assert field != expected_value, assertion_message
@@ -73,5 +74,6 @@ class CommonChecker:
         """Проверка вхождения ожидаемого значения в состав значения полученного поля как его части"""
         if not assertion_message:
             assertion_message = (
-                f"Некорректное значение поля '{field}', ожидалось что в нем содержится значение '{expected_value}'")
+                f"Некорректное значение поля '{field}', ожидалось что в нем содержится значение '{expected_value}'"
+            )
         assert expected_value in field, assertion_message

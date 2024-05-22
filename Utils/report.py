@@ -5,7 +5,7 @@ from typing import Any, Callable, MutableMapping
 import allure
 from requests import Response
 
-from helpers.data_collector import DataCollector
+from Helpers.DataCollector import DataCollector
 
 
 def get_flatten_dict(d: MutableMapping, parent_key: str = '', sep: str = '_') -> dict:

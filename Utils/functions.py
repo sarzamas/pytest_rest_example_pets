@@ -2,7 +2,7 @@ from os import linesep, listdir, path, remove
 from sys import stdin
 
 
-def clear_empty_in_folder(folder: str):
+def clear_empty_in_folder(folder: [path | str]):
     """
     Рекурсивное удаление всех пустых сущностей в текущей директории
      - игнорирование ошибки: в случае, если удаление невозможно - продолжаем двигаться дальше без удаления

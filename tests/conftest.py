@@ -2,7 +2,7 @@ __all__ = ['get_allure_decorator', 'log_dispatcher', 'pytest_configure']
 
 from datetime import datetime
 from os import linesep
-from typing import Callable
+from typing import Any, Callable
 
 import pytest
 import requests as r
@@ -30,6 +30,7 @@ def preconditions_teardown(config: Config, faker: RandomData) -> Callable:
     :param faker: RandomData: фикстура подготовки случайных данных
     :return: Callable: параметризованную функцию, которая может быть вызвана в теле теста или другой фикстуры
     """
+
     teardown_params = []
     query_data = {}
 
@@ -104,6 +105,7 @@ def config() -> Config:
     Фикстура инициализации Config с возможностью пробросить параметры из строки команды запуска pytest
     :return: экземпляр (Singleton) DotDict словаря с конфигурационными данными
     """
+
     return Config()
 
 
@@ -113,34 +115,55 @@ def faker() -> RandomData:
     Фикстура инициализации генератора случайных данных
     :return: экземпляр RandomData (Singleton)
     """
+
     return RandomData()
+
+
+@pytest.fixture()
+def expected_value(request) -> Any:
+    """
+    Фикстура возвращает в тест значение ожидаемого значения тестового параметра `expected_value`
+     - `expected_value` должно быть задано в тесте через декоратор `parametrize` в виде `tuple`
+     - Пример: @pytest.mark.parametrize('test_param, expected_value', [('2+2', 4), ('2*2', 4), ...])
+    - scope: function
+    :param request: служебная фикстура pytest
+    :return: expected_value
+    """
+
+    return request.param
 
 
 def pytest_emoji_passed(config):
     """PASSED"""
+
     return "✅ ", "PASSED 🍪 "
 
 
 def pytest_emoji_failed(config):
     """FAILED"""
+
     return "❌ ", "FAILED ❌ "
 
 
 def pytest_emoji_skipped(config):
     """SKIPPED"""
+
     return "✂️ ", "SKIPPED 🙈 "
 
 
 def pytest_emoji_error(config):
     """ERROR"""
+
     return "⁉️ ", "ERROR 💩 "
 
 
 def pytest_emoji_xfailed(config):
     """XFAIL"""
+
     return "⚠️ ", "XFAIL 🤓 "
 
 
 def pytest_emoji_xpassed(config):
     """XPASS"""
+
     return "❎ ", "XPASS 😜 "

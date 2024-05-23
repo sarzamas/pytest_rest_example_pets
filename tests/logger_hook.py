@@ -107,7 +107,7 @@ def get_allure_decorator(request) -> tuple:
     return test_name, test_link
 
 
-def log_warning(message, logger=None, logger_name=None):
+def log_warning(message: str, logger: str = None, logger_name=None):
     """
     Функция для репортинга сообщения уровня `Warning` одновременно в лог и stderr
      - для репортинга необязательно передавать имеющийся экземпляр `logger`

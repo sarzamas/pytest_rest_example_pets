@@ -6,6 +6,7 @@ from typing import Any
 from allure_commons._allure import StepContext  # noqa: PLC2701
 from allure_commons.utils import func_parameters, represent
 
+logger = logging.getLogger('allure')
 
 class StepNestingLevel:
     """Класс для отслеживания уровня вложенности шагов у отчёта"""
@@ -69,14 +70,13 @@ class CustomStep(StepContext):
     def __init__(self, title, params):
         """Помимо стандартной инициализации используется экземпляр класса отслеживания уровня вложенности"""
         self.stn = stn
-        self.logger = logging.getLogger('allure')
         super().__init__(title, params)
 
     def __enter__(self):
         """Дополненный метод из класса StepContext c увеличением уровня вложенности и логированием"""
         self.stn.__enter__()
         if self.stn.level < 2:
-            self.logger.log(20, self.title, stacklevel=2)
+            logger.log(20, self.title, stacklevel=2)
         super().__enter__()
 
     def __exit__(self, exc_type, exc_val, exc_tb):

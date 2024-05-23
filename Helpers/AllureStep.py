@@ -8,6 +8,7 @@ from allure_commons.utils import func_parameters, represent
 
 logger = logging.getLogger('allure')
 
+
 class StepNestingLevel:
     """Класс для отслеживания уровня вложенности шагов у отчёта"""
 

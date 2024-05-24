@@ -3,7 +3,7 @@
 import logging
 import warnings
 from os import getenv, path
-from typing import Optional
+from typing import Optional, Union
 
 import pytest
 from _socket import gethostname
@@ -12,6 +12,8 @@ from Config import DEBUG, LOG_PATH
 from Utils.RandomData import RandomData as Faker
 
 from Utils.functions import clear_empty_in_folder, make_text_ansi_bold, make_text_wrapped  # isort:skip
+
+logger = logging.getLogger('logger')
 
 
 @pytest.hookimpl(trylast=True)
@@ -40,9 +42,10 @@ def pytest_configure(config: pytest.Config):
     logging_plugin.set_log_path(logfile_path)
 
     if config.option.color == 'yes':
-        logging_plugin.log_cli_handler.formatter.add_color_level(logging.INFO, 'bold', 'cyan')
-        logging_plugin.log_cli_handler.formatter.add_color_level(logging.WARNING, 'bold', 'black', 'Yellow')
-        logging_plugin.log_cli_handler.formatter.add_color_level(logging.ERROR, 'invert', 'red', 'Black')
+        add_color = logging_plugin.log_cli_handler.formatter.add_color_level
+        add_color(logging.INFO, 'bold', 'cyan')
+        add_color(logging.WARNING, 'bold', 'black', 'Yellow')
+        add_color(logging.ERROR, 'invert', 'red', 'Black')
 
 
 @pytest.fixture()
@@ -64,12 +67,7 @@ def log_dispatcher(caplog, get_allure_decorator, request):
 
     caplog.set_level(logging.DEBUG) if DEBUG else caplog.set_level(logging.INFO)
 
-    logger = logging.getLogger('logger')
-
-    test_name, test_link = get_allure_decorator
-
-    test_name = make_text_wrapped(test_name)
-    test_link = make_text_wrapped(test_link) if test_link else None
+    test_name, test_link = (make_text_wrapped(_) if _ else None for _ in get_allure_decorator)
     empty_line = make_text_wrapped('', space=0)
 
     test_title = f"{empty_line}{test_name}{test_link or ''}{empty_line}"
@@ -108,7 +106,7 @@ def get_allure_decorator(request) -> tuple:
     return test_name, test_link
 
 
-def log_warning(message: str, logger=None, logger_name: Optional[str] = None):
+def log_warning(message: str, logger: logging.Logger = None, logger_name: str = None):
     """
     Функция для репортинга сообщения уровня `Warning` одновременно в лог и stderr
      - для репортинга необязательно передавать имеющийся экземпляр `logger`

@@ -3,7 +3,7 @@
 import logging
 import warnings
 from os import getenv, path
-from typing import Optional, Union
+from typing import Optional
 
 import pytest
 from _socket import gethostname

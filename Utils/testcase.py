@@ -9,7 +9,7 @@ def allure_testcase(title: str, url: str = None, name: str = "Ссылка на 
     @allure_testcase("Название", "https://ссылка.на.тесткейс/SED-1234")
     равносильно
     @allure.title("SED-1234 Название")
-    @allure.testcase("https://ссылка.на.тесткейс/SED-1234", "Ссылка на тест кейс в Jira")
+    @allure.testcase("https://ссылка.на.тесткейс/PROJ-1234", "Ссылка на тест кейс в Jira")
     ```
     :param title: (str): Имя, отражаемое в Allure-отчете. Аналогично @allure.title
     :param url: (str, optional): Ссылка, отражаемая в Allure-отчете. Аналогично @allure.testcase
@@ -20,21 +20,21 @@ def allure_testcase(title: str, url: str = None, name: str = "Ссылка на 
         new_title = title
         if url:
             function = allure.testcase(url, name)(function)
-            if (testcase_num := url.split('/')[-1]).startswith("SED-"):
+            if (testcase_num := url.split('/')[-1]).startswith("PROJ-"):
                 new_title = f"{testcase_num} {title}"
         return allure.title(new_title)(function)
 
     return wrapper
 
 
-def allure_story(title: str, url: str = None, name: str = "Ссылка на сторю в Jira", parametrized_func=False):
+def allure_story(title: str, url: str = None, name: str = "Ссылка на сторю в Jira", parametrized_func=True):
     """
     Декоратор. Заменяет собой @allure.story, @allure.link
     ```
-    @allure_testcase("Название", "https://ссылка.на.сторю/SED-1234")
+    @allure_testcase("Название", "https://ссылка.на.сторю/PROJ-1234")
     равносильно
-    @allure.story("SED-1234 Название")
-    @allure.link("https://ссылка.на.сторю/SED-1234", name="Ссылка на сторю в Jira")
+    @allure.story("PROJ-1234 Название")
+    @allure.link("https://ссылка.на.сторю/PROJ-1234", name="Ссылка на сторю в Jira")
     ```
     Применяется, когда необходимо объединить несколько тестов (в т.ч. содержащихся в классе) в одну сторю внутри
     представления Behaviors.

@@ -3,7 +3,6 @@
 import logging
 import warnings
 from os import getenv, path
-from typing import Optional
 
 import pytest
 from _socket import gethostname
@@ -30,14 +29,14 @@ def pytest_configure(config: pytest.Config):
 
     clear_empty_in_folder(LOG_PATH) if path.isdir(LOG_PATH) else None
 
-    logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
-
     worker_id = getenv('PYTEST_XDIST_WORKER')
     logfile_name = f"{gethostname()}_{Faker.timestamp()}"
 
     if worker_id:
         logfile_name = f"{logfile_name}_{worker_id}"
     logfile_path = path.join(LOG_PATH, f"{logfile_name}.log")
+
+    logging_plugin = config.pluginmanager.get_plugin("logging-plugin")
 
     logging_plugin.set_log_path(logfile_path)
 
@@ -81,8 +80,9 @@ def log_dispatcher(caplog, get_allure_decorator, request):
 def get_allure_decorator(request) -> tuple:
     """
     Фикстура получения данных о тесте из декоратора `@allure_testcase`:
-       - логирует `warning` если у теста отсутствует декоратор `@allure_testcase`
-       - логирует `warning` если у теста отсутствует ссылка на TMS TestCaseURL в декораторе `@allure_testcase`
+    - логирует `warning` в `stderr` и в логфайл, если у теста отсутствует декоратор `@allure_testcase`
+    - логирует `warning` в `stderr` и в логфайл, если у теста отсутствует ссылка на TMS TestCaseURL в декораторе
+    - scope: function
     :param request: служебная фикстура pytest
     :return: tuple:  test_name, test_link - имя текущего теста и ссылка на тесткейс в TMS
     """
@@ -101,7 +101,7 @@ def get_allure_decorator(request) -> tuple:
                 break
 
     if not test_link:
-        log_warning(f"{prefix} ссылка на TMS TestCaseURL в декораторе `@allure_testcase`")
+        log_warning(f"{prefix} ссылка на TMS TestCaseURL в декораторе")
 
     return test_name, test_link
 

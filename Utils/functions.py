@@ -22,20 +22,6 @@ def clear_empty_in_folder(folder: Union[path, str]):
             clear_empty_in_folder(entity_path)
 
 
-def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
-    """
-    Функция для выделения текста жирным с помощью меток ANSI escape sequence color options:
-     - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
-     - может сочетаться с другими метками ANSI-color
-    :param text: исходный текст
-    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
-     - True - инициатор запуска - консоль терминала (как в CI) -> подразумевается вывод в логфайл - без меток ANSI color
-     - False - запуск производился из окна IDE (Run/Debug Configuration) -> вывод в окно IDE - с метками ANSI color
-    :return: str: ANSI bold text
-    """
-    return '\033[1m%s\033[0m' % text if not is_tty else text
-
-
 def make_text_ansi_plain(text: str, is_tty: bool = stdin.isatty()) -> str:
     """
     Функция убирает метки ANSI escape sequence color options из текста для логирования его в файл allure как plain/text
@@ -79,17 +65,68 @@ def make_text_ansi_plain(text: str, is_tty: bool = stdin.isatty()) -> str:
     return text
 
 
-def make_text_wrapped(text: str, wrap_symbol: str = '-', width: int = 79, space: int = 1, new_line: bool = True) -> str:
+def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
     """
-    Функция для форматирования текста в строку с дополнением одинаковыми символами до нужной ширины (Centered)
-     - Example: `---------- example ----------`
+    Функция для выделения текста жирным с помощью меток ANSI escape sequence color options:
+     - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
+     - может сочетаться с другими метками ANSI-color
+    :param text: исходный текст
+    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
+     - True - инициатор запуска - консоль терминала (как в CI) -> подразумевается вывод в логфайл - без меток ANSI color
+     - False - запуск производился из окна IDE (Run/Debug Configuration) -> вывод в окно IDE - с метками ANSI color
+    :return: str: ANSI bold text
+    """
+    return '\033[1m%s\033[0m' % text if not is_tty else text
+
+
+def make_text_ansi_warning(text: str, is_tty: bool = stdin.isatty()) -> str:
+    """Функция для выделения текста цветом для сообщения типа `Warning`
+    :param text: исходный текст
+    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
+    :return: str: ANSI Warning-colored text: {background: Yellow, foreground: black, style: bold}
+    """
+    text = '\033[30m\033[43m%s\033[0m' % text if not is_tty else text
+    return make_text_ansi_bold(text)
+
+
+def make_text_ansi_info(text: str, is_tty: bool = stdin.isatty()) -> str:
+    """Функция для выделения текста цветом для сообщения типа `Info`
+    :param text: исходный текст
+    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
+    :return: str: ANSI Warning-colored text: {foreground: cyan, style: bold}
+    """
+    text = '\033[36m%s\033[0m' % text if not is_tty else text
+    return make_text_ansi_bold(text)
+
+
+def make_text_wrapped(text: str,
+                      wrap_symbol: str = '-', width: int = 79, space: int = 1,
+                      align: str = '<', align_nbr: int = 2,
+                      new_line: bool = True,
+                      ) -> str:
+    """
+    Функция для форматирования текста в строку с дополнением одинаковыми символами до нужной ширины
+     - Example: `---------- example ----------` (Centered)
+                `-- example ------------------` (Left aligned)
+                `------------------ example --` (Right aligned)
     :param text: исходный текст
     :param width: итоговая ширина форматированного текста с обёрткой его символами
     :param wrap_symbol: символ для обертки текста
     :param space: количество пробелов между текстом и `wrap_symbol`
+    :param align: ключ для выбора стратегии выравнивания текста в строке
+    :param align_nbr: количество отступов от края для бокового выравнивания
     :param new_line: ключ для выдачи результата с новой строки
     :return: str: wrapped text
     """
+    align_options = ('<', '^', '>')
+    if align not in align_options:
+        message = f"Для выравнивая текста использовать значение `align` из списка возможных: {align_options}"
+        raise ValueError(message)
+
     ls = linesep if new_line else None
+    edge = wrap_symbol * align_nbr if align != '^' else ''
+
     text = ' ' * space + text + ' ' * space
-    return f"{ls or ''}{text:{wrap_symbol}^{width}}"
+
+    return (f"{ls or ''}"
+            f"{(edge if align == '<' else '') + text + (edge if align == '>' else ''):{wrap_symbol}{align}{width}}")

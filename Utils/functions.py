@@ -126,5 +126,7 @@ def make_text_wrapped(text: str,
 
     text = ' ' * space + text + ' ' * space
 
-    return (f"{ls or ''}"
-            f"{(edge if align == '<' else '') + text + (edge if align == '>' else ''):{wrap_symbol}{align}{width}}")
+    return (
+        f"{ls or ''}"
+        f"{(edge if align == '<' else '') + text + (edge if align == '>' else ''):{wrap_symbol}{align}{width}}"
+    )

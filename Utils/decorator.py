@@ -85,6 +85,7 @@ def pytest_marks(*marks: str):
 
     return wrapper
 
+
 def step_waiter(timeout: int = 0, wait_interval: int = 0, wait_exceptions: Exception = AssertionError):
     """
     Декоратор ожидания успешности выполнения шага HTTP запроса с возможностью выставления периодичности опроса

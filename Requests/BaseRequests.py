@@ -38,7 +38,12 @@ class BaseRequests:
 
     @allure_attach_response
     def send_request(
-            self, method: Any, url: str, headers: Any = None, cookies: dict = None, json: Any = None, data: Any = None,
+        self, method: Any,
+        url: str,
+        headers: Any = None,
+        cookies: dict = None,
+        json: Any = None,
+        data: Any = None,
     ) -> Response:
         """send_request"""
         self.update_headers(headers)

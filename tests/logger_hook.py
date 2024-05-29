@@ -19,7 +19,8 @@ from Utils.functions import (  # isort:skip
 )  # isort:skip
 
 logger = logging.getLogger('logger')
-log_level = {20: 'INFO', 30: 'WARNING'}
+log_level = {10: 'DEBUG', 20: 'INFO', 30: 'WARNING'}
+logger.setLevel(log_level[10])
 
 
 @pytest.hookimpl(trylast=True)

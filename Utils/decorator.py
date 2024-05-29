@@ -85,10 +85,10 @@ def pytest_marks(*marks: str):
 
 def step_waiter(timeout: int = 0, wait_interval: int = 0, wait_exceptions: Exception = AssertionError):
     """
-    Метод ожидания с возможностью выставления периодичности опроса
-    :param timeout: время таймаута в с
-    :param wait_interval: время задержки перед повторным запросом в с
-    :param wait_exceptions: ожидаемое исключение
+    Метод ожидания успешности выполнения шага HTTP запроса с возможностью выставления периодичности опроса
+    :param timeout: время таймаута в секундах
+    :param wait_interval: время задержки перед повторным запросом в секундах
+    :param wait_exceptions: ожидаемое временное исключение, которое мешает успешному прохождению шага
     """
 
     def _wait(step):

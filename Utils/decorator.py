@@ -1,6 +1,7 @@
 import allure
 import pytest
 
+from time import time
 
 def allure_testcase(title: str, url: str = None, name: str = "Ссылка на тест кейс в Jira"):
     """
@@ -81,3 +82,29 @@ def pytest_marks(*marks: str):
         return function
 
     return wrapper
+
+def step_waiter(timeout: int = 0, wait_interval: int = 0, wait_exceptions: Exception = AssertionError):
+    """
+    Метод ожидания с возможностью выставления периодичности опроса
+    :param timeout: время таймаута в с
+    :param wait_interval: время задержки перед повторным запросом в с
+    :param wait_exceptions: ожидаемое исключение
+    """
+
+    def _wait(step):
+        step_name = step.__name__
+
+        @functools.wraps(step)
+        def wrapper(*args, **kwargs) -> Any:
+            wait_until = int(time()) + timeout
+            while wait_until > time():
+                try:
+                    return step(*args, **kwargs)
+                except wait_exceptions:
+                    logger.info(f"Waiting for {step_name}")
+                    time.sleep(wait_interval)
+            return step(*args, **kwargs)
+
+        return wrapper
+
+    return _wait

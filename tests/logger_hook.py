@@ -190,7 +190,7 @@ def get_allure_decorator(request) -> tuple:
     allure_decorator = story if decorator_type == 'link' else allure_decorator
     allure_decorator = testcase if decorator_type == 'test_case' else allure_decorator
 
-    log_warning(f"{prefix}отсутствует декоратор `{testcase}` или `{story}`") if not allure_decorator else None
+    log_warning(f"{prefix}`{testcase}` или `{story}`") if not allure_decorator else None
 
     return test_name, test_link, allure_decorator
 

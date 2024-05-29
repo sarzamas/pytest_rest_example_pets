@@ -8,13 +8,10 @@ import pytest
 from _socket import gethostname
 
 from Config import DEBUG, LOG_PATH
-from Utils.functions import (clear_empty_in_folder,
-                             make_text_ansi_bold,
-                             make_text_ansi_info,
-                             make_text_ansi_warning,
+from Utils.functions import (clear_empty_in_folder, make_text_ansi_bold,
+                             make_text_ansi_info, make_text_ansi_warning,
                              make_text_wrapped)
 from Utils.RandomData import RandomData as Faker
-
 
 logger = logging.getLogger('logger')
 

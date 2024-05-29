@@ -97,11 +97,15 @@ def make_text_ansi_info(text: str, is_tty: bool = stdin.isatty()) -> str:
     return make_text_ansi_bold('\033[36m%s' % text, is_tty=is_tty) if not is_tty else text
 
 
-def make_text_wrapped(text: str,
-                      wrap_symbol: str = '-', width: int = 79, space: int = 1,
-                      align: str = '<', align_nbr: int = 2,
-                      new_line: bool = True,
-                      ) -> str:
+def make_text_wrapped(
+    text: str,
+    wrap_symbol: str = '-',
+    width: int = 79,
+    space: int = 1,
+    align: str = '<',
+    align_nbr: int = 2,
+    new_line: bool = True,
+) -> str:
     """
     Функция для форматирования текста в строку с дополнением одинаковыми символами до нужной ширины
      - Example: `---------- example ----------` (Centered)

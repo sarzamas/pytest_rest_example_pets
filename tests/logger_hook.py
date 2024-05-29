@@ -108,9 +108,11 @@ def get_allure_decorator(request) -> tuple:
     newline = linesep + '-- '
     prefix = f"У теста `{test_name}` необходимо использовать декоратор "
 
-    postfix = (f"{newline}P.S. В Allure отчете, для корректного группирования заголовков "
-                f"теста с белее чем одним значением для параметризации в представлении `Behaviors`, "
-               f"необходимо использовать декоратор `{story}` c `parametrized_func = True`")
+    postfix = (
+      f"{newline}P.S. В Allure отчете, для корректного группирования заголовков "
+      f"теста с белее чем одним значением для параметризации в представлении `Behaviors`, "
+      f"необходимо использовать декоратор `{story}` c `parametrized_func = True`",
+    )
 
     rule_01 = f"OK! - RULE-#01 - Тест с `{testcase}` без параметризации"
     rule_02 = f"OK! - RULE-#02 - Тест с `{testcase}` и одним параметром параметризации"

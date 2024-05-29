@@ -2,6 +2,8 @@ import allure
 import pytest
 
 from time import time
+from typing import Any
+
 
 def allure_testcase(title: str, url: str = None, name: str = "Ссылка на тест кейс в Jira"):
     """

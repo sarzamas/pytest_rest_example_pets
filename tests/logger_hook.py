@@ -6,7 +6,6 @@ from os import getenv, linesep, path
 
 import pytest
 from _socket import gethostname
-
 from Config import DEBUG, LOG_PATH
 from Utils.RandomData import RandomData as Faker
 

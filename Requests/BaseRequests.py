@@ -12,6 +12,7 @@ class BaseRequests:
     """
     Класс обертка для HTTP запросов
     """
+
     def __init__(self):
         self.headers: dict = {"Content-type": "application/x-www-form-urlencoded"}
         self.cookies: dict = {}

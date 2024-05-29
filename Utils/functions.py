@@ -82,21 +82,19 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
 def make_text_ansi_warning(text: str, is_tty: bool = stdin.isatty()) -> str:
     """Функция для выделения текста цветом для сообщения типа `Warning`
     :param text: исходный текст
-    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
+    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии (см. make_text_ansi_bold)
     :return: str: ANSI Warning-colored text: {background: Yellow, foreground: black, style: bold}
     """
-    text = '\033[30m\033[43m%s\033[0m' % text if not is_tty else text
-    return make_text_ansi_bold(text)
+    return make_text_ansi_bold('\033[30m\033[43m%s' % text, is_tty=is_tty) if not is_tty else text
 
 
 def make_text_ansi_info(text: str, is_tty: bool = stdin.isatty()) -> str:
     """Функция для выделения текста цветом для сообщения типа `Info`
     :param text: исходный текст
-    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
+    :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии (см. make_text_ansi_bold)
     :return: str: ANSI Warning-colored text: {foreground: cyan, style: bold}
     """
-    text = '\033[36m%s\033[0m' % text if not is_tty else text
-    return make_text_ansi_bold(text)
+    return make_text_ansi_bold('\033[36m%s' % text, is_tty=is_tty) if not is_tty else text
 
 
 def make_text_wrapped(text: str,

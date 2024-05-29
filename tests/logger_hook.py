@@ -14,6 +14,7 @@ from Utils.functions import (clear_empty_in_folder, make_text_ansi_bold,
 from Utils.RandomData import RandomData as Faker
 
 logger = logging.getLogger('logger')
+log_level = {20: 'INFO', 30: 'WARNING'}
 
 
 @pytest.hookimpl(trylast=True)
@@ -65,20 +66,23 @@ def log_dispatcher(caplog, get_allure_decorator, request):
     :param request: служебная фикстура pytest
     """
 
+    color = request.config.option.color == 'yes'
+
     caplog.set_level(logging.DEBUG) if DEBUG else caplog.set_level(logging.INFO)
 
-    test_name, test_link, allure_decorator = get_allure_decorator
+    test_name, test_link, decorator = get_allure_decorator
 
-    decorator = make_text_wrapped(f"{allure_decorator or ''} {test_link}") if test_link else None
+    decorator = make_text_wrapped(f"{decorator or ''} {test_link}") if test_link else None
     test_name = make_text_wrapped(test_name)
     empty_line = make_text_wrapped('', space=0)
-    newline = f"{'-' * 4} [{make_text_ansi_info('   INFO')}]"
 
-    test_title = f"{newline}{empty_line}{decorator or ''}{test_name}{empty_line}"
+    test_title = f"{empty_line}{decorator or ''}{test_name}{empty_line}"
 
-    test_title = make_text_ansi_bold(test_title) if request.config.option.color == 'yes' else test_title
+    if color:
+        log_level[20] = make_text_ansi_info(log_level[20], not color)
+        test_title = make_text_ansi_bold(test_title, not color)
 
-    logger.info(test_title)
+    logger.info(f"{'-' * 4} [{' ' * 3}{log_level[20]}]{test_title}")
 
 
 @pytest.fixture()
@@ -100,23 +104,30 @@ def get_allure_decorator(request) -> tuple:
     test = request.function
     test_name = test.__name__
 
-    testcase, story, combo_report_mark = '@allure_testcase', '@allure_story', '@pytest.mark.allure_combo_report'
+    testcase, story = '@allure_testcase', '@allure_story'
     newline = linesep + '-- '
-    prefix = f"{newline}У теста `{test_name}` "
+    prefix = f"У теста `{test_name}` необходимо использовать декоратор "
 
-    postfix1 = (f"{newline}Вы действительно хотите объединить несколько тестовых функций под одним заголовком "
-                f"в представлении `Behaviors` Allure отчета?{newline}"
-                f"Если `ДА`, то добавьте декоратор `{combo_report_mark}` к тестовой функции `{test_name}` чтобы убрать "
-                f"`Warning`{newline}Если `НЕТ`, то используйте декоратор `{testcase}`{newline}"
-                f"P.S. Объединять декоратором `{combo_report_mark}` можно только тестовые функции, "
-                f"которые либо не параметризованы вовсе, либо имеют всего одно значение параметризации, иначе Allure "
-                f"отчет в представлении `Behaviors` выглядит некорректно")
-
-    postfix2 = (f"{newline}P.S. В Allure отчете, для корректного группирования заголовков "
+    postfix = (f"{newline}P.S. В Allure отчете, для корректного группирования заголовков "
                 f"теста с белее чем одним значением для параметризации в представлении `Behaviors`, "
-                f"необходимо использовать декоратор `{story}`")
+               f"необходимо использовать декоратор `{story}` c `parametrized_func = True`")
 
-    decorator_type, parametrize_count, combo_report, test_link = [None] * 4
+    rule_01 = f"OK! - RULE-#01 - Тест с `{testcase}` без параметризации"
+    rule_02 = f"OK! - RULE-#02 - Тест с `{testcase}` и одним параметром параметризации"
+    rule_03 = f"OK! - RULE-#03 - Тест с `{story}` и многими параметрами параметризации, `parametrized_func = True`"
+
+    rule_11 = f"NOK! - RULE-#11 - Тест с `{story}` без параметризации, `parametrized_func = True`"
+    rule_12 = f"NOK! - RULE-#12 - Тест с `{story}` без параметризации, `parametrized_func = False`"
+
+    rule_21 = f"NOK! - RULE-#21 - Тест с `{story}` и одним параметром параметризации, `parametrized_func = True`"
+    rule_22 = f"NOK! - RULE-#22 - Тест с `{story}` и одним параметром параметризации, `parametrized_func = False`"
+
+    rule_31 = f"NOK! - RULE-#31 - Тест с `{testcase}` и многими параметрами параметризации"
+    rule_32 = f"NOK! - RULE-#32 - Тест с `{story}` и многими параметрами параметризации, `parametrized_func = False`"
+
+    rule_90 = "NOK! - RULE-#91 - Тест без ссылки на TMS"
+
+    decorator_type, parametrize_count, test_link = [None] * 3
     allure_decorator = hasattr(test, '__allure_display_name__')
 
     if hasattr(test, 'pytestmark'):
@@ -127,47 +138,45 @@ def get_allure_decorator(request) -> tuple:
                     decorator_type = Mark.kwargs['link_type']
                 case 'parametrize':
                     parametrize_count = len(Mark.args[1])
-                case 'allure_combo_report':
-                    combo_report = True
 
-    match allure_decorator, decorator_type, parametrize_count, combo_report, test_link:
-        case (a, 'link', p, True, t) if not a and not p and t:
-            pass
-        case (a, 'link', 1, True, t) if not a and t:
-            pass
-        case (a, 'test_case', p, _, t) if a and not p and t:
-            pass
-        case (a, 'test_case', 1, _, t) if a and t:
-            pass
-        case (a, 'link', p, None, t) if a and p and p > 1 and t:
-            pass
-        case (a, 'link', p, True, t) if a and not p and t:
-            log_warning(f"{prefix}необходимо или установить флаг `parametrized_func = False`, или убрать декоратор "
-                        f"`{combo_report_mark}`")
-        case (a, 'link', p, None, t) if a and not p and t:
-            log_warning(f"{prefix}необходимо или использовать декоратор `{testcase}` "
-                        f"или установить флаг `parametrized_func = False`")
-        case (a, 'link', 1, True, t) if a and t:
-            log_warning(f"{prefix}необходимо или установить флаг `parametrized_func = False`, или убрать декоратор "
-                        f"`{combo_report_mark}`")
-        case (a, d, p, c, _) if not a and d and not p and not c:
-            log_warning(f"{prefix}нет параметризации{postfix1}")
-        case (a, d, 1, c, _) if not a and d and not c:
-            log_warning(f"{prefix}отсутствует множественная параметризация{postfix1}")
-        case (_, 'link', p, True, _) if p > 1:
-            log_warning(f"{prefix}множественная параметризация - необходимо убрать декоратор `{combo_report_mark}`")
-        case (a, d, p, _, _) if not a and d and p and p > 1:
-            log_warning(f"{prefix}необходимо установить флаг `parametrized_func = True` в декораторе `{story}`")
-        case (a, 'link', p, _, _) if a and not p:
-            log_warning(f"{prefix}необходимо или использовать декоратор `{testcase}`, или установить флаг "
-                        f"`parametrized_func = False` в декораторе `{story}`")
-        case (a, 'link', p, _, _) if a and p and p == 1:
-            log_warning(f"{prefix}необходимо или использовать декоратор `{testcase}`, или установить флаг "
-                        f"`parametrized_func = False` в декораторе `{story}`")
-        case (_, 'test_case', p, _, _) if p and p > 1:
-            log_warning(f"{prefix}необходимо использовать  декоратор `{story}` вместо `{testcase}`{postfix2}")
-        case (_, _, _, _, t) if not t:
-            log_warning(f"{prefix}отсутствует ссылка на TMS TestCaseURL в декораторе `@allure_...`")
+    match allure_decorator, decorator_type, parametrize_count, test_link:
+        case (True, 'test_case', None, t) if t:
+            logger.debug(rule_01)
+
+        case (True, 'test_case', 1, t) if t:
+            logger.debug(rule_02)
+
+        case (True, 'link', p, t) if p and p > 1 and t:
+            logger.debug(rule_03)
+
+        case (True, 'link', None, t) if t:
+            logger.warning(rule_11)
+            log_warning(f"{prefix}`{testcase}`")
+
+        case (False, 'link', p, t) if not p and t:
+            logger.warning(rule_12)
+            log_warning(f"{prefix}`{testcase}`")
+
+        case (True, 'link', 1, t) if t:
+            logger.warning(rule_21)
+            log_warning(f"{prefix}`{testcase}`")
+
+        case (False, 'link', 1, t) if t:
+            logger.warning(rule_22)
+            log_warning(f"{prefix}`{testcase}`")
+
+        case (True, 'test_case', p, t) if p and p > 1 and t:
+            logger.warning(rule_31)
+            log_warning(f"{prefix}`{story}` вместо `{testcase}`{postfix}")
+
+        case (False, 'link', p, t) if p and p > 1 and t:
+            logger.warning(rule_32)
+            log_warning(f"{prefix}`{testcase}`")
+
+        case (_, _, _, t) if not t:
+            logger.warning(rule_90)
+            log_warning(f"{prefix}`@allure_...` c ссылкой на TMS TestCaseURL")
+
         case _:
             raise NotImplementedError
 
@@ -193,8 +202,7 @@ def log_warning(message, logger=None, logger_name=None):
     name = logger_name if logger_name else 'warning'
     logger = logging.getLogger(name) if not logger else logger
 
-    stdout = f"{'-' * 4} [{make_text_ansi_warning('WARNING')}]"
-    stderr = f"{'-' * 4} [{make_text_ansi_warning('WARNING', is_tty=False)}]"
+    message = f"{'-' * 4} [{make_text_ansi_warning(log_level[30], is_tty=False)}]  - {message}"
 
-    logger.warning(stdout + message)
-    warnings.warn(stderr + message)
+    logger.warning(message)
+    warnings.warn(message)

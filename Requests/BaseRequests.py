@@ -3,10 +3,9 @@ from dataclasses import asdict, is_dataclass
 from typing import Any
 
 import requests
-from requests import JSONDecodeError, Response
-
 from helpers.data_collector import DataCollector
 from helpers.report import allure_attach_response
+from requests import JSONDecodeError, Response
 
 
 class BaseRequests:

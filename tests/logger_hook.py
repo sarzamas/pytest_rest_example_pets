@@ -19,7 +19,7 @@ from Utils.functions import (  # isort:skip
 )  # isort:skip
 
 logger = logging.getLogger('logger')
-log_level = {10: 'DEBUG', 20: 'INFO', 30: 'WARNING'}
+log_level = {10: 'DEBUG', 20: 'INFO', 30: 'WARNING', 40: 'ERROR', 50: 'CRITICAL'}
 logger.setLevel(log_level[10])
 
 

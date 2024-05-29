@@ -38,7 +38,8 @@ class BaseRequests:
 
     @allure_attach_response
     def send_request(
-        self, method: Any,
+        self,
+        method: Any,
         url: str,
         headers: Any = None,
         cookies: dict = None,
@@ -53,7 +54,13 @@ class BaseRequests:
         if is_dataclass(json):
             json = asdict(json)
         response = requests.request(
-            method, url, headers=self.headers, data=data, json=json, cookies=self.cookies, verify=False,
+            method,
+            url,
+            headers=self.headers,
+            data=data,
+            json=json,
+            cookies=self.cookies,
+            verify=False,
             allow_redirects=False,
         )
         self.log.debug(response.text)

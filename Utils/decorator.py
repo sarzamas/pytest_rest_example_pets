@@ -1,8 +1,8 @@
-import allure
-import pytest
-
 from time import time
 from typing import Any
+
+import allure
+import pytest
 
 
 def allure_testcase(title: str, url: str = None, name: str = "Ссылка на тест кейс в Jira"):
@@ -87,7 +87,7 @@ def pytest_marks(*marks: str):
 
 def step_waiter(timeout: int = 0, wait_interval: int = 0, wait_exceptions: Exception = AssertionError):
     """
-    Метод ожидания успешности выполнения шага HTTP запроса с возможностью выставления периодичности опроса
+    Декоратор ожидания успешности выполнения шага HTTP запроса с возможностью выставления периодичности опроса
     :param timeout: время таймаута в секундах
     :param wait_interval: время задержки перед повторным запросом в секундах
     :param wait_exceptions: ожидаемое временное исключение, которое мешает успешному прохождению шага

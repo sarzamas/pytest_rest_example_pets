@@ -8,6 +8,7 @@ import pytest
 from _socket import gethostname
 
 from Config import DEBUG, LOG_PATH
+from Utils.RandomData import RandomData as Faker
 from Utils.functions import (  # isort:skip
     clear_empty_in_folder,  # isort:skip
     make_text_ansi_bold,  # isort:skip
@@ -15,7 +16,6 @@ from Utils.functions import (  # isort:skip
     make_text_ansi_warning,  # isort:skip
     make_text_wrapped,  # isort:skip
 )  # isort:skip
-from Utils.RandomData import RandomData as Faker
 
 logger = logging.getLogger('logger')
 log_level = {20: 'INFO', 30: 'WARNING'}

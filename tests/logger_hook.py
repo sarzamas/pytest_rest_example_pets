@@ -79,7 +79,7 @@ def log_dispatcher(caplog, get_allure_decorator, request):
 
     test_name, test_link, decorator = get_allure_decorator
 
-    if test_link and not re.findall("(?P<url>https?://\S+)", test_link):
+    if test_link and not re.findall("(?P<url>https?://\\S+)", test_link):
         test_link = '!!! данный тест не имеет валидной ссылки на TMS !!!'
         if color:
             test_link = make_text_ansi_warning(test_link, not color, bold_on_ending=True)

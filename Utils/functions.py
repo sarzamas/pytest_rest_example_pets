@@ -65,7 +65,7 @@ def make_text_ansi_plain(text: str, is_tty: bool = stdin.isatty()) -> str:
     return text
 
 
-def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
+def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty(), reuse_on_ending: bool = None) -> str:
     """
     Функция для выделения текста жирным с помощью меток ANSI escape sequence color options:
      - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
@@ -74,18 +74,26 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty()) -> str:
     :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии:
      - True - инициатор запуска - консоль терминала (как в CI) -> подразумевается вывод в логфайл - без меток ANSI color
      - False - запуск производился из окна IDE (Run/Debug Configuration) -> вывод в окно IDE - с метками ANSI color
+    :param reuse_on_ending: признак сброса цвета и переустановки bold символа на конце текста
     :return: str: ANSI bold text
     """
-    return '\033[1m%s\033[0m' % text if not is_tty else text
+    if not is_tty:
+        text = '\033[1m%s\033[0m' % text
+        if reuse_on_ending:
+            text = '%s\033[1m' % text
+    return text
 
 
-def make_text_ansi_warning(text: str, is_tty: bool = stdin.isatty()) -> str:
+def make_text_ansi_warning(text: str, is_tty: bool = stdin.isatty(), bold_on_ending: bool = None) -> str:
     """Функция для выделения текста цветом для сообщения типа `Warning`
     :param text: исходный текст
     :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии (см. make_text_ansi_bold)
+    :param bold_on_ending: признак сброса цвета и переустановки `bold` символа на конце текста
     :return: str: ANSI Warning-colored text: {background: Yellow, foreground: black, style: bold}
     """
-    return make_text_ansi_bold('\033[30m\033[43m%s' % text, is_tty=is_tty) if not is_tty else text
+    if not is_tty:
+        text = make_text_ansi_bold('\033[30m\033[43m%s' % text, is_tty=is_tty, reuse_on_ending=bold_on_ending)
+    return text
 
 
 def make_text_ansi_info(text: str, is_tty: bool = stdin.isatty()) -> str:
@@ -129,6 +137,8 @@ def make_text_wrapped(
     edge = wrap_symbol * align_nbr if align != '^' else ''
 
     text = ' ' * space + text + ' ' * space
+    escape_len = len(repr(text)) - len(text) + 5
+    width = width + escape_len if escape_len > 7 else width
 
     return (
         f"{ls or ''}"

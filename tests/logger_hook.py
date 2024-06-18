@@ -130,21 +130,30 @@ def get_allure_decorator(request) -> tuple:
     rule_02 = f"OK! - RULE-#02 - Тест с `{testcase}` и одним параметром параметризации"
     rule_03 = f"OK! - RULE-#03 - Тест с `{story}` и многими параметрами параметризации, `parametrized_func = True`"
 
-    rule_11 = (f"{make_text_ansi_warning('NOK! RULE-#11', is_tty=False)}  - Тест с `{story}` без параметризации, "
-               "`parametrized_func = True`")
-    rule_12 = (f"{make_text_ansi_warning('NOK! RULE-#12', is_tty=False)}  - Тест с `{story}` без параметризации, "
-               "`parametrized_func = False`")
-
-    rule_21 = (f"{make_text_ansi_warning('NOK! RULE-#21', is_tty=False)}  - Тест с `{story}` "
-               f"и одним параметром параметризации, `parametrized_func = True`")
-    rule_22 = (f"{make_text_ansi_warning('NOK! RULE-#22', is_tty=False)}  - Тест с `{story}` "
-               f"и одним параметром параметризации, `parametrized_func = False`")
-
-    rule_31 = (f"{make_text_ansi_warning('NOK! RULE-#31', is_tty=False)}  - Тест с `{testcase}` "
-               "и многими параметрами параметризации")
-    rule_32 = (f"{make_text_ansi_warning('NOK! RULE-#32', is_tty=False)}  - Тест с `{story}` "
-               f"и многими параметрами параметризации, `parametrized_func = False`")
-
+    rule_11 = (
+        f"{make_text_ansi_warning('NOK! RULE-#11', is_tty=False)}  - Тест с `{story}` без параметризации, "
+        "`parametrized_func = True`"
+    )
+    rule_12 = (
+        f"{make_text_ansi_warning('NOK! RULE-#12', is_tty=False)}  - Тест с `{story}` без параметризации, "
+        "`parametrized_func = False`"
+    )
+    rule_21 = (
+        f"{make_text_ansi_warning('NOK! RULE-#21', is_tty=False)}  - Тест с `{story}` "
+        "и одним параметром параметризации, `parametrized_func = True`"
+    )
+    rule_22 = (
+        f"{make_text_ansi_warning('NOK! RULE-#22', is_tty=False)}  - Тест с `{story}` "
+        "и одним параметром параметризации, `parametrized_func = False`"
+    )
+    rule_31 = (
+        f"{make_text_ansi_warning('NOK! RULE-#31', is_tty=False)}  - Тест с `{testcase}` "
+        "и многими параметрами параметризации"
+    )
+    rule_32 = (
+        f"{make_text_ansi_warning('NOK! RULE-#32', is_tty=False)}  - Тест с `{story}` "
+        "и многими параметрами параметризации, `parametrized_func = False`"
+    )
     rule_91 = f"{make_text_ansi_warning('NOK! RULE-#91', is_tty=False)}  - Тест без ссылки на TMS"
 
     decorator_type, parametrize_count, test_link = [None] * 3

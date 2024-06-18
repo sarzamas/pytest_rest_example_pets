@@ -4,6 +4,7 @@ import logging
 import warnings
 from os import getenv, linesep, path
 
+import re
 import pytest
 from _socket import gethostname
 
@@ -78,6 +79,11 @@ def log_dispatcher(caplog, get_allure_decorator, request):
 
     test_name, test_link, decorator = get_allure_decorator
 
+    if test_link and not re.findall("(?P<url>https?://\S+)", test_link):
+        test_link = '!!! данный тест не имеет валидной ссылки на TMS !!!'
+        if color:
+            test_link = make_text_ansi_warning(test_link, not color, bold_on_ending=True)
+
     decorator = make_text_wrapped(f"{decorator or ''} {test_link}") if test_link else None
     test_name = make_text_wrapped(test_name)
     empty_line = make_text_wrapped('', space=0)
@@ -124,16 +130,22 @@ def get_allure_decorator(request) -> tuple:
     rule_02 = f"OK! - RULE-#02 - Тест с `{testcase}` и одним параметром параметризации"
     rule_03 = f"OK! - RULE-#03 - Тест с `{story}` и многими параметрами параметризации, `parametrized_func = True`"
 
-    rule_11 = f"NOK! - RULE-#11 - Тест с `{story}` без параметризации, `parametrized_func = True`"
-    rule_12 = f"NOK! - RULE-#12 - Тест с `{story}` без параметризации, `parametrized_func = False`"
+    rule_11 = (f"{make_text_ansi_warning('NOK! RULE-#11', is_tty=False)}  - Тест с `{story}` без параметризации, "
+               "`parametrized_func = True`")
+    rule_12 = (f"{make_text_ansi_warning('NOK! RULE-#12', is_tty=False)}  - Тест с `{story}` без параметризации, "
+               "`parametrized_func = False`")
 
-    rule_21 = f"NOK! - RULE-#21 - Тест с `{story}` и одним параметром параметризации, `parametrized_func = True`"
-    rule_22 = f"NOK! - RULE-#22 - Тест с `{story}` и одним параметром параметризации, `parametrized_func = False`"
+    rule_21 = (f"{make_text_ansi_warning('NOK! RULE-#21', is_tty=False)}  - Тест с `{story}` "
+               f"и одним параметром параметризации, `parametrized_func = True`")
+    rule_22 = (f"{make_text_ansi_warning('NOK! RULE-#22', is_tty=False)}  - Тест с `{story}` "
+               f"и одним параметром параметризации, `parametrized_func = False`")
 
-    rule_31 = f"NOK! - RULE-#31 - Тест с `{testcase}` и многими параметрами параметризации"
-    rule_32 = f"NOK! - RULE-#32 - Тест с `{story}` и многими параметрами параметризации, `parametrized_func = False`"
+    rule_31 = (f"{make_text_ansi_warning('NOK! RULE-#31', is_tty=False)}  - Тест с `{testcase}` "
+               "и многими параметрами параметризации")
+    rule_32 = (f"{make_text_ansi_warning('NOK! RULE-#32', is_tty=False)}  - Тест с `{story}` "
+               f"и многими параметрами параметризации, `parametrized_func = False`")
 
-    rule_90 = "NOK! - RULE-#91 - Тест без ссылки на TMS"
+    rule_91 = f"{make_text_ansi_warning('NOK! RULE-#91', is_tty=False)}  - Тест без ссылки на TMS"
 
     decorator_type, parametrize_count, test_link = [None] * 3
     allure_decorator = hasattr(test, '__allure_display_name__')
@@ -182,7 +194,7 @@ def get_allure_decorator(request) -> tuple:
             log_warning(f"{prefix}`{testcase}`")
 
         case (_, _, _, t) if not t:
-            logger.warning(rule_90)
+            logger.warning(rule_91)
             log_warning(f"{prefix}`@allure_...` c ссылкой на TMS TestCaseURL")
 
         case _:

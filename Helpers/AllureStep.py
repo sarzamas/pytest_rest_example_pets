@@ -77,7 +77,11 @@ class CustomStep(StepContext):
         """Дополненный метод из класса StepContext c увеличением уровня вложенности и логированием"""
         self.stn.__enter__()
         if self.stn.level < 2:
-            logger.log(20, self.title, stacklevel=2)
+            # параметр `stacklevel=3` необходим для декоратора @allure_step, чтобы показывать в логе точное место источника сообщения
+            # при других значениях `stacklevel` в логе будет всегда указываться строка ниже как заглушка, а не реальная строка вызова шага
+            # параметр `stacklevel` для контекстного менеджера не имеет значения
+            # при использовании контекстного мененджера `with allure_step(message):` место вызова будет всегда актуальным
+            logger.log(20, self.title, stacklevel=3)
         super().__enter__()
 
     def __exit__(self, exc_type, exc_val, exc_tb):

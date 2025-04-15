@@ -69,5 +69,5 @@ class BaseRequests:
                 data = DataCollector(response.json())
                 self.log.debug(data)
         except JSONDecodeError:
-            return response
+            pass
         return response

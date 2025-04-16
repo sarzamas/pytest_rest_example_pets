@@ -28,7 +28,7 @@ class TestDAGRun:
         assert json["dag_id"] == test_dag_id, "Значение ключа 'dag_id' не соответствует ожиданию"
 
     @pytest.mark.parametrize("is_paused, expected_status",
-                             [(True, "ОСТАНОВЛЕН"), (False, "ЗАПУЩЕН")], ids=["paused", "unpaused"])
+                             [(True, "ОСТАНОВЛЕН"), (False, "ЗАПУЩЕН")], ids=["ОСТАНОВКА DAG", "ЗАПУСК DAG"])
     def test_dag_control(self, airflow_client, test_dag_id, is_paused, expected_status):
         """Остановка/Запуск DAG: PATCH /dags/{dag_id} - "is_paused": true/false"""
 

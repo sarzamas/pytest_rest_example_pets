@@ -1,18 +1,24 @@
-"""helpers.py"""
+"""helpers"""
 
 import inspect
 from datetime import datetime
-from os import linesep
+from os import getenv, linesep
 from pathlib import Path
 from types import FrameType, MethodType
 from typing import Any
 from zoneinfo import ZoneInfo
 
 from airflow_client.client import ApiException
+from str2bool import str2bool
 
 from libs import get_log
 
 LOG = get_log(__name__)
+
+
+def get_debug_flag() -> bool:
+    """:return: Debug flag from OS"""
+    return str2bool(getenv("DEBUG", "False"))
 
 
 def get_local_time() -> datetime:
@@ -192,7 +198,7 @@ def handle_api_exception(exception: ApiException, method_name: str = "unknown") 
     )
 
 
-def make_text_ansi_bold(text: str, reuse_bold_on_ending: bool = None) -> str:
+def make_text_ansi_bold(text: Any, reuse_bold_on_ending: bool = None) -> str:
     """
     Функция: для выделения текста жирным с помощью меток ANSI escape sequence color options:
      - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)

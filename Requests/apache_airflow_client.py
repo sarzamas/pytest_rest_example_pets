@@ -16,7 +16,7 @@ from airflow_client.client.model.update_task_instance import UpdateTaskInstance
 
 from libs.api.airflow.api_config import AirflowConfig
 from libs.api.airflow.decorators import handle_api_errors, log_method_args
-from libs.api.airflow.helpers import get_method_name, make_text_ansi_name, process_kwargs_timeout, log_and_raise
+from libs.api.airflow.helpers import get_method_name, log_and_raise, make_text_ansi_name, process_kwargs_timeout
 from libs.api.airflow.rest_client import CustomRESTClient
 from libs.logging import get_log
 

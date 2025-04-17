@@ -6,7 +6,7 @@ from threading import Lock
 from typing import Any, TypeAlias
 
 from libs import get_log
-from libs.api.airflow.helpers__ll import log_and_raise
+from libs.api.airflow.helpers import log_and_raise
 
 LOG = get_log(__name__)
 
@@ -32,8 +32,20 @@ class UpdatableSingleton(type):
     Метакласс Singleton с гибкой логикой:
     - Возможность выбора между обновляемым (updatable) и базовым (static) Singleton
     - У наследуемых классов нужно ввести параметр класса `_singleton_mode`:
-        - updatable - Singleton с методом _perform_update() по каждому вызову __call__()
+        - updatable - UpdatableSingleton с методом _perform_update() по каждому вызову __call__()
+            Экземпляр создается только один раз, последующие вызовы обновляют текущий инстанс
         - static: - Singleton c базовым функционалом создания общего на все вызовы класса
+            Экземпляр создается только один раз, последующие вызовы игнорируют аргументы инита
+
+    Ex: Класс-синглтон, наследующий DotDict:
+
+        class MySingletonDict(DotDict, metaclass=UpdatableSingleton):
+            _singleton_mode = "updatable"
+            def __init__(self, data=None, _inherited=True, **kwargs):
+                super().__init__(data, _inherited=_inherited, **kwargs)
+
+            def _perform_update(self, url):
+                pass
     """
     _instances = {}
     _lock = Lock()

@@ -1,4 +1,4 @@
-"""pytest_hooks.py"""
+"""pytest_hook"""
 
 __all__ = [
     "data_collector",

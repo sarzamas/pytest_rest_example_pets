@@ -1,4 +1,4 @@
-"""DotDict.py"""
+"""UpdatableDotDict"""
 
 import datetime
 from collections.abc import Iterable, Mapping

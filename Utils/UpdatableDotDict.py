@@ -1,7 +1,7 @@
 """UpdatableDotDict"""
 
-import datetime
 from collections.abc import Iterable, Mapping
+from datetime import datetime
 from threading import Lock
 from typing import Any, TypeAlias
 

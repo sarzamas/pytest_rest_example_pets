@@ -9,7 +9,7 @@ from simple_settings import settings as cfg
 from str2bool import str2bool
 
 from libs import get_log
-from libs.api.airflow.utils import log_and_raise
+from libs.api.airflow.helpers import log_and_raise
 
 LOG = get_log(__name__)
 

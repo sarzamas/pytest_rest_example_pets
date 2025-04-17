@@ -1,6 +1,6 @@
 from os import linesep, listdir, path, remove
 from sys import stdin
-from typing import Union
+from typing import Any, Union
 
 
 def clear_empty_in_folder(folder: Union[path, str]):
@@ -22,7 +22,7 @@ def clear_empty_in_folder(folder: Union[path, str]):
             clear_empty_in_folder(entity_path)
 
 
-def make_text_ansi_plain(text: str, is_tty: bool = stdin.isatty()) -> str:
+def make_text_ansi_plain(text: Any, is_tty: bool = stdin.isatty()) -> str:
     """
     Функция убирает метки ANSI escape sequence color options из текста для логирования его в файл allure как plain/text
      - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
@@ -65,7 +65,7 @@ def make_text_ansi_plain(text: str, is_tty: bool = stdin.isatty()) -> str:
     return text
 
 
-def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty(), reuse_on_ending: bool = None) -> str:
+def make_text_ansi_bold(text: Any, is_tty: bool = stdin.isatty(), reuse_on_ending: bool = None) -> str:
     """
     Функция для выделения текста жирным с помощью меток ANSI escape sequence color options:
      - для дифференциации форматирования теста в зависимости от места назначения вывода (в окно IDE или в логфайл)
@@ -84,7 +84,7 @@ def make_text_ansi_bold(text: str, is_tty: bool = stdin.isatty(), reuse_on_endin
     return text
 
 
-def make_text_ansi_warning(text: str, is_tty: bool = stdin.isatty(), bold_on_ending: bool = None) -> str:
+def make_text_ansi_warning(text: Any, is_tty: bool = stdin.isatty(), bold_on_ending: bool = None) -> str:
     """Функция для выделения текста цветом для сообщения типа `Warning`
     :param text: исходный текст
     :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии (см. make_text_ansi_bold)
@@ -96,7 +96,7 @@ def make_text_ansi_warning(text: str, is_tty: bool = stdin.isatty(), bold_on_end
     return text
 
 
-def make_text_ansi_info(text: str, is_tty: bool = stdin.isatty()) -> str:
+def make_text_ansi_info(text: Any, is_tty: bool = stdin.isatty()) -> str:
     """Функция для выделения текста цветом для сообщения типа `Info`
     :param text: исходный текст
     :param is_tty: stdin.isatty() - признак процесса, инициировавшего запуск тестовой сессии (см. make_text_ansi_bold)

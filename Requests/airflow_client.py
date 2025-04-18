@@ -156,7 +156,7 @@ class AirflowApiClient:
         endpoint = "dags"
         # Act
         LOG.info(f'Получение списка DAGs  | endpoint: {endpoint}')
-        response = self._request("GET", endpoint=endpoint)
+        response = self._request("GET", endpoint)
         # Check
         return self.retrieve_response_json(response)
 
@@ -175,7 +175,7 @@ class AirflowApiClient:
         endpoint = f'dags/{dag_id}'
         # Act
         LOG.info(f'Получение данных о DAG по ID | endpoint: {endpoint}')
-        response = self._request(method="GET", endpoint=endpoint)
+        response = self._request("GET", endpoint)
         # Check
         return self.retrieve_response_json(response)
 
@@ -202,6 +202,6 @@ class AirflowApiClient:
         prefix = "Остановка" if is_paused else "Запуск"
         # Act
         LOG.info(f'{prefix} DAG по ID | endpoint: {endpoint}')
-        response = self._request(method="PATCH", endpoint=endpoint, params=params, json=payload)
+        response = self._request("PATCH", endpoint, params=params, json=payload)
         # Check
         return self.retrieve_response_json(response)

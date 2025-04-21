@@ -1,6 +1,8 @@
 """helpers"""
 
 import inspect
+import logging
+from collections.abc import Callable
 from datetime import datetime
 from os import getenv, linesep
 from pathlib import Path
@@ -10,6 +12,7 @@ from zoneinfo import ZoneInfo
 
 from airflow_client.client import ApiException
 from str2bool import str2bool
+from tenacity import RetryCallState
 
 from libs import get_log
 
@@ -49,6 +52,7 @@ def parse_pytest_nodeid(nodeid: str) -> tuple[str, str, str] | tuple[str, None, 
             logger_name=__name__,
             log_level="error",
         )
+        return None
 
 
 def get_method_name(instance: object, max_depth: int = 5) -> str | None:
@@ -171,6 +175,70 @@ def log_and_raise(error_type: type[Exception], message: str, from_exception: Exc
     msg = f'{message} | Details: {kwargs}'
     LOG.error(make_text_ansi_error(f'{error_type.__name__}: ') + msg + linesep)
     raise error_type(msg) from from_exception
+
+
+def create_retry_logger(level: int = logging.DEBUG) -> Callable[[RetryCallState], None]:
+    """
+    Фабрика для создания обработчика логирования с заданным уровнем
+        - логирует сообщение при повторных попытках вызова метода или функции с декоратором @retry()
+        - параметризует уровень логирования для сообщения
+        - используется декоратором @retry библиотеки tenacity
+
+    :param level: Уровень логирования из модуля logging (по умолчанию DEBUG)
+    :return: Callable: Функцию-обработчик для использования в декораторе @retry
+
+    Ex:
+        @retry(before_sleep=create_retry_logger(logging.WARNING))
+        def func():
+            ...
+    """
+
+    def log_retry_message(retry_state: RetryCallState) -> None:
+        """
+        Обработчик логирования с фиксированным уровнем
+        Логирует информацию о повторных попытках выполнения функции/метода, включая:
+            - Полное имя функции/метода (с классом для методов)
+            - Аргументы вызова
+            - Номер попытки
+            - Информацию об исключении
+
+        :param retry_state: - Состояние текущего выполнения retry-цикла
+            - Содержит информацию о повторных попытках
+
+    Ex:
+        [WARNING] Retrying StepsAirflow.ensure_dag_enabled(args=('test_dag',), kwargs={}) |
+        Attempt #2 | Exception: DAGNotActiveError: DAG "person_hdfs_s3" не активирован
+
+    Принцип работы:
+        1. Проверяет, что выполнение вызова завершилось с ошибкой (outcome.failed)
+        2. Извлекает информацию об исключении
+        3. Формирует полное имя функции/метода
+        4. Логирует детали попытки с заданным уровнем важности
+
+        """
+        if retry_state.outcome.failed:
+            exc = retry_state.outcome.exception()
+            func = retry_state.fn
+            args = retry_state.args
+            kwargs = retry_state.kwargs
+            func_name = func.__name__
+            class_name: str | None = None
+
+            # Логика определения класса и обрезки self
+            if args and hasattr(args[0], "__class__") and hasattr(args[0].__class__, func_name):
+                class_name = args[0].__class__.__name__
+                func_name = f"{class_name}.{func_name}"
+                args = args[1:]
+
+            # Логирование с выбранным уровнем
+            LOG.log(
+                level,
+                f'Retrying {func_name}(args={args}, kwargs={kwargs}) | '
+                f'Attempt #{retry_state.attempt_number} | '
+                f'Exception: {type(exc).__name__}: {str(exc)}'
+            )
+
+    return log_retry_message
 
 
 def handle_api_exception(exception: ApiException, method_name: str = "unknown") -> None:

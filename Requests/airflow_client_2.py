@@ -256,39 +256,44 @@ class AirflowApiClient:
 
         :param dag_id: Имя DAG
         :param run_id: Идентификатор запуска DAG Run
-        :return: True при успешном удалении (HTTP 204 `NO CONTENT`)
+        :return: bool - при (не)успешном  удалении (HTTP 204 `NO CONTENT`)
         :raises HTTPError: при ошибках API
         """
         # Arrange
         endpoint = f'dags/{dag_id}/dagRuns/{run_id}'
         # Act
-        LOG.info(f'Удаление DAG Run для DAG ID по DAG RunID | endpoint: {endpoint}')
+        LOG.info(f'Удаление DAG Run для DAG ID по DAG RunID | endpoint: {endpoint} ')
         response = self._request("DELETE", endpoint)
         # Check
         return True if not self.retrieve_response_json(response) else False
 
-    def get_dag_tasks(self, dag_id: str) -> list[dict]:
+    def get_dag_tasks(self, dag_id: str) -> list[str]:
         """
-        Получение списка задач DAG: GET /dags/{dag_id}/tasks
-         - без запуска DAG Run
+        Получение списка ИМЕН задач DAG: GET /dags/{dag_id}/tasks
+         - Без привязки к DAG Run
+         - Возвращает плоский список идентификаторов задач в формате:
+            ["task_1", "task_2", ...]
 
         Документация:
             https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html#operation/get_tasks
 
         :param dag_id: Имя DAG
-        :return: list - JSON-объект из Response
+        :return: list - Список `task_id` из DAG
         """
         # Arrange
         endpoint = f"dags/{dag_id}/tasks"
         # Act
+        LOG.debug(f'Получение списка задач для DAG по DAG ID | endpoint: {endpoint}')
         response = self._request("GET", endpoint)
         # Check
-        return self.retrieve_response_json(response)
+        response_data = self.retrieve_response_json(response)
+        # Извлекаем только task_id из каждой задачи
+        return [task["task_id"] for task in response_data.get("tasks", [])]
 
     def get_dag_run_tasks(self, dag_id: str, run_id: str) -> list[dict]:
         """
         Получение списка задач DAG Run: GET /dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances
-         - с запуском DAG Run
+         - Для конкретного DAG Run
 
         Документация:
             https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html#operation/get_task_instances
@@ -340,7 +345,7 @@ class AirflowApiClient:
         """
         # Arrange
         endpoint = f"dags/{dag_id}/dagRuns/{run_id}/taskInstances/{task_id}"
-        payload = {"state": state}
+        payload = {"new_state": state}
         # Act
         LOG.info(f'Изменение состояния задачи "{task_id}" на {state} в DAG Run для DAG ID | endpoint: {endpoint}')
         response = self._request("PATCH", endpoint, json=payload)
